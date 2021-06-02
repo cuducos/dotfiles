@@ -43,7 +43,6 @@ require("formatter").setup(
         end,
       },
       go = {
-        -- gofmt, goimports
         function()
           return {exe = "gofmt", stdin = true}
         end,
@@ -71,15 +70,16 @@ require("formatter").setup(
         end,
       },
     },
-
   }
 )
 
-vim.api.nvim_exec([[
-augroup FormatAu
-    autocmd!
-    autocmd BufWritePost *.go,*.lua,*.elm,*.rs,*.md FormatWrite
-augroup END
-]], true)
+-- vim.api.nvim_exec(
+--   [[
+-- augroup FormatAu
+--     autocmd!
+--     autocmd BufWritePost *.go,*.lua,*.elm,*.rs,*.md FormatWrite
+-- augroup END
+-- ]]
+-- )
 
 vim.api.nvim_set_keymap("n", "<leader>af", "<Cmd>Format<CR>", {noremap = true})
