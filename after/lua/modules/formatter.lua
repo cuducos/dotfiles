@@ -51,13 +51,17 @@ require("formatter").setup(
           return {exe = "goimports", stdin = true}
         end,
       },
-      -- TODO fix (not working)
       ruby = {
         function()
           return {
             exe = "rubocop",
-            stdin = false,
-            args = {vim.api.nvim_buf_get_name(0)},
+            stdin = true,
+            args = {
+              "--stdin",
+              vim.api.nvim_buf_get_name(0),
+              "--stderr",
+              "--auto-correct-all",
+            },
           }
         end,
       },
