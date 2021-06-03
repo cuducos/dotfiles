@@ -53,6 +53,7 @@ return require("packer").startup(
           {"n", "<Leader>G", [[<Cmd>Telescope git_status<CR>]], opts},
           {"n", "<Leader>f", [[<Cmd>Telescope find_files<CR>]], opts},
           {"n", "<Leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
+          {"n", "<Leader>h", [[<Cmd>Telescope oldfiles<CR>]], opts},
           {"n", "<Leader>/", [[<Cmd>Telescope live_grep<CR>]], opts},
         }
         for _, val in pairs(mappings) do
