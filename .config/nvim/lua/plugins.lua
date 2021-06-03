@@ -105,6 +105,7 @@ return require("packer").startup(
         }
       end,
     }
+    use {"npxbr/go.nvim", ft = {"go"}}
 
     -- code formatter
     use {
