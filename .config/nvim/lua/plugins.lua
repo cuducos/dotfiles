@@ -212,7 +212,8 @@ return require("packer").startup(
             end
           end
           vim.cmd(
-            "FloatermNew fish --wintype=split --autoclose=1 --height=0.38" .. name
+            "FloatermNew fish --wintype=split --autoclose=1 --height=0.38" ..
+              name
           )
         end
 
@@ -272,12 +273,18 @@ return require("packer").startup(
         )
       end,
     }
-    use {"lewis6991/gitsigns.nvim", requires = {"nvim-lua/plenary.nvim"}}
 
     -- general tools
-    use {"tpope/vim-fugitive"}
-    use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
     use {"arthurxavierx/vim-caser"}
+    use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
+    use {"tpope/vim-fugitive"}
+    use {
+      "lewis6991/gitsigns.nvim",
+      requires = {"nvim-lua/plenary.nvim"},
+      config = function()
+        require"gitsigns".setup({numhl = true})
+      end,
+    }
 
   end
        )
