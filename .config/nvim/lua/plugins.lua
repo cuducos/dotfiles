@@ -276,7 +276,7 @@ return require("packer").startup(
     }
 
     -- general tools
-    use {"arthurxavierx/vim-caser"}
+    use {"tpope/vim-abolish"}
     use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
     use {"tpope/vim-fugitive"}
     use {
