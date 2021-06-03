@@ -1,4 +1,3 @@
-From vimscript to lua config
+# Cuducos's dot files
 
-A quick example on how to port your vimscript config to Lua.
-Thanks @cuducos!
+A work in progress that started with @ellisonleao at https://github.com/npxbr/from-vimscript-to-lua — thank you so much!
