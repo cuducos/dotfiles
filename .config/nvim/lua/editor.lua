@@ -71,6 +71,7 @@ local function set_options()
     number = true,
     relativenumber = true,
     scrolloff = 5,
+    shell="/bin/bash",
     shiftwidth = 4,
     smartcase = true,
     smartindent = true,

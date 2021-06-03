@@ -211,7 +211,7 @@ return require("packer").startup(
             end
           end
           vim.cmd(
-            "FloatermNew --wintype=split --autoclose=1 --height=0.38" .. name
+            "FloatermNew fish --wintype=split --autoclose=1 --height=0.38" .. name
           )
         end
 

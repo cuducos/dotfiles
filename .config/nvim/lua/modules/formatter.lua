@@ -73,13 +73,13 @@ require("formatter").setup(
   }
 )
 
--- vim.api.nvim_exec(
---   [[
--- augroup FormatAu
---     autocmd!
---     autocmd BufWritePost *.go,*.lua,*.elm,*.rs,*.md FormatWrite
--- augroup END
--- ]]
--- )
+vim.api.nvim_exec(
+  [[
+augroup FormatOnSave
+    autocmd!
+    autocmd BufWritePost *.go,*.rs FormatWrite
+augroup END
+]], true
+)
 
 vim.api.nvim_set_keymap("n", "<leader>af", "<Cmd>Format<CR>", {noremap = true})
