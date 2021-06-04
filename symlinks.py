@@ -14,6 +14,13 @@ from pathlib import Path
 
 HOME = Path.home().absolute()
 TMP = Path("/tmp").absolute()
+GIT = Path(".git").absolute()
+SKIP = set(Path(f).absolute() for f in ("LICENSE", "README.md", __file__))
+
+
+def is_valid(path):
+    path = path.absolute()
+    return path.is_file() and path not in SKIP and not path.is_relative_to(GIT)
 
 
 @dataclass
@@ -50,7 +57,6 @@ class Symlink:
 
     def __call__(self):
         self.backup_if_needed()
-
         if self.symlink_path.exists():
             self.symlink_path.unlink()
 
@@ -67,9 +73,9 @@ def main():
     args = parser.parse_args()
 
     symlinks = (
-        Symlink(p, verbose=not args.quiet)
-        for p in Path(".config").glob("**/*")
-        if p.is_file()
+        Symlink(path, verbose=not args.quiet)
+        for path in Path().glob("**/*")
+        if is_valid(path)
     )
     for symlink in symlinks:
         symlink()

@@ -1,0 +1,54 @@
+[user]
+    name = Eduardo Cuducos
+    email = cuducos@users.noreply.github.com
+
+[includeIf "gitdir:~/src/github.com/Shopify/"]
+    path = ~/src/github.com/Shopify/.gitconfig
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = true
+
+[push]
+    default = current
+
+[core]
+    editor = nvim
+    filemode = false
+    excludesfile = ~/.gitignore_global
+	commitGraph = true
+
+[merge]
+    tool = vimdiff
+
+[cola]
+    spellcheck = true
+
+[diff]
+	algorithm = patience
+
+[gc]
+	writeCommitGraph = true
+
+[pull]
+	rebase = false
+
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
