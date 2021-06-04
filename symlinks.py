@@ -32,7 +32,13 @@ class Symlink:
         print(*args, **kwargs)
 
     def should_backup(self):
-        return self.symlink_path.exists() and self.symlink_path.is_file()
+        if not self.symlink_path.exists():
+            return False
+
+        if self.symlink_path.is_symlink():
+            return False
+
+        return self.symlink_path.is_file()
 
     def backup_if_needed(self):
         if not self.should_backup():
