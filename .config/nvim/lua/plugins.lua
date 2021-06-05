@@ -265,7 +265,12 @@ return require("packer").startup(
         vim.g.indentLine_faster = 1
       end,
     }
-    use {"psliwka/vim-smoothie"}
+    use {
+      "karb94/neoscroll.nvim",
+      config = function()
+        require("neoscroll").setup()
+      end,
+    }
     use {
       "ntpeters/vim-better-whitespace",
       config = function()
