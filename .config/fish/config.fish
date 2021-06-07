@@ -28,10 +28,17 @@ set --export LC_ALL en_US.UTF-8
 set --export LC_CTYPE en_US.UTF-8
 
 # add C headers
-set -x CPATH (xcrun --show-sdk-path)/usr/include
+if type -q xcrun
+  set -x CPATH (xcrun --show-sdk-path)/usr/include
+end
 
 # autojump
-[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
+if test -f /usr/local/share/autojump/autojump.fish
+  source /usr/local/share/autojump/autojump.fish
+end
+if test -f /usr/share/autojump/autojump.fish
+  source /usr/share/autojump/autojump.fish
+end
 
 # getgist
 set --export GETGIST_USER cuducos
@@ -50,8 +57,10 @@ status is-login; and pyenv init --path | source
 pyenv global 3.9.4
 
 # nodenv
-status --is-interactive; and source (nodenv init -|psub)
-nodenv global 13.14.0
+if type -q nodenv
+  status --is-interactive; and source (nodenv init -|psub)
+  nodenv global 13.14.0
+end
 
 # poetry
 set PATH $HOME/.poetry/bin $PATH
@@ -60,7 +69,9 @@ set PATH $HOME/.poetry/bin $PATH
 set PATH $HOME/.npm-global/bin $PATH
 
 # Shopify's dev
-source /opt/dev/dev.fish
+if test -f /opt/dev/dev.fish
+  source /opt/dev/dev.fish
+end
 
 # aliases
 alias ll "ls -laGh"

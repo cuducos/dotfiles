@@ -10,6 +10,7 @@ symlinks are created.
 from argparse import ArgumentParser
 from dataclasses import dataclass
 from pathlib import Path
+from shutil import move
 
 
 HOME = Path.home().absolute()
@@ -53,7 +54,9 @@ class Symlink:
 
         self.echo(f"Moving existing {self.symlink_path} to {self.backup_path}…")
         self.backup_path.parent.mkdir(parents=True, exist_ok=True)
-        self.symlink_path.replace(self.backup_path)
+        if self.backup_path.exists():
+            self.backup_path.unlink()
+        move(self.symlink_path, self.backup_path)
 
     def __call__(self):
         self.backup_if_needed()
