@@ -55,6 +55,12 @@ return require("packer").startup(
           {"n", "<Leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
           {"n", "<Leader>h", [[<Cmd>Telescope oldfiles<CR>]], opts},
           {"n", "<Leader>/", [[<Cmd>Telescope live_grep<CR>]], opts},
+          {
+            "n",
+            "<Leader>il",
+            [[<Cmd>lua require("telescope.builtin").find_files({ search_dirs = {"~/Dropbox/Projects/dotfiles/.config/nvim/"}})<CR>]],
+            opts,
+          },
         }
         for _, val in pairs(mappings) do
           vim.api.nvim_set_keymap(unpack(val))
