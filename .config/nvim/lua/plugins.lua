@@ -47,18 +47,23 @@ return require("packer").startup(
       "nvim-telescope/telescope.nvim",
       requires = {"nvim-lua/plenary.nvim", "nvim-lua/popup.nvim"},
       config = function()
+        local actions = require("telescope.actions")
+        require("telescope").setup(
+          {defaults = {mappings = {i = {["<Esc>"] = actions.close}}}}
+        )
+
         local opts = {noremap = true}
         local mappings = {
           {"n", "<Leader>g", [[<Cmd>Telescope git_files<CR>]], opts},
           {"n", "<Leader>G", [[<Cmd>Telescope git_status<CR>]], opts},
           {"n", "<Leader>f", [[<Cmd>Telescope find_files<CR>]], opts},
           {"n", "<Leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
-          {"n", "<Leader>h", [[<Cmd>Telescope oldfiles<CR>]], opts},
+          {"n", "<Leader>o", [[<Cmd>Telescope oldfiles<CR>]], opts},
           {"n", "<Leader>/", [[<Cmd>Telescope live_grep<CR>]], opts},
           {
             "n",
-            "<Leader>il",
-            [[<Cmd>lua require("telescope.builtin").find_files({ search_dirs = {"~/Dropbox/Projects/dotfiles/.config/nvim/"}})<CR>]],
+            "<Leader>df",
+            [[<Cmd>lua require("telescope.builtin").find_files({ search_dirs = {"~/Dropbox/Projects/dotfiles/.config" }})<CR>]],
             opts,
           },
         }
