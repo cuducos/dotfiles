@@ -70,12 +70,8 @@ local menuone_mappings = {
   {"i", "<C-e>", "compe#close('<C-e>')", menuone_opts},
   {"i", "<CR>", "compe#confirm('<CR>')", menuone_opts},
   {"i", "<S-Tab>", "v:lua.s_tab_complete()", menuone_opts},
-  {"i", "<S-Tab>", "v:lua.s_tab_complete()", menuone_opts},
-  {"i", "<Tab>", "v:lua.tab_complete()", menuone_opts},
   {"i", "<Tab>", "v:lua.tab_complete()", menuone_opts},
   {"s", "<S-Tab>", "v:lua.s_tab_complete()", menuone_opts},
-  {"s", "<S-Tab>", "v:lua.s_tab_complete()", menuone_opts},
-  {"s", "<Tab>", "v:lua.tab_complete()", menuone_opts},
   {"s", "<Tab>", "v:lua.tab_complete()", menuone_opts},
 }
 for _, val in pairs(menuone_mappings) do
