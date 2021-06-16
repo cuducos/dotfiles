@@ -52,6 +52,15 @@ return require("packer").startup(
           {defaults = {mappings = {i = {["<Esc>"] = actions.close}}}}
         )
 
+        _G.find_dotfiles = function()
+          require("telescope.builtin").find_files(
+            {
+              find_command = {"fd", "--type", "l", "--type", "f", "-H"},
+              search_dirs = {"~/Dropbox/Projects/dotfiles"},
+            }
+          )
+        end
+
         local opts = {noremap = true}
         local mappings = {
           {"n", "<Leader>g", [[<Cmd>Telescope git_files<CR>]], opts},
@@ -60,12 +69,7 @@ return require("packer").startup(
           {"n", "<Leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
           {"n", "<Leader>o", [[<Cmd>Telescope oldfiles<CR>]], opts},
           {"n", "<Leader>/", [[<Cmd>Telescope live_grep<CR>]], opts},
-          {
-            "n",
-            "<Leader>df",
-            [[<Cmd>lua require("telescope.builtin").find_files({ search_dirs = {"~/Dropbox/Projects/dotfiles/.config" }})<CR>]],
-            opts,
-          },
+          {"n", "<Leader>df", [[<Cmd>lua find_dotfiles()<CR>]], opts},
         }
         for _, val in pairs(mappings) do
           vim.api.nvim_set_keymap(unpack(val))
@@ -255,7 +259,6 @@ return require("packer").startup(
         vim.api.nvim_set_keymap("", "m", "<Plug>Sneak_s", {})
         vim.api.nvim_set_keymap("", "M", "<Plug>Sneak_S", {})
       end,
-
     }
     use {
       "terryma/vim-expand-region",
@@ -293,8 +296,8 @@ return require("packer").startup(
 
     -- general tools
     use {"tpope/vim-abolish"}
-    use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
     use {"tpope/vim-fugitive"}
+    use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
     use {
       "lewis6991/gitsigns.nvim",
       requires = {"nvim-lua/plenary.nvim"},
