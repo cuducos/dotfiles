@@ -55,8 +55,9 @@ return require("packer").startup(
         _G.find_dotfiles = function()
           require("telescope.builtin").find_files(
             {
-              find_command = {"fd", "--type", "l", "--type", "f", "-H"},
               search_dirs = {"~/Dropbox/Projects/dotfiles"},
+              hidden = true,
+              follow = true,
             }
           )
         end
