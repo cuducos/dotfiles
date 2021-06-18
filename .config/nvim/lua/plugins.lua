@@ -253,14 +253,7 @@ return require("packer").startup(
     }
 
     -- cursor
-    use {
-      "justinmk/vim-sneak",
-      config = function()
-        vim.g["sneak#label"] = 1
-        vim.api.nvim_set_keymap("", "m", "<Plug>Sneak_s", {})
-        vim.api.nvim_set_keymap("", "M", "<Plug>Sneak_S", {})
-      end,
-    }
+    use {"ggandor/lightspeed.nvim"}
     use {
       "terryma/vim-expand-region",
       config = function()
