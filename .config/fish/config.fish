@@ -69,6 +69,8 @@ end
 # poetry
 set PATH $HOME/.poetry/bin $PATH
 
+# pipenv & others
+set PATH $HOME/.local/bin $PATH
 
 # npm
 set PATH $HOME/.npm-global/bin $PATH
