@@ -53,7 +53,11 @@ set PATH $HOME/.cargo/bin $PATH
 # pyenv
 set -Ux PYENV_ROOT $HOME/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
-status is-login; and pyenv init --path | source
+if test -d /Users/cuducos/
+  status is-login; and pyenv init --path | source
+else
+  status is-login; eval (pyenv init - | source)
+end
 pyenv global 3.9.4
 
 # nodenv
@@ -64,6 +68,7 @@ end
 
 # poetry
 set PATH $HOME/.poetry/bin $PATH
+
 
 # npm
 set PATH $HOME/.npm-global/bin $PATH
