@@ -171,8 +171,12 @@ local function make_config()
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {"documentation", "detail", "additionalTextEdits"},
   }
-  return {on_attach = on_attach, capabilities = capabilities}
 
+  return {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {Lua = {diagnostics = {globals = {"vim"}}}},
+  }
 end
 
 local function setup_servers()

@@ -123,6 +123,7 @@ return require("packer").startup(
       end,
     }
     use {"npxbr/go.nvim", ft = {"go"}}
+    use {"folke/lua-dev.nvim", ft = {"lua"}}
 
     -- code formatter
     use {
