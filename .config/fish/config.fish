@@ -61,6 +61,7 @@ end
 pyenv global 3.9.4
 
 # nodenv
+set PATH $HOME/.nodenv/bin $PATH
 if type -q nodenv
   status --is-interactive; and source (nodenv init -|psub)
   nodenv global 13.14.0
