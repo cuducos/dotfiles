@@ -11,23 +11,21 @@ require("formatter").setup(
   {
     logging = false,
     filetype = {
-      lua = {
+      elm = {
         function()
-          return {
-            exe = "lua-format",
-            args = {"-c " .. vim.fn.expand("~/.config/nvim/lua/.lua-format")},
-            stdin = true,
-          }
+          return {exe = "elm-format", args = {"--stdin"}, stdin = true}
         end,
       },
-      python = {
+      go = {
         function()
-          return {exe = "black", args = {"-q", "-"}, stdin = true}
+          return {exe = "gofmt", stdin = true}
+        end,
+        function()
+          return {exe = "goimports", stdin = true}
         end,
       },
       javascript = {prettier},
       javascriptreact = {prettier},
-      markdown = {prettier},
       json = {
         function()
           return {
@@ -42,12 +40,19 @@ require("formatter").setup(
           }
         end,
       },
-      go = {
+      lua = {
         function()
-          return {exe = "gofmt", stdin = true}
+          return {
+            exe = "lua-format",
+            args = {"-c " .. vim.fn.expand("~/.config/nvim/lua/.lua-format")},
+            stdin = true,
+          }
         end,
+      },
+      markdown = {prettier},
+      python = {
         function()
-          return {exe = "goimports", stdin = true}
+          return {exe = "black", args = {"-q", "-"}, stdin = true}
         end,
       },
       ruby = {
@@ -77,7 +82,7 @@ vim.api.nvim_exec(
   [[
 augroup FormatOnSave
     autocmd!
-    autocmd BufWritePost *.go,*.rs FormatWrite
+    autocmd BufWritePost *.elm,*.go,*.rs FormatWrite
 augroup END
 ]], true
 )
