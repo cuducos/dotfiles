@@ -83,30 +83,30 @@ local function on_attach(client, bufnr)
 
   local opts = {silent = true, noremap = true}
   local mappings = {
+    {"n", "gd", [[<Cmd>lua vim.lsp.buf.definition()<CR>]], opts},
     {
       "n",
       "gD",
       [[<Cmd>lua require('lspsaga.provider').preview_definition()<CR>]],
       opts,
     },
-    {"n", "<C-]>", [[<Cmd>lua vim.lsp.buf.definition()<CR>]], opts},
     {"n", "gr", [[<Cmd>lua require('lspsaga.rename').rename()<CR>]], opts},
     {
       "n",
+      "gR",
+      [[<Cmd>lua require('telescope.builtin').lsp_references({ path_display = 'shorten' })<CR>]],
+      {noremap = true, silent = true},
+    },
+    {
+      "i",
       "gs",
       [[<Cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]],
       opts,
     },
     {
       "n",
-      "<leader>gR",
-      [[<Cmd>lua require("telescope.builtin").lsp_references{ shorten_path = true }<CR>]],
-      {noremap = true, silent = true},
-    },
-    {
-      "i",
-      "<C-x>",
-      [[<Cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]],
+      "gS",
+      [[<Cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]],
       opts,
     },
     {
@@ -122,19 +122,6 @@ local function on_attach(client, bufnr)
       opts,
     },
   }
-
-  vim.api.nvim_buf_set_keymap(
-    bufnr, "n", "K",
-    [[<Cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]], opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr, "n", "<C-f>",
-    [[<Cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>]], opts
-  )
-  vim.api.nvim_buf_set_keymap(
-    bufnr, "n", "<C-b>",
-    [[<Cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>]], opts
-  )
 
   for _, map in pairs(mappings) do
     vim.api.nvim_buf_set_keymap(bufnr, unpack(map))
