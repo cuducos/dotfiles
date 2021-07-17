@@ -117,8 +117,17 @@ return require("packer").startup(
         }
       end,
     }
-    use {"npxbr/go.nvim", ft = {"go"}}
+    use {"npxbr/go.nvim", requires = {"nvim-lua/plenary.nvim"}, ft = {"go"}}
     use {"folke/lua-dev.nvim", ft = {"lua"}}
+    use {
+      "vinibispo/ruby.nvim",
+      ft = {"ruby"},
+      requires = {"nvim-lua/plenary.nvim"},
+      config = function()
+        local rb = require("ruby_nvim")
+        require("ruby_nvim").setup({test_cmd = "cat"})
+      end,
+    }
 
     -- code formatter
     use {
