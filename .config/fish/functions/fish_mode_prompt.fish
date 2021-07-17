@@ -8,7 +8,7 @@ function fish_mode_prompt
         set_color --bold green
         echo '● '
       case visual
-        set_color --bold orange
+        set_color --bold yellow
         echo '● '
     end
     set_color normal
