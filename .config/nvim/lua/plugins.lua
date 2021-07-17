@@ -1,16 +1,11 @@
--- packer setup
-local packer_exists = pcall(vim.cmd, [[ packadd packer.nvim ]])
-if not packer_exists then
-  local dest = string.format("%s/site/pack/packer/opt/", vim.fn.stdpath("data"))
-  local repo_url = "https://github.com/wbthomason/packer.nvim"
+-- install packer
+local path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local repo = "https://github.com/wbthomason/packer.nvim"
 
-  vim.fn.mkdir(dest, "p")
-
-  print("Downloading packer…")
-  vim.fn.system(
-    string.format("git clone %s %s", repo_url, dest .. "packer.nvim")
-  )
-  vim.cmd([[packadd packer.nvim]])
+if vim.fn.empty(vim.fn.glob(path)) > 0 then
+  print("Installing packer.nvim…")
+  vim.fn.system({"git", "clone", repo, path})
+  vim.cmd("packadd packer.nvim")
   vim.cmd("PackerSync")
   print("packer.nvim installed!")
 end
