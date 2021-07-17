@@ -260,15 +260,7 @@ return require("packer").startup(
     }
 
     -- ui
-    use {
-      "Yggdroot/indentLine",
-      config = function()
-        vim.g.indentLine_enabled = 1
-        vim.g.indentLine_concealcursor = 0
-        vim.g.indentLine_char = "┆"
-        vim.g.indentLine_faster = 1
-      end,
-    }
+    use {"lukas-reineke/indent-blankline.nvim"}
     use {
       "karb94/neoscroll.nvim",
       config = function()
