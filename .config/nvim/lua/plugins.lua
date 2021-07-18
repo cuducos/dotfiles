@@ -140,6 +140,12 @@ local startup = function(use)
   use {"kabouzeid/nvim-lspinstall"}
   use {"rafamadriz/friendly-snippets"}
   use {
+    "stevearc/aerial.nvim",
+    config = function()
+      vim.g.aerial = {min_width = 120, max_with = 240}
+    end,
+  }
+  use {
     "neovim/nvim-lspconfig",
     config = function()
       require("modules.lsp")
