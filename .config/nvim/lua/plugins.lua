@@ -228,30 +228,6 @@ local startup = function(use)
     end,
   }
 
-  -- floatterm
-  use {
-    "voldikss/vim-floaterm",
-    config = function()
-      function _G.show_floaterm()
-        local name = " --name=terminal-42"
-        for buf in ipairs(vim.api.nvim_list_bufs()) do
-          if string.match(vim.api.nvim_buf_get_name(buf), "^term://") then
-            vim.cmd("FloatermShow" .. name)
-            return
-          end
-        end
-        vim.cmd(
-          "FloatermNew fish --wintype=split --autoclose=1 --height=0.38" .. name
-        )
-      end
-
-      vim.api.nvim_set_keymap("n", "<Leader>t", ":lua show_floaterm()<CR>", {})
-      vim.api.nvim_set_keymap(
-        "t", "<Esc><Esc>", "<C-\\><C-n>:FloatermHide<CR>", {}
-      )
-    end,
-  }
-
   -- line command tools
   use {"markonm/traces.vim"}
   use {
