@@ -1,5 +1,4 @@
 -- lsp configs
-local aerial = require("aerial")
 local nvim_lsp = require("lspconfig")
 local saga = require("lspsaga")
 local lspinstall = require("lspinstall")
@@ -80,8 +79,6 @@ for _, val in pairs(menuone_mappings) do
 end
 
 local function on_attach(client, bufnr)
-  aerial.on_attach(client)
-
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.lsp.omnifunc")
 
   local opts = {silent = true, noremap = true}
@@ -124,9 +121,6 @@ local function on_attach(client, bufnr)
       [[<Cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev() <CR>]],
       opts,
     },
-    {"n", "<Leader>a", [[<Cmd>AerialToggle<CR>]], opts},
-    {"n", "<Leader>A", [[<Cmd>AerialToggle!<CR>]], opts},
-
   }
 
   for _, map in pairs(mappings) do
