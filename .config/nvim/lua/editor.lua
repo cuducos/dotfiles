@@ -44,7 +44,7 @@ local function set_mappings()
     -- stop c, s and d from yanking
     {"n", "c", [["_c]], opts},
     {"x", "c", [["_c]], opts},
-    -- avoids conflict with lightspeed.nvim {"n", "s", [["_s]], opts},
+    {"n", "s", [["_s]], opts},
     {"x", "s", [["_s]], opts},
     {"n", "d", [["_d]], opts},
     {"x", "d", [["_d]], opts},
