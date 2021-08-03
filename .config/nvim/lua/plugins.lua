@@ -144,7 +144,7 @@ local startup = function(use)
     config = function()
       vim.api.nvim_set_keymap(
         "n", "<Leader>tt", "<Cmd>SymbolsOutline<CR>", {noremap = true}
-            )
+      )
     end,
   }
   use {
@@ -282,6 +282,7 @@ local startup = function(use)
       vim.g.gitblame_enabled = 0
     end,
   }
+  use {"tversteeg/registers.nvim"}
   use {
     "cuducos/yaml.nvim",
     ft = {"yaml"},
