@@ -79,6 +79,7 @@ set PATH $HOME/.npm-global/bin $PATH
 # Shopify's dev
 if test -f /opt/dev/dev.fish
   source /opt/dev/dev.fish
+  set -x DISABLE_SPRING true
 end
 
 # aliases
