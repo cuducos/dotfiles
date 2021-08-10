@@ -29,9 +29,11 @@ local function set_mappings()
     -- indent and keep selection
     {"", ">", ">gv", {}},
     {"", "<", "<gv", {}},
-    -- TODO move lines up and down with J and K
-    -- vnoremap J :m '>+1<cr>gv=gv
-    -- vnoremap K :m '<-2<cr>gv=gv
+    -- move lines up and down
+    {"n", "<C-j>", ":m .+1<CR>==", opts},
+    {"n", "<C-k>", ":m .-2<CR>==", opts},
+    {"v", "J", ":m '>+1<CR>gv=gv", opts},
+    {"v", "K", ":m '<-2<CR>gv=gv", opts},
     -- disable arrows
     {"n", "<up>", "<nop>", opts},
     {"n", "<down>", "<nop>", opts},
