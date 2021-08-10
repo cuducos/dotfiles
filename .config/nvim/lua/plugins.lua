@@ -240,11 +240,13 @@ local startup = function(use)
 
   -- cursor
   use {
-    "justinmk/vim-sneak",
+    "phaazon/hop.nvim",
+    as = "hop",
     config = function()
-      vim.g["sneak#label"] = 1
-      vim.api.nvim_set_keymap("", "m", "<Plug>Sneak_s", {})
-      vim.api.nvim_set_keymap("", "M", "<Plug>Sneak_S", {})
+      require("hop").setup({keys = "etovxqpdygfblzhckisuran"})
+      vim.api.nvim_set_keymap(
+        "n", ";", "<Cmd>lua require('hop').hint_char2()<CR>", {}
+      )
     end,
   }
   use {
