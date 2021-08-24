@@ -6,30 +6,6 @@ saga.init_lsp_saga(
   {error_sign = "✗", warn_sign = "⚠", code_action_prompt = {enable = false}}
 )
 
--- configure completion
-require("compe").setup {
-  enabled = true,
-  autocomplete = true,
-  debug = false,
-  min_length = 1,
-  preselect = "enable",
-  throttle_time = 80,
-  source_timeout = 200,
-  incomplete_delay = 400,
-  max_abbr_width = 100,
-  max_kind_width = 100,
-  max_menu_width = 100,
-  source = {
-    path = true,
-    buffer = true,
-    calc = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    spell = true,
-    vsnip = true,
-  },
-}
-
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -194,10 +170,16 @@ local function setup_servers()
   lspinstall.setup()
   installed_servers = lspinstall.installed_servers()
 
-  for _, server in pairs(installed_servers) do
-    local config = make_config()
-    nvim_lsp[server].setup(config)
-  end
+  vim.schedule(
+    function()
+      require("packer").loader("coq_nvim coq.artifacts")
+      for _, server in pairs(installed_servers) do
+        local config = make_config()
+        nvim_lsp[server].setup(require("coq")().lsp_ensure_capabilities(config))
+      end
+      vim.cmd(":COQnow -s")
+    end
+  )
 end
 
 setup_servers()

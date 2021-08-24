@@ -154,11 +154,12 @@ local startup = function(use)
     end,
     requires = {
       "glepnir/lspsaga.nvim",
-      "hrsh7th/nvim-compe",
       "hrsh7th/vim-vsnip",
       "hrsh7th/vim-vsnip-integ",
     },
   }
+  use {"ms-jpq/coq_nvim", branch = "coq"}
+  use {"ms-jpq/coq.artifacts", branch = "artifacts"}
 
   -- file tree
   use {
