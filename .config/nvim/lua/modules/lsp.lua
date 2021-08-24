@@ -98,7 +98,7 @@ local function on_attach(client, bufnr)
       {noremap = true, silent = true},
     },
     {
-      "i",
+      "n",
       "gs",
       [[<Cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]],
       opts,
