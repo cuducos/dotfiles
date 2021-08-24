@@ -124,7 +124,12 @@ local startup = function(use)
     requires = {"nvim-lua/plenary.nvim"},
     config = function()
       local rb = require("ruby_nvim")
-      require("ruby_nvim").setup({test_cmd = "cat"})
+      require("ruby_nvim").setup(
+        {test_cmd = "source /opt/dev/dev.sh && dev test"}
+      )
+      vim.api.nvim_set_keymap(
+        "n", "<Leader>a", "<Cmd>RubyAlternate<CR>", {noremap = true}
+      )
     end,
   }
 
