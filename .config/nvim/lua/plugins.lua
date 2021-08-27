@@ -20,105 +20,33 @@ local startup = function(use)
   use {
     "marko-cerovac/material.nvim",
     config = function()
-      vim.g.material_style = "palenight"
-      require("material").set()
-
+      require("lua.config.material")
     end,
   }
 
-  -- code comments
-  use {
-    "b3nj5m1n/kommentary",
-    config = function()
-      require("kommentary.config").configure_language(
-        "default", {prefer_single_line_comments = true}
-      )
-    end,
-  }
-
-  -- search, grep
+  -- fuzzy finder
   use {
     "nvim-telescope/telescope.nvim",
     requires = {"nvim-lua/plenary.nvim", "nvim-lua/popup.nvim"},
     config = function()
-      local actions = require("telescope.actions")
-      require("telescope").setup(
-        {defaults = {mappings = {i = {["<Esc>"] = actions.close}}}}
-      )
-
-      _G.find_dotfiles = function()
-        require("telescope.builtin").find_files(
-          {
-            search_dirs = {"~/Dropbox/Projects/dotfiles"},
-            hidden = true,
-            follow = true,
-          }
-        )
-      end
-
-      local opts = {noremap = true}
-      local mappings = {
-        {"n", "<Leader>g", [[<Cmd>Telescope git_files<CR>]], opts},
-        {"n", "<Leader>G", [[<Cmd>Telescope git_status<CR>]], opts},
-        {"n", "<Leader>f", [[<Cmd>Telescope find_files<CR>]], opts},
-        {"n", "<Leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
-        {"n", "<Leader>o", [[<Cmd>Telescope oldfiles<CR>]], opts},
-        {"n", "<Leader>/", [[<Cmd>Telescope live_grep<CR>]], opts},
-        {"n", "<Leader>df", [[<Cmd>lua find_dotfiles()<CR>]], opts},
-      }
-      for _, val in pairs(mappings) do
-        vim.api.nvim_set_keymap(unpack(val))
-      end
+      require("lua.config.telescope")
     end,
   }
 
-  -- language syntax highlight and small motions
+  -- lsp
   use {
     "nvim-treesitter/nvim-treesitter",
     run = "TSUpdate",
     config = function()
-      require"nvim-treesitter.configs".setup {
-        ensure_installed = {
-          "css",
-          "dockerfile",
-          "elm",
-          "fish",
-          "go",
-          "gomod",
-          "html",
-          "javascript",
-          "json",
-          "lua",
-          "python",
-          "regex",
-          "ruby",
-          "rust",
-          "scss",
-          "toml",
-          "tsx",
-          "typescript",
-          "yaml",
-        },
-        highlight = {enable = true, disable = {}},
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<leader>is",
-            node_incremental = "+",
-            scope_incremental = "w",
-            node_decremental = "-",
-          },
-        },
-        indent = {enable = true},
-      }
+      require("lua.config.treesitter")
     end,
   }
   use {
     "neovim/nvim-lspconfig",
+    requires = {{"kabouzeid/nvim-lspinstall"}, {"glepnir/lspsaga.nvim"}},
     config = function()
-      require("modules.lsp")
+      require("lua.config.lsp")
     end,
-    requires = {"kabouzeid/nvim-lspinstall"},
   }
   use {
     "hrsh7th/nvim-cmp",
@@ -129,218 +57,23 @@ local startup = function(use)
       "hrsh7th/cmp-path",
     },
     config = function()
-      local cmp = require("cmp")
-
-      local check_back_space = function()
-        local col = vim.fn.col(".") - 1
-        if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-          return true
-        else
-          return false
-        end
-      end
-
-      cmp.setup(
-        {
-          mapping = {
-            ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-            ["<C-Space>"] = cmp.mapping.complete(),
-            ["<C-e>"] = cmp.mapping.close(),
-            ["<CR>"] = cmp.mapping.confirm(
-              {behavior = cmp.ConfirmBehavior.Insert, select = true}
-            ),
-            ["<Tab>"] = function(fallback)
-              if vim.fn.pumvisible() == 1 then
-                vim.fn.feedkeys(
-                  vim.api.nvim_replace_termcodes(
-                    "<C-n>", true, true, true
-                  ), "n"
-                )
-              elseif check_back_space() then
-                vim.fn.feedkeys(
-                  vim.api.nvim_replace_termcodes(
-                    "<Tab>", true, true, true
-                  ), "n"
-                )
-              else
-                fallback()
-              end
-            end,
-          },
-          sources = {
-            {name = "buffer"},
-            {name = "path"},
-            {name = "nvim_lua"},
-            {name = "nvim_lsp"},
-          },
-        }
-      )
-    end,
-  }
-  use {
-    "simrat39/symbols-outline.nvim",
-    config = function()
-      vim.api.nvim_set_keymap(
-        "n", "<Leader>tt", "<Cmd>SymbolsOutline<CR>", {noremap = true}
-      )
-    end,
-  }
-  use {"glepnir/lspsaga.nvim"}
-  use {"npxbr/go.nvim", requires = {"nvim-lua/plenary.nvim"}, ft = {"go"}}
-  use {"folke/lua-dev.nvim", ft = {"lua"}}
-  use {
-    "vinibispo/ruby.nvim",
-    ft = {"ruby"},
-    requires = {"nvim-lua/plenary.nvim"},
-    config = function()
-      local rb = require("ruby_nvim")
-      require("ruby_nvim").setup(
-        {test_cmd = "source /opt/dev/dev.sh && dev test"}
-      )
-      vim.api.nvim_set_keymap(
-        "n", "<Leader>a", "<Cmd>RubyAlternate<CR>", {noremap = true}
-      )
+      require("lua.config.cmp")
     end,
   }
   use {
     "mhartington/formatter.nvim",
     config = function()
-      require("modules.formatter")
+      require("lua.config.formatter")
+    end,
+  }
+  use {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      require("lua.config.symbols_outline")
     end,
   }
 
-  -- file tree
-  use {
-    "kyazdani42/nvim-tree.lua",
-    requires = {"kyazdani42/nvim-web-devicons"},
-    config = function()
-      vim.g.nvim_tree_add_trailing = 1
-      vim.g.nvim_tree_highlight_opened_files = 1
-      vim.g.nvim_tree_ignore = {
-        [[\.pyc$]],
-        "__pycache__",
-        ".git",
-        ".DS_Store",
-        ".ropeproject",
-        ".coverage",
-        "cover/",
-      }
-      vim.g.nvim_tree_width = 36
-      vim.g.nvim_tree_width_allow_resize = 1
-
-      vim.api.nvim_set_keymap(
-        "n", "<Leader>nt", "<Cmd>NvimTreeToggle<CR>", {noremap = true}
-      )
-    end,
-  }
-
-  -- status & tab lines
-  use {
-    "hoob3rt/lualine.nvim",
-    requires = {"kyazdani42/nvim-web-devicons", opt = true},
-    config = function()
-      require("lualine").setup {
-        options = {
-          section_separators = {"", ""},
-          component_separators = {"", ""},
-          theme = "material-nvim",
-        },
-        sections = {
-          lualine_a = {"mode"},
-          lualine_b = {"branch", "diff"},
-          lualine_c = {
-            function()
-              return "%f"
-            end,
-          },
-          lualine_x = {"encoding", "fileformat", "filetype"},
-          lualine_y = {
-            function()
-              return "%p%%"
-            end,
-          },
-          lualine_z = {"location"},
-        },
-      }
-    end,
-  }
-  use {
-    "jose-elias-alvarez/buftabline.nvim",
-    requires = {"kyazdani42/nvim-web-devicons"},
-    config = function()
-      require("buftabline").setup {
-        index_format = "%d ",
-        icons = true,
-        buffer_id_index = true,
-        hlgroup_normal = "TabLine",
-      }
-    end,
-  }
-
-  -- line command tools
-  use {"markonm/traces.vim"}
-  use {
-    "winston0410/range-highlight.nvim",
-    requires = {"winston0410/cmd-parser.nvim"},
-    config = function()
-      require"range-highlight".setup {}
-    end,
-  }
-
-  -- cursor
-  use {
-    "phaazon/hop.nvim",
-    as = "hop",
-    config = function()
-      require("hop").setup({keys = "etovxqpdygfblzhckisuran"})
-      vim.api.nvim_set_keymap(
-        "n", ";", "<Cmd>lua require('hop').hint_char2()<CR>", {}
-      )
-    end,
-  }
-  use {
-    "terryma/vim-expand-region",
-    config = function()
-      vim.api.nvim_set_keymap("v", "v", "<Plug>(expand_region_expand)", {})
-      vim.api.nvim_set_keymap("v", "<C-v>", "<Plug>(expand_region_shrink)", {})
-    end,
-  }
-
-  -- ui
-  use {"lukas-reineke/indent-blankline.nvim"}
-  use {
-    "karb94/neoscroll.nvim",
-    config = function()
-      require("neoscroll").setup()
-    end,
-  }
-  use {
-    "ntpeters/vim-better-whitespace",
-    config = function()
-      vim.api.nvim_set_keymap(
-        "n", "<Leader>fw", "<Cmd>StripWhitespace<CR>", {noremap = true}
-      )
-    end,
-  }
-
-  -- general tools
-  use {"tpope/vim-abolish"}
-  use {"tpope/vim-fugitive"}
-  use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
-  use {
-    "lewis6991/gitsigns.nvim",
-    requires = {"nvim-lua/plenary.nvim"},
-    config = function()
-      require"gitsigns".setup({numhl = true})
-    end,
-  }
-  use {
-    "f-person/git-blame.nvim",
-    config = function()
-      vim.g.gitblame_enabled = 0
-    end,
-  }
-  use {"tversteeg/registers.nvim"}
+  -- language specific
   use {
     "cuducos/yaml.nvim",
     ft = {"yaml"},
@@ -349,19 +82,103 @@ local startup = function(use)
       "nvim-telescope/telescope.nvim",
     },
     config = function()
-      require("yaml_nvim").init()
-      local mappings = {
-        {"n", "<Leader>y", "<Cmd>YAMLTelescope<CR>"},
-        {"n", "<Leader>yy", "<Cmd>YAMLView<CR>"},
-        {"n", "<Leader>Y", "<Cmd>YAMLYank<CR>"},
-        {"n", "<Leader>Yk", "<Cmd>YAMLYankKey<CR>"},
-      }
-      for _, args in pairs(mappings) do
-        vim.api.nvim_set_keymap(unpack(args), {noremap = true, silent = true})
-      end
+      require("lua.config.yaml")
+    end,
+  }
+  use {"npxbr/go.nvim", requires = {"nvim-lua/plenary.nvim"}, ft = {"go"}}
+  use {"folke/lua-dev.nvim", ft = {"lua"}}
+  use {
+    "vinibispo/ruby.nvim",
+    ft = {"ruby"},
+    requires = {"nvim-lua/plenary.nvim"},
+    config = function()
+      require("lua.config.ruby")
     end,
   }
 
+  -- code comments
+  use {
+    "b3nj5m1n/kommentary",
+    config = function()
+      require("lua.config.kommentary")
+    end,
+  }
+
+  -- file tree
+  use {
+    "kyazdani42/nvim-tree.lua",
+    requires = {"kyazdani42/nvim-web-devicons"},
+    config = function()
+      require("lua.config.tree")
+    end,
+  }
+
+  -- status & tab lines
+  use {
+    "hoob3rt/lualine.nvim",
+    requires = {"kyazdani42/nvim-web-devicons", opt = true},
+    config = function()
+      require("lua.config.lualine")
+    end,
+  }
+  use {
+    "jose-elias-alvarez/buftabline.nvim",
+    requires = {"kyazdani42/nvim-web-devicons"},
+    config = function()
+      require("lua.config.buftabline")
+    end,
+  }
+
+  -- visual hints
+  use {"markonm/traces.vim"}
+  use {
+    "winston0410/range-highlight.nvim",
+    requires = {"winston0410/cmd-parser.nvim"},
+    config = function()
+      require("lua.config.traces")
+    end,
+  }
+  use {"lukas-reineke/indent-blankline.nvim"}
+  use {
+    "ntpeters/vim-better-whitespace",
+    config = function()
+      require("lua.config.better_whitespace")
+    end,
+  }
+  use {
+    "lewis6991/gitsigns.nvim",
+    requires = {"nvim-lua/plenary.nvim"},
+    config = function()
+      require("lua.config.gitsigns")
+    end,
+  }
+  use {"tversteeg/registers.nvim"}
+
+  -- navigation & selection
+  use {
+    "phaazon/hop.nvim",
+    as = "hop",
+    config = function()
+      require("lua.config.hop")
+    end,
+  }
+  use {
+    "terryma/vim-expand-region",
+    config = function()
+      require("lua.config.expand_region")
+    end,
+  }
+
+  -- general tools
+  use {"tpope/vim-abolish"}
+  use {"tpope/vim-fugitive"}
+  use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
+  use {
+    "f-person/git-blame.nvim",
+    config = function()
+      require("lua.config.git_blame")
+    end,
+  }
 end
 
 return require("packer").startup(startup)

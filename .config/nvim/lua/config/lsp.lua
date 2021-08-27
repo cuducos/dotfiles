@@ -1,4 +1,3 @@
--- lsp configs
 local lspinstall = require("lspinstall")
 local lsp = require("lspconfig")
 local saga = require("lspsaga")
