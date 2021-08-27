@@ -79,21 +79,18 @@ local startup = function(use)
     config = function()
       require"nvim-treesitter.configs".setup {
         ensure_installed = {
-          "bash",
           "css",
           "dockerfile",
           "elm",
           "fish",
           "go",
           "gomod",
-          "graphql",
           "html",
           "javascript",
           "json",
           "lua",
           "python",
           "regex",
-          "rst",
           "ruby",
           "rust",
           "scss",
@@ -116,6 +113,79 @@ local startup = function(use)
       }
     end,
   }
+  use {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("modules.lsp")
+    end,
+    requires = {"kabouzeid/nvim-lspinstall"},
+  }
+  use {
+    "hrsh7th/nvim-cmp",
+    requires = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-path",
+    },
+    config = function()
+      local cmp = require("cmp")
+
+      local check_back_space = function()
+        local col = vim.fn.col(".") - 1
+        if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
+          return true
+        else
+          return false
+        end
+      end
+
+      cmp.setup(
+        {
+          mapping = {
+            ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+            ["<C-Space>"] = cmp.mapping.complete(),
+            ["<C-e>"] = cmp.mapping.close(),
+            ["<CR>"] = cmp.mapping.confirm(
+              {behavior = cmp.ConfirmBehavior.Insert, select = true}
+            ),
+            ["<Tab>"] = function(fallback)
+              if vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(
+                  vim.api.nvim_replace_termcodes(
+                    "<C-n>", true, true, true
+                  ), "n"
+                )
+              elseif check_back_space() then
+                vim.fn.feedkeys(
+                  vim.api.nvim_replace_termcodes(
+                    "<Tab>", true, true, true
+                  ), "n"
+                )
+              else
+                fallback()
+              end
+            end,
+          },
+          sources = {
+            {name = "buffer"},
+            {name = "path"},
+            {name = "nvim_lua"},
+            {name = "nvim_lsp"},
+          },
+        }
+      )
+    end,
+  }
+  use {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      vim.api.nvim_set_keymap(
+        "n", "<Leader>tt", "<Cmd>SymbolsOutline<CR>", {noremap = true}
+      )
+    end,
+  }
+  use {"glepnir/lspsaga.nvim"}
   use {"npxbr/go.nvim", requires = {"nvim-lua/plenary.nvim"}, ft = {"go"}}
   use {"folke/lua-dev.nvim", ft = {"lua"}}
   use {
@@ -132,39 +202,12 @@ local startup = function(use)
       )
     end,
   }
-
-  -- code formatter
   use {
     "mhartington/formatter.nvim",
     config = function()
       require("modules.formatter")
     end,
   }
-
-  -- lsp, completion, linting and snippets
-  use {"kabouzeid/nvim-lspinstall"}
-  use {"rafamadriz/friendly-snippets"}
-  use {
-    "simrat39/symbols-outline.nvim",
-    config = function()
-      vim.api.nvim_set_keymap(
-        "n", "<Leader>tt", "<Cmd>SymbolsOutline<CR>", {noremap = true}
-      )
-    end,
-  }
-  use {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("modules.lsp")
-    end,
-    requires = {
-      "glepnir/lspsaga.nvim",
-      "hrsh7th/vim-vsnip",
-      "hrsh7th/vim-vsnip-integ",
-    },
-  }
-  use {"ms-jpq/coq_nvim", branch = "coq"}
-  use {"ms-jpq/coq.artifacts", branch = "artifacts"}
 
   -- file tree
   use {

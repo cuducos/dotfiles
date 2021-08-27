@@ -1,58 +1,11 @@
 -- lsp configs
-local nvim_lsp = require("lspconfig")
-local saga = require("lspsaga")
 local lspinstall = require("lspinstall")
+local lsp = require("lspconfig")
+local saga = require("lspsaga")
+
 saga.init_lsp_saga(
   {error_sign = "✗", warn_sign = "⚠", code_action_prompt = {enable = false}}
 )
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-  local col = vim.fn.col(".") - 1
-  if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-    return true
-  else
-    return false
-  end
-end
-
--- Use (shift) tab to:
---- move to prev/next item in completion mopts},
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn["compe#complete"]()
-  end
-end
-
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  else
-    return t "<S-Tab>"
-  end
-end
-
-local menuone_opts = {expr = true, silent = true, noremap = true}
-local menuone_mappings = {
-  {"i", "<C-Space>", "compe#complete()", menuone_opts},
-  {"i", "<C-e>", "compe#close('<C-e>')", menuone_opts},
-  {"i", "<CR>", "compe#confirm('<CR>')", menuone_opts},
-  {"i", "<S-Tab>", "v:lua.s_tab_complete()", menuone_opts},
-  {"i", "<Tab>", "v:lua.tab_complete()", menuone_opts},
-  {"s", "<S-Tab>", "v:lua.s_tab_complete()", menuone_opts},
-  {"s", "<Tab>", "v:lua.tab_complete()", menuone_opts},
-}
-for _, val in pairs(menuone_mappings) do
-  vim.api.nvim_set_keymap(unpack(val))
-end
 
 local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.lsp.omnifunc")
@@ -134,6 +87,7 @@ local function make_config()
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {"documentation", "detail", "additionalTextEdits"},
   }
+  capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
   return {
     on_attach = on_attach,
@@ -169,17 +123,10 @@ local function setup_servers()
 
   lspinstall.setup()
   installed_servers = lspinstall.installed_servers()
-
-  vim.schedule(
-    function()
-      require("packer").loader("coq_nvim coq.artifacts")
-      for _, server in pairs(installed_servers) do
-        local config = make_config()
-        nvim_lsp[server].setup(require("coq")().lsp_ensure_capabilities(config))
-      end
-      vim.cmd(":COQnow -s")
-    end
-  )
+  local config = make_config()
+  for _, server in pairs(installed_servers) do
+    lsp[server].setup(config)
+  end
 end
 
 setup_servers()
