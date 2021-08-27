@@ -20,7 +20,7 @@ local startup = function(use)
   use {
     "marko-cerovac/material.nvim",
     config = function()
-      require("lua.config.material")
+      require("config.material")
     end,
   }
 
@@ -29,7 +29,7 @@ local startup = function(use)
     "nvim-telescope/telescope.nvim",
     requires = {"nvim-lua/plenary.nvim", "nvim-lua/popup.nvim"},
     config = function()
-      require("lua.config.telescope")
+      require("config.telescope")
     end,
   }
 
@@ -38,14 +38,14 @@ local startup = function(use)
     "nvim-treesitter/nvim-treesitter",
     run = "TSUpdate",
     config = function()
-      require("lua.config.treesitter")
+      require("config.treesitter")
     end,
   }
   use {
     "neovim/nvim-lspconfig",
     requires = {{"kabouzeid/nvim-lspinstall"}, {"glepnir/lspsaga.nvim"}},
     config = function()
-      require("lua.config.lsp")
+      require("config.lsp")
     end,
   }
   use {
@@ -57,19 +57,19 @@ local startup = function(use)
       "hrsh7th/cmp-path",
     },
     config = function()
-      require("lua.config.cmp")
+      require("config.cmp")
     end,
   }
   use {
     "mhartington/formatter.nvim",
     config = function()
-      require("lua.config.formatter")
+      require("config.formatter")
     end,
   }
   use {
     "simrat39/symbols-outline.nvim",
     config = function()
-      require("lua.config.symbols_outline")
+      require("config.symbols_outline")
     end,
   }
 
@@ -82,7 +82,7 @@ local startup = function(use)
       "nvim-telescope/telescope.nvim",
     },
     config = function()
-      require("lua.config.yaml")
+      require("config.yaml")
     end,
   }
   use {"npxbr/go.nvim", requires = {"nvim-lua/plenary.nvim"}, ft = {"go"}}
@@ -92,7 +92,7 @@ local startup = function(use)
     ft = {"ruby"},
     requires = {"nvim-lua/plenary.nvim"},
     config = function()
-      require("lua.config.ruby")
+      require("config.ruby")
     end,
   }
 
@@ -100,7 +100,7 @@ local startup = function(use)
   use {
     "b3nj5m1n/kommentary",
     config = function()
-      require("lua.config.kommentary")
+      require("config.kommentary")
     end,
   }
 
@@ -109,7 +109,7 @@ local startup = function(use)
     "kyazdani42/nvim-tree.lua",
     requires = {"kyazdani42/nvim-web-devicons"},
     config = function()
-      require("lua.config.tree")
+      require("config.tree")
     end,
   }
 
@@ -118,14 +118,14 @@ local startup = function(use)
     "hoob3rt/lualine.nvim",
     requires = {"kyazdani42/nvim-web-devicons", opt = true},
     config = function()
-      require("lua.config.lualine")
+      require("config.lualine")
     end,
   }
   use {
     "jose-elias-alvarez/buftabline.nvim",
     requires = {"kyazdani42/nvim-web-devicons"},
     config = function()
-      require("lua.config.buftabline")
+      require("config.buftabline")
     end,
   }
 
@@ -135,21 +135,21 @@ local startup = function(use)
     "winston0410/range-highlight.nvim",
     requires = {"winston0410/cmd-parser.nvim"},
     config = function()
-      require("lua.config.traces")
+      require("config.traces")
     end,
   }
   use {"lukas-reineke/indent-blankline.nvim"}
   use {
     "ntpeters/vim-better-whitespace",
     config = function()
-      require("lua.config.better_whitespace")
+      require("config.better_whitespace")
     end,
   }
   use {
     "lewis6991/gitsigns.nvim",
     requires = {"nvim-lua/plenary.nvim"},
     config = function()
-      require("lua.config.gitsigns")
+      require("config.gitsigns")
     end,
   }
   use {"tversteeg/registers.nvim"}
@@ -159,13 +159,13 @@ local startup = function(use)
     "phaazon/hop.nvim",
     as = "hop",
     config = function()
-      require("lua.config.hop")
+      require("config.hop")
     end,
   }
   use {
     "terryma/vim-expand-region",
     config = function()
-      require("lua.config.expand_region")
+      require("config.expand_region")
     end,
   }
 
@@ -176,7 +176,7 @@ local startup = function(use)
   use {
     "f-person/git-blame.nvim",
     config = function()
-      require("lua.config.git_blame")
+      require("config.git_blame")
     end,
   }
 end
