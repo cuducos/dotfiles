@@ -69,6 +69,7 @@ local function set_options()
     colorcolumn = "80,88,120",
     cursorline = true,
     expandtab = true,
+    foldenable = false,
     hidden = true,
     ignorecase = true,
     mouse = "a",
