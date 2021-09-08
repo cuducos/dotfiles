@@ -34,9 +34,18 @@ cmp.setup(
     },
     sources = {
       {name = "buffer"},
-      {name = "path"},
-      {name = "nvim_lua"},
+      {name = "calc"},
+      {name = "emoji"},
+      {name = "look"},
+      {name = "luasnip"},
       {name = "nvim_lsp"},
+      {name = "nvim_lua"},
+      {name = "path"},
+      {name = "spell"},
+      {name = "tags"},
+      {name = "treesitter"},
+      {name = "ultisnips"},
+      {name = "vsnip"},
     },
   }
 )
