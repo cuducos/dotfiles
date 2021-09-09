@@ -104,6 +104,7 @@ local startup = function(use)
       require("config.ruby")
     end,
   }
+  use {"fladson/vim-kitty"}
 
   -- code comments
   use {
