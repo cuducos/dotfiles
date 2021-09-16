@@ -107,30 +107,37 @@ local function set_options()
 
   vim.cmd(
     [[
-  augroup MarkDownExts
-    autocmd!
-    autocmd BufNewFile,BufRead *.md setlocal ft=markdown " .md ->markdown
-    autocmd BufNewFile,BufRead *.adoc setlocal ft=asciidoc " .adoc ->asciidoc
-  augroup END
-  ]]
+    augroup MarkDownExts
+      autocmd!
+      autocmd BufNewFile,BufRead *.md setlocal ft=markdown " .md ->markdown
+      autocmd BufNewFile,BufRead *.adoc setlocal ft=asciidoc " .adoc ->asciidoc
+    augroup END
+    ]]
   )
 
-  vim.cmd("autocmd FileType rst,md,adoc setlocal spell spelllang=en_ca")
+  vim.cmd(
+    [[
+    augroup Spell
+        autocmd FileType rst,md,adoc setlocal spell spelllang=en_ca
+        autocmd BufRead COMMIT_EDITMSG setlocal spell spelllang=en_ca
+    augroup END
+    ]]
+  )
 
   -- TODO is there a Lua API for those?
   vim.cmd(
     [[
-cnoreabbrev W w
-cnoreabbrev W! w!
-cnoreabbrev Q q
-cnoreabbrev Q! q!
-cnoreabbrev Qa qa
-cnoreabbrev Qa! qa!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev WQ wq
-cnoreabbrev Wqa wqa
-]]
+    cnoreabbrev W w
+    cnoreabbrev W! w!
+    cnoreabbrev Q q
+    cnoreabbrev Q! q!
+    cnoreabbrev Qa qa
+    cnoreabbrev Qa! qa!
+    cnoreabbrev Wq wq
+    cnoreabbrev Wa wa
+    cnoreabbrev WQ wq
+    cnoreabbrev Wqa wqa
+    ]]
   )
 end
 
