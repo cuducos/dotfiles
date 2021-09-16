@@ -21,6 +21,7 @@ local mappings = {
   {"n", "<Leader>b", [[<Cmd>Telescope buffers<CR>]], opts},
   {"n", "<Leader>o", [[<Cmd>Telescope oldfiles<CR>]], opts},
   {"n", "<Leader>/", [[<Cmd>Telescope live_grep<CR>]], opts},
+  {"n", "<Leader>m", [[<Cmd>Telescope keymaps<CR>]], opts},
   {"n", "<Leader>df", [[<Cmd>lua find_dotfiles()<CR>]], opts},
 }
 for _, val in pairs(mappings) do
