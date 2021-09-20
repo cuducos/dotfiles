@@ -8,7 +8,6 @@ symlinks are created.
 """
 
 from argparse import ArgumentParser
-from dataclasses import dataclass
 from pathlib import Path
 from shutil import move
 
@@ -24,12 +23,13 @@ def is_valid(path):
     return path.is_file() and path not in SKIP and not path.is_relative_to(GIT)
 
 
-@dataclass
 class Symlink:
-    relative_path: Path
-    verbose: bool = True
+    def __init__(self, relative_path, verbose=True):
+        if not isinstance(relative_path, Path):
+            relative_path = Path(relative_path)
 
-    def __post_init__(self):
+        self.relative_path = relative_path
+        self.verbose = verbose
         self.repo_path = self.relative_path.absolute()
         self.symlink_path = HOME / str(self.relative_path)
         self.backup_path = TMP / str(self.relative_path)
