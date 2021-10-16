@@ -1,4 +1,5 @@
-local lspinstall = require("lspinstall")
+local installer = require("nvim-lsp-installer")
+local servers = require("nvim-lsp-installer.servers")
 local lsp = require("lspconfig")
 local saga = require("lspsaga")
 
@@ -96,32 +97,37 @@ local function make_config()
 end
 
 local function setup_servers()
-  local installed_servers = lspinstall.installed_servers()
+  local installed_servers = servers.get_installed_servers()
   local required_servers = {
-    "bash",
-    "css",
-    "dockerfile",
-    "elm",
-    "go",
+    "bashls",
+    "cssls",
+    "dockerls",
+    "elmls",
+    "gopls",
     "graphql",
     "html",
-    "json",
-    "lua",
-    "python",
-    "ruby",
-    "rust",
-    "typescript",
-    "vim",
-    "yaml",
+    "jsonls",
+    "pylsp",
+    "rust_analyzer",
+    "solargraph",
+    "sumneko_lua",
+    "sumneko_lua",
+    "tsserver",
+    "yamlls",
   }
-  for _, svr in pairs(required_servers) do
-    if not vim.tbl_contains(installed_servers, svr) then
-      lspinstall.install_server(svr)
+
+  local installed_servers = {}
+  for _, server in pairs(servers.get_installed_servers()) do
+    table.insert(installed_servers, server.name)
+  end
+
+  for _, server in pairs(required_servers) do
+    if not vim.tbl_contains(installed_servers, server) then
+      installer.install(server)
+      table.insert(installed_servers, server)
     end
   end
 
-  lspinstall.setup()
-  installed_servers = lspinstall.installed_servers()
   local config = make_config()
   for _, server in pairs(installed_servers) do
     lsp[server].setup(config)
@@ -129,8 +135,3 @@ local function setup_servers()
 end
 
 setup_servers()
-
-lspinstall.post_install_hook = function()
-  setup_servers()
-  vim.cmd("bufdo e")
-end
