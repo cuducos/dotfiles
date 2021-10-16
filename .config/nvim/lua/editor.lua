@@ -54,6 +54,10 @@ local function set_mappings()
     {"x", "d", [["_d]], opts},
     -- stop p from overwtitting the register (by re-yanking it)
     {"x", "p", "pgvy", opts},
+    -- keep centered when n/N/J
+    {"n", "n", "nzz", opts},
+    {"n", "N", "Nzz", opts},
+    {"n", "J", "mzJ`z", opts},
   }
 
   for _, val in pairs(mappings) do
