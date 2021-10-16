@@ -58,6 +58,8 @@ local function set_mappings()
     {"n", "n", "nzz", opts},
     {"n", "N", "Nzz", opts},
     {"n", "J", "mzJ`z", opts},
+    -- select the end of the line without linebreak
+    {"v", "$", "$h", opts},
   }
 
   for _, val in pairs(mappings) do
