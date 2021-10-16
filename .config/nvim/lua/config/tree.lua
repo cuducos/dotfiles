@@ -12,6 +12,8 @@ vim.g.nvim_tree_ignore = {
 vim.g.nvim_tree_width = 36
 vim.g.nvim_tree_width_allow_resize = 1
 
+require('nvim-tree').setup({})
+
 vim.api.nvim_set_keymap(
   "n", "<Leader>nt", "<Cmd>NvimTreeToggle<CR>", {noremap = true}
 )
