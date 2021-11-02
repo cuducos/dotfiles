@@ -33,6 +33,9 @@ local startup = function(use)
     end,
   }
 
+  -- copilot
+  use {"github/copilot.vim"}
+
   -- lsp
   use {
     "nvim-treesitter/nvim-treesitter",
