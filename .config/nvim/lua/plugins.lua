@@ -58,10 +58,10 @@ local startup = function(use)
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-vsnip",
       "quangnguyen30192/cmp-nvim-tags",
       "ray-x/cmp-treesitter",
-      "saadparwaiz1/cmp_luasnip",
+      "lukas-reineke/cmp-rg",
+      "petertriho/cmp-git",
     },
     config = function()
       require("config.cmp")
