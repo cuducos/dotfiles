@@ -107,7 +107,7 @@ local function setup_servers()
     "graphql",
     "html",
     "jsonls",
-    "pylsp",
+    "pyright",
     "rust_analyzer",
     "solargraph",
     "sumneko_lua",
