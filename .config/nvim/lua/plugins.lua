@@ -184,12 +184,6 @@ local startup = function(use)
   use {"tpope/vim-abolish"}
   use {"tpope/vim-fugitive"}
   use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
-  use {
-    "f-person/git-blame.nvim",
-    config = function()
-      require("config.git_blame")
-    end,
-  }
 end
 
 return require("packer").startup(startup)
