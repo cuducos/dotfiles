@@ -56,7 +56,8 @@ set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 if test -d /Users/cuducos/
   status is-login; and pyenv init --path | source
 else
-  status is-login; eval (pyenv init - | source)
+  status is-login; and pyenv init --path | source
+  status is-interactive; and pyenv init - | source
 end
 pyenv global 3.9.4
 
