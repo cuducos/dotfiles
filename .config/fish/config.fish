@@ -86,5 +86,3 @@ end
 # aliases
 alias ll "ls -laGh"
 
-# nvim nightly
-set PATH $HOME/Downloads/nvim-osx64/bin/ $PATH
