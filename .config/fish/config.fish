@@ -86,3 +86,5 @@ end
 # aliases
 alias ll "ls -laGh"
 
+# brew's ruby
+set PATH /usr/local/opt/ruby/bin:$PATH $PATH
