@@ -34,7 +34,9 @@ local startup = function(use)
   }
 
   -- copilot
-  use {"github/copilot.vim"}
+  if vim.loop.fs_stat("/Users/cuducos/src/github.com/Shopify") == nil then
+    use {"github/copilot.vim"}
+  end
 
   -- lsp
   use {
