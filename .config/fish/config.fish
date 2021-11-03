@@ -51,14 +51,9 @@ set PATH $HOME/go/bin $PATH
 set PATH $HOME/.cargo/bin $PATH
 
 # pyenv
-set -Ux PYENV_ROOT $HOME/.pyenv
-set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
-if test -d /Users/cuducos/
-  status is-login; and pyenv init --path | source
-else
-  status is-login; and pyenv init --path | source
-  status is-interactive; and pyenv init - | source
-end
+status is-login; and pyenv init --path | source
+status is-interactive; and pyenv init - | source
+set PATH $HOME/.pyenv/shims $PATH
 pyenv global 3.9.4
 
 # nodenv
@@ -81,10 +76,11 @@ set PATH $HOME/.npm-global/bin $PATH
 if test -f /opt/dev/dev.fish
   source /opt/dev/dev.fish
   set -x DISABLE_SPRING true
+  set -x DISABLE_HYPERWALLET_API_INTERCEPTOR 1
 end
 
 # aliases
 alias ll "ls -laGh"
 
 # brew's ruby
-set PATH /usr/local/opt/ruby/bin:$PATH $PATH
+set PATH /usr/local/opt/ruby/bin $PATH
