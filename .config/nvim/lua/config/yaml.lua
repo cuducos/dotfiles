@@ -6,6 +6,5 @@ local mappings = {
   {"n", "<Leader>Yk", "<Cmd>YAMLYankKey<CR>", opts},
 }
 for _, args in pairs(mappings) do
-  print(unpack(args))
   vim.api.nvim_set_keymap(unpack(args))
 end

@@ -184,7 +184,12 @@ local startup = function(use)
 
   -- general tools
   use {"tpope/vim-abolish"}
-  use {"tpope/vim-fugitive"}
+  use {
+    "tpope/vim-fugitive",
+    config = function()
+      require("config.fugitive")
+    end,
+  }
   use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
 end
 
