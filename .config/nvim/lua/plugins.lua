@@ -84,6 +84,13 @@ local startup = function(use)
       require("config.symbols_outline")
     end,
   }
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("config.trouble")
+    end,
+  }
 
   -- language specific
   use {

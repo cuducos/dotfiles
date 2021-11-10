@@ -93,6 +93,11 @@ local function make_config()
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {Lua = {diagnostics = {globals = {"vim"}}}},
+    handlers = {
+      ["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = false}
+      ),
+    },
   }
 end
 
