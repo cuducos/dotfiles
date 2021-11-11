@@ -48,7 +48,7 @@ local startup = function(use)
   }
   use {
     "neovim/nvim-lspconfig",
-    requires = {{"williamboman/nvim-lsp-installer"}, {"glepnir/lspsaga.nvim"}},
+    requires = {{"williamboman/nvim-lsp-installer"}},
     config = function()
       require("config.lsp")
     end,

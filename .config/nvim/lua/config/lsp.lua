@@ -1,11 +1,6 @@
 local installer = require("nvim-lsp-installer")
 local servers = require("nvim-lsp-installer.servers")
 local lsp = require("lspconfig")
-local saga = require("lspsaga")
-
-saga.init_lsp_saga(
-  {error_sign = "✗", warn_sign = "⚠", code_action_prompt = {enable = false}}
-)
 
 local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.lsp.omnifunc")
@@ -13,42 +8,15 @@ local function on_attach(client, bufnr)
   local opts = {silent = true, noremap = true}
   local mappings = {
     {"n", "gd", [[<Cmd>lua vim.lsp.buf.definition()<CR>]], opts},
-    {
-      "n",
-      "gD",
-      [[<Cmd>lua require('lspsaga.provider').preview_definition()<CR>]],
-      opts,
-    },
-    {"n", "gr", [[<Cmd>lua require('lspsaga.rename').rename()<CR>]], opts},
+    {"n", "gr", [[<Cmd>lua vim.lsp.buf.rename()<CR>]], opts},
+    {"n", "gs", [[<Cmd>lua vim.lsp.buf.hover()<CR>]], opts},
+    {"n", "[e", [[<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>]], opts},
+    {"n", "]e", [[<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>]], opts},
     {
       "n",
       "gR",
       [[<Cmd>lua require('telescope.builtin').lsp_references({ path_display = 'shorten' })<CR>]],
       {noremap = true, silent = true},
-    },
-    {
-      "n",
-      "gs",
-      [[<Cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>]],
-      opts,
-    },
-    {
-      "n",
-      "gS",
-      [[<Cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]],
-      opts,
-    },
-    {
-      "n",
-      "[e",
-      [[<Cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<CR>]],
-      opts,
-    },
-    {
-      "n",
-      "]e",
-      [[<Cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev() <CR>]],
-      opts,
     },
   }
 
