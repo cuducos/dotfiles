@@ -14,6 +14,12 @@ local function on_attach(client, bufnr)
     {"n", "]e", [[<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>]], opts},
     {
       "n",
+      "gS",
+      [[<Cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
+      {noremap = true, silent = true},
+    },
+    {
+      "n",
       "gR",
       [[<Cmd>lua require('telescope.builtin').lsp_references({ path_display = 'shorten' })<CR>]],
       {noremap = true, silent = true},
