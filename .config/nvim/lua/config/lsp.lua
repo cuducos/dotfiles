@@ -55,7 +55,7 @@ local function on_attach(client, bufnr)
   end
 end
 
-local function make_config()
+local function make_config(server)
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -63,20 +63,28 @@ local function make_config()
   }
   capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-  return {
+  local config = {
     on_attach = on_attach,
     capabilities = capabilities,
-    settings = {Lua = {diagnostics = {globals = {"vim"}}}},
     handlers = {
       ["textDocument/publishDiagnostics"] = vim.lsp.with(
         vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = false}
       ),
     },
   }
+
+  if server.name == "sumneko_lua" then
+    config.settings = {Lua = {diagnostics = {globals = {"vim"}}}}
+  end
+
+  if server._default_options.cmd ~= nil then
+    config.cmd = server._default_options.cmd
+  end
+
+  return config
 end
 
 local function setup_servers()
-  local installed_servers = servers.get_installed_servers()
   local required_servers = {
     "bashls",
     "cssls",
@@ -94,21 +102,25 @@ local function setup_servers()
     "yamlls",
   }
 
-  local installed_servers = {}
-  for _, server in pairs(servers.get_installed_servers()) do
-    table.insert(installed_servers, server.name)
+  local is_installed = function(server_name)
+    for _, installed_server in pairs(servers.get_installed_servers()) do
+      if server_name == installed_server.name then
+        return true
+      end
+    end
+
+    return false
   end
 
   for _, server in pairs(required_servers) do
-    if not vim.tbl_contains(installed_servers, server) then
+    if not is_installed(server) then
       installer.install(server)
-      table.insert(installed_servers, server)
     end
   end
 
-  local config = make_config()
-  for _, server in pairs(installed_servers) do
-    lsp[server].setup(config)
+  for _, server in pairs(servers.get_installed_servers()) do
+    local config = make_config(server)
+    lsp[server.name].setup(config)
   end
 end
 
