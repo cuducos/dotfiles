@@ -77,10 +77,6 @@ local function make_config(server)
     config.settings = {Lua = {diagnostics = {globals = {"vim"}}}}
   end
 
-  if server._default_options.cmd ~= nil then
-    config.cmd = server._default_options.cmd
-  end
-
   return config
 end
 
@@ -120,7 +116,7 @@ local function setup_servers()
 
   for _, server in pairs(servers.get_installed_servers()) do
     local config = make_config(server)
-    lsp[server.name].setup(config)
+    server:setup(config)
   end
 end
 
