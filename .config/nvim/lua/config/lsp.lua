@@ -90,7 +90,6 @@ local function setup_servers()
     "rust_analyzer",
     "solargraph",
     "sumneko_lua",
-    "sumneko_lua",
     "tsserver",
     "yamlls",
   }
