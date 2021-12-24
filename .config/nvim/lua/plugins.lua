@@ -32,6 +32,12 @@ local startup = function(use)
       require("config.telescope")
     end,
   }
+  use {
+    "gelguy/wilder.nvim",
+    config = function()
+      require("config.wilder")
+    end,
+  }
 
   -- copilot
   if vim.loop.fs_stat("/Users/cuducos/src/github.com/Shopify") == nil then
