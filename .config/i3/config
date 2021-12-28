@@ -230,7 +230,7 @@ exec copyq
 exec compton
 
 # screenshot
-bindsym --release Print exec scrot --select --quality 100 --exec 'xclip -selection clipboard -t image/png -i $f && rm $f'
+bindsym --release Print exec flameshot gui
 
 # user's settings
 exec feh --bg-scale /home/cuducos/Dropbox/Pictures/Papeis\ de\ parede/Mischief.png
