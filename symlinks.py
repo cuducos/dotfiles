@@ -20,7 +20,15 @@ SKIP = set(Path(f).absolute() for f in ("LICENSE", "README.md", __file__))
 
 def is_valid(path):
     path = path.absolute()
-    return path.is_file() and path not in SKIP and not path.is_relative_to(GIT)
+
+    def is_relative_to(self, *other):  # only implemented in Python 3.9
+        try:
+            self.relative_to(*other)
+        except ValueError:
+            return False
+        return True
+
+    return path.is_file() and path not in SKIP and not is_relative_to(path, GIT)
 
 
 class Symlink:
