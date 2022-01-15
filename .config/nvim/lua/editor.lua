@@ -7,8 +7,6 @@ local function set_globals()
   g.mapleader = " "
   g.python3_host_prog = vim.loop.os_homedir() ..
                           "/.virtualenvs/neovim/bin/python"
-  g.python_host_prog = vim.loop.os_homedir() ..
-                         "/virtualenvs/neovim.old/bin/python"
 end
 
 local function set_mappings()
