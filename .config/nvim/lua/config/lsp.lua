@@ -98,8 +98,9 @@ local function setup_servers()
     "yamlls",
   }
 
+  local installed = servers.get_installed_servers()
   local is_installed = function(server_name)
-    for _, installed_server in pairs(servers.get_installed_servers()) do
+    for _, installed_server in pairs(installed) do
       if server_name == installed_server.name then
         return true
       end
