@@ -17,8 +17,6 @@ require"nvim-treesitter.configs".setup(
       "rust",
       "scss",
       "toml",
-      "tsx",
-      "typescript",
       "yaml",
     },
     highlight = {enable = true, disable = {}},

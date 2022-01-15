@@ -87,14 +87,11 @@ local function setup_servers()
     "dockerls",
     "elmls",
     "gopls",
-    "graphql",
-    "html",
     "jsonls",
     "pyright",
     "rust_analyzer",
     "solargraph",
     "sumneko_lua",
-    "tsserver",
     "yamlls",
   }
 
