@@ -6,8 +6,8 @@ call wilder#set_option('renderer', wilder#popupmenu_renderer({
 call wilder#set_option('pipeline', [
       \   wilder#branch(
       \     wilder#python_file_finder_pipeline({
-      \       'file_command': ['find', '.', '-type', 'f', '-printf', '%P\n'],
-      \       'dir_command': ['find', '.', '-type', 'd', '-printf', '%P\n'],
+      \       'file_command': ['fd', '-tf'],
+      \       'dir_command': ['fd', '-td'],
       \       'filters': ['fuzzy_filter', 'difflib_sorter'],
       \     }),
       \     wilder#cmdline_pipeline(),
