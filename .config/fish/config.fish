@@ -23,6 +23,11 @@ set -x __fish_git_prompt_color_invalidstate red
 # env
 source $HOME/.env.fish
 
+# brew
+if test -f /opt/homebrew/bin/brew
+  eval (/opt/homebrew/bin/brew shellenv)
+end
+
 # locale
 set --export LC_ALL en_US.UTF-8
 set --export LC_CTYPE en_US.UTF-8
@@ -38,6 +43,9 @@ if test -f /usr/local/share/autojump/autojump.fish
 end
 if test -f /usr/share/autojump/autojump.fish
   source /usr/share/autojump/autojump.fish
+end
+if test -f /opt/homebrew/share/autojump/autojump.fish
+  source /opt/homebrew/share/autojump/autojump.fish
 end
 
 # getgist
