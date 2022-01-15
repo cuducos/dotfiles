@@ -1,18 +1,28 @@
--- install packer
-local path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local repo = "https://github.com/wbthomason/packer.nvim"
-
-if vim.fn.empty(vim.fn.glob(path)) > 0 then
-  print("Installing packer.nvim…")
-  vim.fn.system({"git", "clone", repo, path})
-  vim.cmd("packadd packer.nvim")
-  vim.cmd("PackerSync")
-  print("packer.nvim installed!")
+-- bootstrap Packer
+local packer_path = "/site/pack/packer/start/packer.nvim"
+local install_path = vim.fn.stdpath("data") .. packer_path
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  local repo = "https://github.com/wbthomason/packer.nvim"
+  local clone = {"git", "clone", "--depth", "1", repo, install_path}
+  PackerBboostraped = vim.fn.system(clone)
 end
 
-vim.cmd([[autocmd BufWritePost plugins.lua PackerCompile ]])
+vim.cmd([[packadd packer.nvim]])
 
--- load plugins
+if PackerBboostraped then
+  require("packer").sync()
+end
+
+vim.cmd(
+  [[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]]
+)
+
+-- add plugins
 local startup = function(use)
   use {"wbthomason/packer.nvim"}
 
@@ -206,4 +216,5 @@ local startup = function(use)
   use {"vim-scripts/greplace.vim", cmd = "Gsearch"}
 end
 
+-- load plugins
 return require("packer").startup(startup)
