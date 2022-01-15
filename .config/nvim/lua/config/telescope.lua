@@ -6,7 +6,7 @@ require("telescope").setup(
 _G.find_dotfiles = function()
   require("telescope.builtin").find_files(
     {
-      search_dirs = {"~/Dropbox/Projects/dotfiles"},
+      search_dirs = {"~/Dropbox/Projects/dotfiles", "~/src/dotfiles"},
       hidden = true,
       follow = true,
     }
