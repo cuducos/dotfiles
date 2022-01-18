@@ -192,10 +192,9 @@ local startup = function(use)
 
   -- navigation & selection
   use {
-    "phaazon/hop.nvim",
-    as = "hop",
+    "rlane/pounce.nvim",
     config = function()
-      require("config.hop")
+      require("config.pounce")
     end,
   }
   use {
