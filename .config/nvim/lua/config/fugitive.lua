@@ -1,6 +1,6 @@
 local opts = {noremap = true, silent = true}
 local mappings = {
-  {"n", "<Leader>gs", "<Cmd>G<CR>", opts},
+  {"n", "<Leader>g", "<Cmd>G<CR>", opts},
   {"n", "<Leader>gh", "<Cmd>diffget //2<CR>", opts},
   {"n", "<Leader>gf", "<Cmd>diffget //3<CR>", opts},
 }
