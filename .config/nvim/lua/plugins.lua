@@ -191,6 +191,7 @@ local startup = function(use)
     end,
   }
   use {"tversteeg/registers.nvim"}
+  use {"andymass/vim-matchup"}
 
   -- navigation & selection
   use {
