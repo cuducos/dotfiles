@@ -132,6 +132,7 @@ local startup = function(use)
     end,
   }
   use {"fladson/vim-kitty"}
+  use {"RRethy/nvim-treesitter-endwise", ft = {"lua", "ruby"}}
 
   -- code comments
   use {
