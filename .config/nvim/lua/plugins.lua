@@ -44,6 +44,7 @@ local startup = function(use)
   }
   use {
     "gelguy/wilder.nvim",
+    run = ":UpdateRemotePlugins",
     config = function()
       require("config.wilder")
     end,

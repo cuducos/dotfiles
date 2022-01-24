@@ -1,4 +1,3 @@
-vim.cmd("UpdateRemotePlugins")
 vim.cmd([[
 call wilder#setup({'modes': [':', '/', '?']})
 call wilder#set_option('renderer', wilder#popupmenu_renderer({
