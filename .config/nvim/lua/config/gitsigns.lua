@@ -1,1 +1,1 @@
-require"gitsigns".setup({numhl = true})
+require("gitsigns").setup({ numhl = true })

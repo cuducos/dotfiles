@@ -1,1 +1,1 @@
-require"range-highlight".setup()
+require("range-highlight").setup()
