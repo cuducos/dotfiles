@@ -17,7 +17,7 @@ COPY --from=build /usr/local/share/nvim /usr/local/share/nvim
 COPY --from=build /usr/local/lib/nvim /usr/local/lib/nvim
 COPY --from=build /usr/local/bin/nvim /usr/local/bin/nvim
 RUN apt update && \
-    apt install -y gcc git && \
+    apt install -y gcc git python3 python3-venv && \
     rm -rf /var/lib/apt/lists/*
 RUN useradd -ms /bin/bash dummy
 USER dummy
