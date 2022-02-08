@@ -214,6 +214,9 @@ local startup = function(use)
 		end,
 	})
 	use({ "vim-scripts/greplace.vim", cmd = "Gsearch" })
+	if vim.loop.fs_stat("/Users/cuducos/") ~= nil then
+		use({ "rizzatti/dash.vim" })
+	end
 end
 
 -- load plugins
