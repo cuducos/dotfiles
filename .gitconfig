@@ -1,6 +1,6 @@
 [user]
     name = Eduardo Cuducos
-    email = cuducos@users.noreply.github.com
+    email = 4732915+cuducos@users.noreply.github.com
 
 [includeIf "gitdir:~/src/github.com/Shopify/"]
     path = ~/src/github.com/Shopify/.gitconfig
