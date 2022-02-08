@@ -79,18 +79,26 @@ end
 
 local function setup_servers()
 	local required_servers = {
-		"bashls",
-		"cssls",
-		"dockerls",
-		"elmls",
 		"gopls",
 		"jsonls",
-		"pyright",
-		"rust_analyzer",
-		"solargraph",
-		"sumneko_lua",
 		"yamlls",
 	}
+	if string.find(vim.loop.cwd(), "Shopify") then
+		table.insert(required_servers, "solargraph")
+	else
+		local extra_servers = {
+			"bashls",
+			"cssls",
+			"dockerls",
+			"elmls",
+			"pyright",
+			"rust_analyzer",
+			"sumneko_lua",
+		}
+		for _, server in pairs(extra_servers) do
+			table.insert(required_servers, server)
+		end
+	end
 
 	local installed = servers.get_installed_servers()
 	local is_installed = function(server_name)
