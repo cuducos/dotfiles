@@ -48,11 +48,6 @@ local startup = function(use)
 		end,
 	})
 
-	-- copilot
-	if vim.loop.fs_stat("/Users/cuducos/src/github.com/Shopify") == nil then
-		use({ "github/copilot.vim" })
-	end
-
 	-- lsp
 	use({
 		"nvim-treesitter/nvim-treesitter",
