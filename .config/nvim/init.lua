@@ -28,9 +28,13 @@ PackerReinstall = function(name) -- usage example => :lua PackerReinstall "yaml.
 		if group ~= nil then
 			for dir, _ in pairs(group) do
 				if dir:sub(-string.len(suffix)) == suffix then
-					print("Removing", dir)
-                    vim.cmd("!rm -rf " .. dir)
-                    vim.cmd(":PackerSync")
+					vim.ui.input({ prompt = "Remove " .. dir .. "? [y/n] " }, function(confirmation)
+						if string.lower(confirmation) ~= "y" then
+							return
+						end
+						vim.cmd("!rm -rf " .. dir)
+						vim.cmd(":PackerSync")
+					end)
 					return
 				end
 			end
