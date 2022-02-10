@@ -82,6 +82,7 @@ local function setup_servers()
 		"gopls",
 		"jsonls",
 		"yamlls",
+		"tsserver",
 	}
 	if string.find(vim.loop.cwd(), "Shopify") then
 		table.insert(required_servers, "solargraph")

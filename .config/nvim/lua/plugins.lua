@@ -126,6 +126,7 @@ local startup = function(use)
 	})
 	use({ "fladson/vim-kitty" })
 	use({ "RRethy/nvim-treesitter-endwise", ft = { "lua", "ruby" } })
+	use({ "jose-elias-alvarez/nvim-lsp-ts-utils", ft = { "typescript" } })
 
 	-- code comments
 	use({
