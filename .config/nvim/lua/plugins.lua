@@ -170,7 +170,12 @@ local startup = function(use)
 			require("config.traces")
 		end,
 	})
-	use({ "lukas-reineke/indent-blankline.nvim" })
+	use({
+		"lukas-reineke/indent-blankline.nvim",
+		config = function()
+			require("config.indent")
+		end,
+	})
 	use({
 		"ntpeters/vim-better-whitespace",
 		config = function()
