@@ -41,3 +41,5 @@ PackerReinstall = function(name) -- usage example => :lua PackerReinstall "yaml.
 		end
 	end
 end
+
+vim.cmd("command! -nargs=1 PackerReinstall lua PackerReinstall <f-args>")
