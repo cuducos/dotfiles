@@ -32,7 +32,7 @@ PackerReinstall = function(name) -- usage example => :lua PackerReinstall "yaml.
 						if string.lower(confirmation) ~= "y" then
 							return
 						end
-						vim.cmd("!rm -rf " .. dir)
+						os.execute("cd " .. dir .. " && git fetch --progress origin && git reset --hard origin")
 						vim.cmd(":PackerSync")
 					end)
 					return
