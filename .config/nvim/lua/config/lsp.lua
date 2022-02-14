@@ -1,6 +1,5 @@
 local installer = require("nvim-lsp-installer")
 local servers = require("nvim-lsp-installer.servers")
-local lsp = require("lspconfig")
 
 local function on_attach(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.lsp.omnifunc")
@@ -81,11 +80,14 @@ local function setup_servers()
 	local required_servers = {
 		"gopls",
 		"jsonls",
+		"sumneko_lua",
 		"yamlls",
-		"tsserver",
 	}
 	if string.find(vim.loop.cwd(), "Shopify") then
-		table.insert(required_servers, "solargraph")
+		local extra_servers = {
+			"solargraph",
+			"tsserver",
+		}
 	else
 		local extra_servers = {
 			"bashls",
@@ -94,11 +96,10 @@ local function setup_servers()
 			"elmls",
 			"pyright",
 			"rust_analyzer",
-			"sumneko_lua",
 		}
-		for _, server in pairs(extra_servers) do
-			table.insert(required_servers, server)
-		end
+	end
+	for _, server in pairs(extra_servers) do
+		table.insert(required_servers, server)
 	end
 
 	local installed = servers.get_installed_servers()
