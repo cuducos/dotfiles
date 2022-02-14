@@ -83,13 +83,14 @@ local function setup_servers()
 		"sumneko_lua",
 		"yamlls",
 	}
+	local extra_servers = {}
 	if string.find(vim.loop.cwd(), "Shopify") then
-		local extra_servers = {
+		extra_servers = {
 			"solargraph",
 			"tsserver",
 		}
 	else
-		local extra_servers = {
+		extra_servers = {
 			"bashls",
 			"cssls",
 			"dockerls",
