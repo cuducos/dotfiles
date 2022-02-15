@@ -136,6 +136,22 @@ local startup = function(use)
 		end,
 	})
 
+	-- git
+	use({
+		"TimUntersberger/neogit",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("config.neogit")
+		end,
+	})
+	use({
+		"lewis6991/gitsigns.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("config.gitsigns")
+		end,
+	})
+
 	-- file tree
 	use({
 		"kyazdani42/nvim-tree.lua",
@@ -182,13 +198,6 @@ local startup = function(use)
 			require("config.better_whitespace")
 		end,
 	})
-	use({
-		"lewis6991/gitsigns.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("config.gitsigns")
-		end,
-	})
 	use({ "tversteeg/registers.nvim" })
 	use({ "andymass/vim-matchup" })
 
@@ -208,12 +217,6 @@ local startup = function(use)
 
 	-- general tools
 	use({ "tpope/vim-abolish" })
-	use({
-		"tpope/vim-fugitive",
-		config = function()
-			require("config.fugitive")
-		end,
-	})
 	use({ "vim-scripts/greplace.vim", cmd = "Gsearch" })
 	if vim.loop.fs_stat("/Users/cuducos/") ~= nil then
 		use({ "rizzatti/dash.vim" })
