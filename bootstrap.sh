@@ -1,7 +1,7 @@
 NEOVIM_PYTHON_VENV=$HOME/.virtualenvs/neovim
 DOTFILES_DIR=`pwd`
 ARCH=`uname -p`
-OS=`uname -o`
+OS=`uname`
 
 # create directories
 find . -type d | grep -v "^./.git" | cut -d/ -f2- | xargs -I@ mkdir -p $HOME/@
@@ -20,10 +20,12 @@ if [ ! -d $NEOVIM_PYTHON_VENV ]; then
 fi
 
 # install git-delta (Debian-based x86_64)
-if [ "$ARCH" == "x86_64" &&  "$OS" == "GNU/Linux"]; then
-    wget https://github.com/dandavison/delta/releases/download/0.12.0/git-delta_0.12.0_amd64.deb
-    dpkg -i git-delta_0.12.0_amd64.deb
-    rm git-delta_0.12.0_amd64.deb
+if [ "$ARCH" == "x86_64" ]; then
+    if [ "$OS" == "Linux"]; then
+        wget https://github.com/dandavison/delta/releases/download/0.12.0/git-delta_0.12.0_amd64.deb
+        dpkg -i git-delta_0.12.0_amd64.deb
+        rm git-delta_0.12.0_amd64.deb
+    fi
 fi
 
 # setup neovim
