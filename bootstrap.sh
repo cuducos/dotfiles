@@ -13,9 +13,11 @@ ln -sf $DOTFILES_DIR/.gitignore_global $HOME/.gitignore_global
 find .config -type f | cut -d/ -f2- | xargs -I@ ln -sf $DOTFILES_DIR/.config/@ $HOME/.config/@
 
 # setup neovim's python virttualenv
-[ ! -d $NEOVIM_PYTHON_VENV ] && python3 -m venv $NEOVIM_PYTHON_VENV
-$NEOVIM_PYTHON_VENV/bin/pip install -U pip
-$NEOVIM_PYTHON_VENV/bin/pip install black neovim
+if [ ! -d $NEOVIM_PYTHON_VENV ]; then
+    python3 -m venv $NEOVIM_PYTHON_VENV
+    $NEOVIM_PYTHON_VENV/bin/pip install -U pip
+    $NEOVIM_PYTHON_VENV/bin/pip install black neovim
+fi
 
 # install git-delta (Debian-based x86_64)
 if [ "$ARCH" == "x86_64" &&  "$OS" == "GNU/Linux"]; then
