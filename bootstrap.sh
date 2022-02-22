@@ -26,4 +26,4 @@ fi
 # setup neovim
 nvim --headless -c 'packadd packer.nvim' -c 'quitall'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
+nvim --headless -c 'UpdateRemotePlugins' -c 'quitall'
