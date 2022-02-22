@@ -21,7 +21,10 @@ set -x __fish_git_prompt_char_invalidstate ●
 set -x __fish_git_prompt_color_invalidstate red
 
 # env
-source $HOME/.env.fish
+
+if test -f $HOME/.env.fish
+    source $HOME/.env.fish
+end
 
 # brew
 if test -f /opt/homebrew/bin/brew
@@ -59,10 +62,12 @@ set PATH $HOME/go/bin $PATH
 set PATH $HOME/.cargo/bin $PATH
 
 # pyenv
-status is-login; and pyenv init --path | source
-status is-interactive; and pyenv init - | source
-set PATH $HOME/.pyenv/shims $PATH
-pyenv global 3.9.4
+if type -q nodenv
+    status is-login; and pyenv init --path | source
+    status is-interactive; and pyenv init - | source
+    set PATH $HOME/.pyenv/shims $PATH
+    pyenv global 3.9.4
+end
 
 # nodenv
 set PATH $HOME/.nodenv/bin $PATH
