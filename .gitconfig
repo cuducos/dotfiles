@@ -18,20 +18,12 @@
     editor = nvim
     filemode = false
     excludesfile = ~/.gitignore_global
-	commitGraph = true
 
 [merge]
     tool = vimdiff
 
 [cola]
     spellcheck = true
-
-[diff]
-	algorithm = patience
-
-[gc]
-	writeCommitGraph = true
-
 [pull]
 	rebase = false
 
@@ -52,3 +44,5 @@
 ;     commit-decoration-style = bold yellow box ul
 ;     file-style = bold yellow ul
 ;     file-decoration-style = none
+[include]
+	path = /Users/cuducos/.config/dev/gitconfig
