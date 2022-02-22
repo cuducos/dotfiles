@@ -17,6 +17,12 @@ if [ ! -d $NEOVIM_PYTHON_VENV ]; then
     $NEOVIM_PYTHON_VENV/bin/pip install black neovim
 fi
 
+# install fish on spin
+if [ "$SPIN" ]; then
+    sudo apt install -y fish
+    chsh -s /usr/bin/fish
+fi
+
 # setup neovim
 nvim --headless -c 'packadd packer.nvim' -c 'quitall'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
