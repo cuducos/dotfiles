@@ -20,7 +20,7 @@ fi
 # install fish on spin
 if [ "$SPIN" ]; then
     sudo apt install -y fish
-    chsh -s /usr/bin/fish
+    chsh -s /usr/bin/fish spin
 fi
 
 # setup neovim
