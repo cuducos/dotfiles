@@ -10,7 +10,7 @@ ln -sf $DOTFILES_DIR/.gitconfig $HOME/.gitconfig
 ln -sf $DOTFILES_DIR/.gitignore_global $HOME/.gitignore_global
 find .config -type f | cut -d/ -f2- | xargs -I@ ln -sf $DOTFILES_DIR/.config/@ $HOME/.config/@
 
-# setup neovim's python virttualenv
+# setup neovim's python virtualenv
 if [ ! -d $NEOVIM_PYTHON_VENV ]; then
     python3 -m venv $NEOVIM_PYTHON_VENV
     $NEOVIM_PYTHON_VENV/bin/pip install -U pip
