@@ -152,6 +152,15 @@ local startup = function(use)
 		end,
 	})
 
+	-- file tree
+	use({
+		"kyazdani42/nvim-tree.lua",
+		requires = { "kyazdani42/nvim-web-devicons" },
+		config = function()
+			require("config.tree")
+		end,
+	})
+
 	-- status & tab lines
 	use({
 		"hoob3rt/lualine.nvim",

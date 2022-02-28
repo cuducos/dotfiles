@@ -58,8 +58,6 @@ local function set_mappings()
 		{ "n", "J", "mzJ`z", opts },
 		-- select the end of the line without linebreak
 		{ "v", "$", "$h", opts },
-		-- filetree
-		{ "n", "<leader>nt", "<cmd>Lexplore<CR>", opts },
 	}
 
 	for _, val in pairs(mappings) do
