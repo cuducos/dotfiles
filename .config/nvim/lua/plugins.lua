@@ -128,6 +128,9 @@ local startup = function(use)
 	use({ "RRethy/nvim-treesitter-endwise", ft = { "lua", "ruby" } })
 	use({ "jose-elias-alvarez/nvim-lsp-ts-utils", ft = { "typescript" } })
 
+	-- copilot
+	use({ "github/copilot.vim" })
+
 	-- code comments
 	use({
 		"b3nj5m1n/kommentary",
