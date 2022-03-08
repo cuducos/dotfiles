@@ -129,7 +129,12 @@ local startup = function(use)
 	use({ "jose-elias-alvarez/nvim-lsp-ts-utils", ft = { "typescript" } })
 
 	-- copilot
-	use({ "github/copilot.vim" })
+	use({
+		"github/copilot.vim",
+		config = function()
+			require("config.copilot")
+		end,
+	})
 
 	-- code comments
 	use({
