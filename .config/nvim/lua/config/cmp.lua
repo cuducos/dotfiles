@@ -21,5 +21,11 @@ cmp.setup({
 		{ name = "buffer" },
 		{ name = "calc" },
 	},
+	formatting = {
+		format = function(_, vim_item)
+			vim_item.dup = { buffer = 1, path = 1, nvim_lsp = 0 }
+			return vim_item
+		end,
+	},
 	experimental = { ghost_text = true },
 })
