@@ -1,11 +1,7 @@
 -- main editor configs
-local api = vim.api
-local opt = vim.opt
-local g = vim.g
-
 local function set_globals()
-	g.mapleader = " "
-	g.python3_host_prog = vim.loop.os_homedir() .. "/.virtualenvs/neovim/bin/python"
+	vim.g.mapleader = " "
+	vim.g.python3_host_prog = vim.loop.os_homedir() .. "/.virtualenvs/neovim/bin/python"
 end
 
 local function set_mappings()
@@ -61,7 +57,7 @@ local function set_mappings()
 	}
 
 	for _, val in pairs(mappings) do
-		api.nvim_set_keymap(unpack(val))
+		vim.api.nvim_set_keymap(unpack(val))
 	end
 end
 
@@ -92,7 +88,7 @@ local function set_options()
 		wildignore = "*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite",
 	}
 	for key, val in pairs(options) do
-		opt[key] = val
+		vim.opt[key] = val
 	end
 
 	vim.cmd([[
