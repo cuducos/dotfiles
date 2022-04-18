@@ -19,7 +19,7 @@ fi
 
 # install fish on spin
 if [ "$SPIN" ]; then
-    sudo apt install -y fish fd-find
+    sudo apt install -y fd-find fish unzip
     chsh -s /usr/bin/fish spin
 
     # delta is not available as an apt package
