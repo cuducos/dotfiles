@@ -19,7 +19,7 @@ fi
 
 # install fish on spin
 if [ "$SPIN" ]; then
-    sudo apt install -y fish
+    sudo apt install -y fish fd-find
     chsh -s /usr/bin/fish spin
 fi
 
