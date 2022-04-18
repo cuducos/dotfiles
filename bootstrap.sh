@@ -21,6 +21,12 @@ fi
 if [ "$SPIN" ]; then
     sudo apt install -y fish fd-find
     chsh -s /usr/bin/fish spin
+
+    # delta is not available as an apt package
+    DELTA_VERSION=0.12.1
+    curl -LO https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb
+    sudo dpkg -i git-delta_${DELTA_VERSION}_amd64.deb
+    rm git-delta_${DELTA_VERSION}_amd64.deb
 fi
 
 # setup neovim
