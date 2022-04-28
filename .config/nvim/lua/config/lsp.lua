@@ -11,6 +11,7 @@ local function on_attach(client, bufnr)
 		{ "n", "gs", [[<Cmd>lua vim.lsp.buf.hover()<CR>]], opts },
 		{ "n", "[e", [[<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>]], opts },
 		{ "n", "]e", [[<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>]], opts },
+		{ "n", "<Leader>d", [[<Cmd>lua vim.diagnostic.open_float()<CR>]], opts },
 		{
 			"n",
 			"gS",
