@@ -2,9 +2,6 @@
     name = Eduardo Cuducos
     email = 4732915+cuducos@users.noreply.github.com
 
-[includeIf "gitdir:~/src/github.com/Shopify/"]
-    path = ~/src/github.com/Shopify/.gitconfig
-
 [color]
     diff = auto
     status = auto
