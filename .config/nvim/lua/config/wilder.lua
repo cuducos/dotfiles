@@ -17,7 +17,7 @@ call wilder#set_option('renderer', wilder#popupmenu_renderer({
 ]])
 
 -- if fd is not installed, use different file_command and dir_command opts
-if os.execute("fd") == 0 then -- if has fd installed
+if vim.fn.executable("fd") == 1 then
 	vim.cmd([[
 call wilder#set_option('pipeline', [
       \   wilder#branch(
