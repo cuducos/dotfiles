@@ -5,59 +5,58 @@ local function set_globals()
 end
 
 local function set_mappings()
-	local opts = { noremap = true }
 	local mappings = {
-		{ "n", "<leader>,", "<Cmd>nohl<CR>", opts },
-		{ "n", "<leader>ls", "'0<CR>", opts },
-		{ "n", "<Leader>n", ":set relativenumber!<CR>", opts },
+		{ "n", "<leader>,", "<Cmd>nohl<CR>" },
+		{ "n", "<leader>ls", "'0<CR>" },
+		{ "n", "<Leader>n", ":set relativenumber!<CR>" },
 		-- buffer and aplist navigation
-		{ "n", "<leader><leader>", "<C-^>", opts },
-		{ "n", "<C-h>", "<C-w>h<CR>", opts },
-		{ "n", "<C-j>", "<C-w>j<CR>", opts },
-		{ "n", "<C-k>", "<C-w>k<CR>", opts },
-		{ "n", "<C-l>", "<C-w>l<CR>", opts },
-		{ "n", "<leader>Q", "<C-w>c<CR>", opts },
-		{ "n", "<leader>w", "<Cmd>w<CR>", opts },
-		{ "n", "<leader>z", "<Cmd>bp<CR>", opts },
-		{ "n", "<leader>x", "<Cmd>bn<CR>", opts },
-		{ "n", "<leader>qa", "<Cmd>bufdo bw<CR>", opts },
-		{ "n", "<leader>q", "<Cmd>bw<CR>", opts },
+		{ "n", "<leader><leader>", "<C-^>" },
+		{ "n", "<C-h>", "<C-w>h<CR>" },
+		{ "n", "<C-j>", "<C-w>j<CR>" },
+		{ "n", "<C-k>", "<C-w>k<CR>" },
+		{ "n", "<C-l>", "<C-w>l<CR>" },
+		{ "n", "<leader>Q", "<C-w>c<CR>" },
+		{ "n", "<leader>w", "<Cmd>w<CR>" },
+		{ "n", "<leader>z", "<Cmd>bp<CR>" },
+		{ "n", "<leader>x", "<Cmd>bn<CR>" },
+		{ "n", "<leader>qa", "<Cmd>bufdo bw<CR>" },
+		{ "n", "<leader>q", "<Cmd>bw<CR>" },
 		-- indent and keep selection
 		{ "", ">", ">gv", {} },
 		{ "", "<", "<gv", {} },
 		-- move lines up and down
-		{ "n", "<C-j>", ":m .+1<CR>==", opts },
-		{ "n", "<C-k>", ":m .-2<CR>==", opts },
-		{ "v", "J", ":m '>+1<CR>gv=gv", opts },
-		{ "v", "K", ":m '<-2<CR>gv=gv", opts },
+		{ "n", "<C-j>", ":m .+1<CR>==" },
+		{ "n", "<C-k>", ":m .-2<CR>==" },
+		{ "v", "J", ":m '>+1<CR>gv=gv" },
+		{ "v", "K", ":m '<-2<CR>gv=gv" },
 		-- disable arrows
-		{ "n", "<up>", "<nop>", opts },
-		{ "n", "<down>", "<nop>", opts },
-		{ "n", "<left>", "<nop>", opts },
-		{ "n", "<right>", "<nop>", opts },
-		{ "i", "<up>", "<nop>", opts },
-		{ "i", "<down>", "<nop>", opts },
-		{ "i", "<left>", "<nop>", opts },
-		{ "i", "<right>", "<nop>", opts },
+		{ "n", "<up>", "<nop>" },
+		{ "n", "<down>", "<nop>" },
+		{ "n", "<left>", "<nop>" },
+		{ "n", "<right>", "<nop>" },
+		{ "i", "<up>", "<nop>" },
+		{ "i", "<down>", "<nop>" },
+		{ "i", "<left>", "<nop>" },
+		{ "i", "<right>", "<nop>" },
 		-- stop c, s and d from yanking
-		{ "n", "c", [["_c]], opts },
-		{ "x", "c", [["_c]], opts },
-		{ "n", "s", [["_s]], opts },
-		{ "x", "s", [["_s]], opts },
-		{ "n", "d", [["_d]], opts },
-		{ "x", "d", [["_d]], opts },
+		{ "n", "c", [["_c]] },
+		{ "x", "c", [["_c]] },
+		{ "n", "s", [["_s]] },
+		{ "x", "s", [["_s]] },
+		{ "n", "d", [["_d]] },
+		{ "x", "d", [["_d]] },
 		-- stop p from overwtitting the register (by re-yanking it)
-		{ "x", "p", "pgvy", opts },
+		{ "x", "p", "pgvy" },
 		-- keep centered when n/N/J
-		{ "n", "n", "nzz", opts },
-		{ "n", "N", "Nzz", opts },
-		{ "n", "J", "mzJ`z", opts },
+		{ "n", "n", "nzz" },
+		{ "n", "N", "Nzz" },
+		{ "n", "J", "mzJ`z" },
 		-- select the end of the line without linebreak
-		{ "v", "$", "$h", opts },
+		{ "v", "$", "$h" },
 	}
 
 	for _, val in pairs(mappings) do
-		vim.api.nvim_set_keymap(unpack(val))
+		vim.keymap.set(unpack(val))
 	end
 end
 
@@ -86,37 +85,40 @@ local function set_options()
 		tabstop = 4,
 		termguicolors = true,
 		wildignore = "*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite",
+		laststatus = 3,
 	}
 	for key, val in pairs(options) do
 		vim.opt[key] = val
 	end
 
-	vim.cmd([[
-  augroup LineNumbers
-    autocmd!
-    autocmd InsertEnter  * set relativenumber
-    autocmd FocusGained * set relativenumber
-    autocmd BufEnter * set relativenumber
-    autocmd InsertLeave * set norelativenumber
-    autocmd BufLeave * set norelativenumber
-    autocmd FocusLost * set norelativenumber
-  augroup END
-  ]])
+	local line_numbers = vim.api.nvim_create_augroup("LineNumbers", {})
+	local set_relative = { "InsertEnter", "FocusGained", "BufEnter" }
+	for _, value in pairs(set_relative) do
+		vim.api.nvim_create_autocmd(value, { group = line_numbers, pattern = "*", command = "set relativenumber" })
+	end
+	local set_non_relative = { "InsertLeave", "FocusLost", "BufLeave" }
+	for _, value in pairs(set_non_relative) do
+		vim.api.nvim_create_autocmd(value, { group = line_numbers, pattern = "*", command = "set norelativenumber" })
+	end
 
-	vim.cmd([[
-    augroup MarkDownExts
-      autocmd!
-      autocmd BufNewFile,BufRead *.md setlocal ft=markdown " .md ->markdown
-      autocmd BufNewFile,BufRead *.adoc setlocal ft=asciidoc " .adoc ->asciidoc
-    augroup END
-    ]])
+	local markdown_filetypes = vim.api.nvim_create_augroup("MarkdownExtentions", {})
+	local markdown_extentions = { "md", "adoc" }
+	for _, ext in pairs(markdown_extentions) do
+		vim.api.nvim_create_autocmd(
+			{ "BufNewFile", "BufRead" },
+			{ group = markdown_filetypes, pattern = "*." .. ext, command = "setlocal ft=markdown" }
+		)
+	end
 
-	vim.cmd([[
-    augroup Spell
-        autocmd FileType rst,md,adoc setlocal spell spelllang=en_ca
-        autocmd BufRead COMMIT_EDITMSG setlocal spell spelllang=en_ca
-    augroup END
-    ]])
+	local spell_check = vim.api.nvim_create_augroup("SpellCheck", {})
+	vim.api.nvim_create_autocmd(
+		"FileType",
+		{ group = spell_check, pattern = { "rst", "md", "adoc" }, command = "setlocal spell spelllang=en_ca" }
+	)
+	vim.api.nvim_create_autocmd(
+		"BufRead",
+		{ group = spell_check, pattern = "COMMIT_EDITMSG", command = "setlocal spell spelllang=en_ca" }
+	)
 
 	-- TODO is there a Lua API for those?
 	vim.cmd([[

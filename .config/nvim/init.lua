@@ -2,18 +2,6 @@
 require("plugins")
 require("editor")
 
--- helpers
-PrettyPrint = function(tbl)
-	for key, value in pairs(tbl) do
-		print(key, value)
-	end
-end
-
-ReloadModule = function(name)
-	require("plenary.reload").reload_module(name)
-	vim.cmd("PackerCompile")
-end
-
 -- hacked PackerRemove cmd
 PackerReinstall = function(name) -- usage example => :lua PackerReinstall "yaml.nvim"
 	if package.loaded["packer"] == nil then
@@ -41,5 +29,4 @@ PackerReinstall = function(name) -- usage example => :lua PackerReinstall "yaml.
 		end
 	end
 end
-
 vim.cmd("command! -nargs=1 PackerReinstall lua PackerReinstall <f-args>")

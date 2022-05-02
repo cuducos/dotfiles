@@ -15,4 +15,4 @@ require("nvim-tree").setup({
 	},
 })
 
-vim.api.nvim_set_keymap("n", "<Leader>nt", "<Cmd>NvimTreeToggle<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>nt", "<Cmd>NvimTreeToggle<CR>")

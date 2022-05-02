@@ -78,14 +78,10 @@ require("formatter").setup({
 	},
 })
 
-vim.api.nvim_exec(
-	[[
-augroup FormatOnSave
-    autocmd!
-    autocmd BufWritePost *.elm,*.go,*.rs FormatWrite
-augroup END
-]],
-	true
+local format_on_save = vim.api.nvim_create_augroup("FormatOnSave", {})
+vim.api.nvim_create_autocmd(
+	"BufWritePost",
+	{ group = format_on_save, pattern = { "*.elm", "*.go", "*.rs" }, command = "FormatWrite" }
 )
 
-vim.api.nvim_set_keymap("n", "<leader>af", "<Cmd>Format<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>af", "<Cmd>Format<CR>")

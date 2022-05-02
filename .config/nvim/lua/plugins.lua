@@ -13,12 +13,11 @@ if PackerBboostraped then
 	require("packer").sync()
 end
 
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+local packer_user_config = vim.api.nvim_create_augroup("PackerUserConfig", {})
+vim.api.nvim_create_autocmd(
+	"BufWritePost",
+	{ group = packer_user_config, pattern = "plugins.lua", command = "source <afile> | PackerCompile" }
+)
 
 -- add plugins
 local startup = function(use)

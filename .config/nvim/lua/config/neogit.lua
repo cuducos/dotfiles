@@ -1,6 +1,3 @@
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>g",
-	[[<cmd>lua require("neogit").open({ kind = "split" })<CR>]],
-	{ noremap = true }
-)
+vim.keymap.set("n", "<leader>g", function()
+	require("neogit").open({ kind = "split" })
+end)
