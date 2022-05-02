@@ -4,14 +4,16 @@ vim.g.nvim_tree_width = 36
 vim.g.nvim_tree_width_allow_resize = 1
 
 require("nvim-tree").setup({
-	ignore = {
-		[[\.pyc$]],
-		"__pycache__",
-		".git",
-		".DS_Store",
-		".ropeproject",
-		".coverage",
-		"cover/",
+	filters = {
+		custom = {
+			[[\.pyc$]],
+			"__pycache__",
+			".git",
+			".DS_Store",
+			".ropeproject",
+			".coverage",
+			"cover/",
+		},
 	},
 })
 
