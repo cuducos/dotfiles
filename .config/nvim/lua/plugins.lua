@@ -24,11 +24,13 @@ local startup = function(use)
 	use({ "wbthomason/packer.nvim" })
 
 	-- colorscheme
-	use({ "rose-pine/neovim", as = "rose-pine",
+	use({
+		"rose-pine/neovim",
+		as = "rose-pine",
 		config = function()
 			require("config.rose_pine")
 		end,
-    })
+	})
 
 	-- fuzzy finder
 	use({
