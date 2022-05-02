@@ -25,12 +25,11 @@ local startup = function(use)
 	use({ "wbthomason/packer.nvim" })
 
 	-- colorscheme
-	use({
-		"marko-cerovac/material.nvim",
+	use({ "rose-pine/neovim", as = "rose-pine",
 		config = function()
-			require("config.material")
+			require("config.rose_pine")
 		end,
-	})
+    })
 
 	-- fuzzy finder
 	use({
