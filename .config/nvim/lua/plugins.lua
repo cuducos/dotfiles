@@ -229,6 +229,14 @@ local startup = function(use)
 	if vim.loop.fs_stat("/Users/cuducos/") ~= nil then
 		use({ "rizzatti/dash.vim" })
 	end
+	if os.getenv("SPIN") ~= nil then
+		use({
+			"ojroques/vim-oscyank",
+			config = function()
+				require("config.oscyank")
+			end,
+		})
+	end
 end
 
 -- load plugins
