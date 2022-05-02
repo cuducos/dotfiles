@@ -113,16 +113,6 @@ local startup = function(use)
 			require("config.yaml")
 		end,
 	})
-	use({ "npxbr/go.nvim", requires = { "nvim-lua/plenary.nvim" }, ft = { "go" } })
-	use({ "folke/lua-dev.nvim", ft = { "lua" } })
-	use({
-		"vinibispo/ruby.nvim",
-		ft = { "ruby" },
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("config.ruby")
-		end,
-	})
 	use({ "fladson/vim-kitty" })
 	use({ "RRethy/nvim-treesitter-endwise", ft = { "lua", "ruby" } })
 	use({ "jose-elias-alvarez/nvim-lsp-ts-utils", ft = { "typescript" } })
