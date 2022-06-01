@@ -25,10 +25,10 @@ local startup = function(use)
 
 	-- colorscheme
 	use({
-		"rose-pine/neovim",
-		as = "rose-pine",
+		"catppuccin/nvim",
+		as = "catppuccin",
 		config = function()
-			require("config.rose_pine")
+			require("config.catppuccin")
 		end,
 	})
 

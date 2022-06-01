@@ -29,6 +29,12 @@ if [ "$SPIN" ]; then
     rm git-delta_${DELTA_VERSION}_amd64.deb
 fi
 
+# install Catppuccin for Kitty
+if [ ! -f "$HOME/.config/kitty/catppuccin-latte.conf" ]; then
+    curl -LO https://raw.githubusercontent.com/catppuccin/kitty/main/latte.conf
+    mv latte.conf $HOME/.config/kitty/catppuccin-latte.conf
+fi
+
 # setup neovim
 nvim --headless -c 'packadd packer.nvim' -c 'quitall'
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
