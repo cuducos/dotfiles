@@ -31,8 +31,7 @@ fi
 
 # install Catppuccin for Kitty
 if [ ! -f "$HOME/.config/kitty/catppuccin-latte.conf" ]; then
-    curl -LO https://raw.githubusercontent.com/catppuccin/kitty/main/latte.conf
-    mv latte.conf $HOME/.config/kitty/catppuccin-latte.conf
+    curl -Lo $HOME/.config/kitty/catppuccin-latte.conf https://raw.githubusercontent.com/catppuccin/kitty/main/latte.conf
 fi
 
 # setup neovim
