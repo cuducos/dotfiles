@@ -99,5 +99,8 @@ end
 # aliases
 alias ll "ls -laGh"
 
+# bat
+set -x BAT_THEME OneHalfLight
+
 # brew's ruby
 set PATH /usr/local/opt/ruby/bin $PATH
