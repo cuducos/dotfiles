@@ -35,10 +35,6 @@ local update_spinner = function(client_id, token)
 			icon = spinner_chars[spinner],
 			replace = data.notification,
 		})
-
-		vim.defer_fn(function()
-			update_spinner(client_id, token)
-		end, 250)
 	end
 end
 
@@ -86,6 +82,9 @@ vim.lsp.handlers["$/progress"] = function(_, result, ctx)
 	if result.value.kind == "begin" then
 		data.spinner = 1
 		update_spinner(ctx.client_id, result.token)
+		vim.defer_fn(function()
+			update_spinner(ctx.client_id, result.token)
+		end, 250)
 	elseif result.value.kind == "end" and data then
 		data.spinner = nil
 	end
