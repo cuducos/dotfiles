@@ -1,9 +1,11 @@
-vim.g.nvim_tree_add_trailing = 1
-vim.g.nvim_tree_highlight_opened_files = 1
 vim.g.nvim_tree_width = 36
 vim.g.nvim_tree_width_allow_resize = 1
 
 require("nvim-tree").setup({
+	renderer = {
+		highlight_opened_files = 'all',
+		add_trailing = true,
+	},
 	filters = {
 		custom = {
 			[[\.pyc$]],
