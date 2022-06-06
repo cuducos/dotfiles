@@ -83,9 +83,9 @@ local startup = function(use)
 		end,
 	})
 	use({
-		"mhartington/formatter.nvim",
+		"jose-elias-alvarez/null-ls.nvim",
 		config = function()
-			require("config.formatter")
+			require("config.null_ls")
 		end,
 	})
 	use({

@@ -16,13 +16,13 @@ local function on_attach(client, bufnr)
 			"n",
 			"gS",
 			[[<Cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
-			{ noremap = true, silent = true },
+			opts,
 		},
 		{
 			"n",
 			"gR",
 			[[<Cmd>lua require('telescope.builtin').lsp_references({ path_display = 'shorten' })<CR>]],
-			{ noremap = true, silent = true },
+			opts,
 		},
 	}
 
@@ -30,10 +30,11 @@ local function on_attach(client, bufnr)
 		vim.api.nvim_buf_set_keymap(bufnr, unpack(map))
 	end
 
-	if client.resolved_capabilities.document_formatting then
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	elseif client.resolved_capabilities.document_range_formatting then
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>F", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+	local skip_lsp_formatting = { "gopls" } -- uses null-ls instead
+	for _, name in pairs(skip_lsp_formatting) do
+		if client.name == name then
+			client.resolved_capabilities.document_formatting = nil
+		end
 	end
 
 	-- Set autocommands conditional on server_capabilities
