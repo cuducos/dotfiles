@@ -233,6 +233,12 @@ local startup = function(use)
 			end,
 		})
 	end
+	use({
+		"rcarriga/nvim-notify",
+		config = function()
+			require("config.notify")
+		end,
+	})
 end
 
 -- load plugins
