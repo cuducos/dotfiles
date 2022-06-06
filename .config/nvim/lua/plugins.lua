@@ -101,6 +101,12 @@ local startup = function(use)
 			require("config.trouble")
 		end,
 	})
+	use({
+		"j-hui/fidget.nvim",
+		config = function()
+			require("config.fidget")
+		end,
+	})
 
 	-- language specific
 	use({
