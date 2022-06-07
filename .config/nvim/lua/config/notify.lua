@@ -7,6 +7,18 @@ vim.keymap.set("n", "<leader>n", function()
 	require("telescope").extensions.notify.notify()
 end)
 
+vim.keymap.set("n", "<leader>.", function()
+	vim.notify.dismiss()
+end)
+
+vim.keymap.set("n", "<leader>!", function()
+	local register = [["]]
+	local notifications = vim.notify.history()
+	local last = notifications[#notifications]
+	local contents = table.concat(last.message, "\n")
+	vim.cmd(string.format("call setreg('%s', '%s')", register, contents))
+end)
+
 -- set spinner for ptogress status
 local spinner_chars = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
 
