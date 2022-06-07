@@ -10,6 +10,12 @@ null_ls.setup({
 		null_ls.builtins.formatting.rubocop,
 		null_ls.builtins.formatting.rustfmt,
 		null_ls.builtins.formatting.stylua,
+		null_ls.builtins.code_actions.gitsigns,
+		null_ls.builtins.diagnostics.eslint,
+		null_ls.builtins.diagnostics.fish,
+		null_ls.builtins.diagnostics.rubocop,
+		null_ls.builtins.diagnostics.staticcheck,
+		null_ls.builtins.diagnostics.tsc,
 	},
 })
 
@@ -23,4 +29,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 vim.keymap.set("n", "<leader>af", function()
 	vim.lsp.buf.formatting()
+end)
+
+vim.keymap.set("n", "<leader>ca", function()
+	vim.lsp.buf.code_action()
 end)
