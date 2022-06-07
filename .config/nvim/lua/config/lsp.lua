@@ -28,36 +28,17 @@ local function on_attach(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.lsp.omnifunc")
 
 	local opts = { silent = true, noremap = true, buffer = true }
-	vim.keymap.set("n", "gd", function()
-		vim.lsp.buf.definition()
-	end, opts)
-	vim.keymap.set("n", "gr", function()
-		vim.lsp.buf.rename()
-	end, opts)
-	vim.keymap.set("n", "gs", function()
-		vim.lsp.buf.hover()
-	end, opts)
-	vim.keymap.set("n", "[e", function()
-		vim.lsp.diagnostic.goto_next()
-	end, opts)
-	vim.keymap.set("n", "]e", function()
-		vim.lsp.diagnostic.goto_prev()
-	end, opts)
-	vim.keymap.set("n", "<leader>d", function()
-		diagnostic_on_notify()
-	end, opts)
-	vim.keymap.set("n", "gS", function()
-		require("telescope.builtin").lsp_document_symbols()
-	end, opts)
-	vim.keymap.set("n", "gR", function()
-		require("telescope.builtin").lsp_references({ path_display = "shorten" })
-	end, opts)
-
-	local skip_lsp_formatting = { "gopls" } -- uses null-ls instead
-	for _, name in pairs(skip_lsp_formatting) do
-		if client.name == name then
-			client.resolved_capabilities.document_formatting = nil
-		end
+	local mappings = {
+		{ "n", "gd", vim.lsp.buf.definition, opts },
+		{ "n", "gr", vim.lsp.buf.rename, opts },
+		{ "n", "gs", vim.lsp.buf.hover, opts },
+		{ "n", "[e", vim.lsp.diagnostic.goto_next, opts },
+		{ "n", "]e", vim.lsp.diagnostic.goto_prev, opts },
+		{ "n", "<leader>d", diagnostic_on_notify, opts },
+		{ "n", "gS", require("telescope.builtin").lsp_document_symbols, opts },
+	}
+	for _, mapping in pairs(mappings) do
+		vim.keymap.set(unpack(mapping))
 	end
 
 	-- Set autocommands conditional on server_capabilities

@@ -18,6 +18,7 @@ local mappings = {
 	{ "n", "<Leader>/", [[<Cmd>Telescope live_grep<CR>]] },
 	{ "n", "<Leader>m", [[<Cmd>Telescope keymaps<CR>]] },
 	{ "n", "<Leader>df", [[<Cmd>lua find_dotfiles()<CR>]] },
+	{ "n", "<leader>n", require("telescope").extensions.notify.notify },
 }
 for _, val in pairs(mappings) do
 	vim.keymap.set(unpack(val))

@@ -2,22 +2,23 @@ local notify = require("notify")
 notify.setup({ background_colour = "#eff1f5" })
 vim.notify = notify
 
-vim.keymap.set("n", "<leader>n", function()
-	require("telescope").load_extension("notify")
-	require("telescope").extensions.notify.notify()
-end)
-
-vim.keymap.set("n", "<leader>.", function()
-	vim.notify.dismiss()
-end)
-
-vim.keymap.set("n", "<leader>!", function()
-	local register = [["]]
-	local notifications = vim.notify.history()
-	local last = notifications[#notifications]
-	local contents = table.concat(last.message, "\n")
-	vim.cmd(string.format("call setreg('%s', '%s')", register, contents))
-end)
+local mappings = {
+	{ "n", "<leader>.", vim.notify.dismiss },
+	{
+		"n",
+		"<leader>!",
+		function()
+			local register = [["]]
+			local notifications = vim.notify.history()
+			local last = notifications[#notifications]
+			local contents = table.concat(last.message, "\n")
+			vim.cmd(string.format("call setreg('%s', '%s')", register, contents))
+		end,
+	},
+}
+for _, mapping in pairs(mappings) do
+	vim.keymap.set(unpack(mapping))
+end
 
 -- set spinner for ptogress status
 local spinner_chars = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
