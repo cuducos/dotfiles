@@ -1,34 +1,57 @@
 local installer = require("nvim-lsp-installer")
 local servers = require("nvim-lsp-installer.servers")
 
+local diagnostic_on_notify = function()
+	local opts = {
+		format = function(item)
+			local severity = vim.log.levels.INFO
+			if item.severity == vim.diagnostic.severity.ERROR then
+				severity = vim.log.levels.ERROR
+			end
+			if item.severity == vim.diagnostic.severity.WARN then
+				severity = vim.log.levels.WARN
+			end
+
+			local message = string.format("%d:%d %s", item.lnum, item.col, item.message)
+			vim.notify(message, severity, { title = item.source })
+			return item.message
+		end,
+	}
+
+	local bufnr, _ = vim.diagnostic.open_float(opts)
+	if bufnr ~= nil then
+		vim.cmd("bw " .. bufnr)
+	end
+end
+
 local function on_attach(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.lsp.omnifunc")
 
-	local opts = { silent = true, noremap = true }
-	local mappings = {
-		{ "n", "gd", [[<Cmd>lua vim.lsp.buf.definition()<CR>]], opts },
-		{ "n", "gr", [[<Cmd>lua vim.lsp.buf.rename()<CR>]], opts },
-		{ "n", "gs", [[<Cmd>lua vim.lsp.buf.hover()<CR>]], opts },
-		{ "n", "[e", [[<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>]], opts },
-		{ "n", "]e", [[<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>]], opts },
-		{ "n", "<Leader>d", [[<Cmd>lua vim.diagnostic.open_float()<CR>]], opts },
-		{
-			"n",
-			"gS",
-			[[<Cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
-			opts,
-		},
-		{
-			"n",
-			"gR",
-			[[<Cmd>lua require('telescope.builtin').lsp_references({ path_display = 'shorten' })<CR>]],
-			opts,
-		},
-	}
-
-	for _, map in pairs(mappings) do
-		vim.api.nvim_buf_set_keymap(bufnr, unpack(map))
-	end
+	local opts = { silent = true, noremap = true, buffer = true }
+	vim.keymap.set("n", "gd", function()
+		vim.lsp.buf.definition()
+	end, opts)
+	vim.keymap.set("n", "gr", function()
+		vim.lsp.buf.rename()
+	end, opts)
+	vim.keymap.set("n", "gs", function()
+		vim.lsp.buf.hover()
+	end, opts)
+	vim.keymap.set("n", "[e", function()
+		vim.lsp.diagnostic.goto_next()
+	end, opts)
+	vim.keymap.set("n", "]e", function()
+		vim.lsp.diagnostic.goto_prev()
+	end, opts)
+	vim.keymap.set("n", "<leader>d", function()
+		diagnostic_on_notify()
+	end, opts)
+	vim.keymap.set("n", "gS", function()
+		require("telescope.builtin").lsp_document_symbols()
+	end, opts)
+	vim.keymap.set("n", "gR", function()
+		require("telescope.builtin").lsp_references({ path_display = "shorten" })
+	end, opts)
 
 	local skip_lsp_formatting = { "gopls" } -- uses null-ls instead
 	for _, name in pairs(skip_lsp_formatting) do
