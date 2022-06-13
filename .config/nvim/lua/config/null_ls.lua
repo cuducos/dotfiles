@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 local mappings = {
-	{ "n", "<leader>af", vim.lsp.buf.formatting },
+	{ "n", "<leader>af", vim.lsp.buf.formatting_seq_sync },
 	{ "n", "<leader>ca", vim.lsp.buf.code_action },
 }
 for _, mapping in pairs(mappings) do
