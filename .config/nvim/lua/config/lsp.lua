@@ -67,17 +67,7 @@ local function make_config(server)
 	}
 	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-	local config = {
-		on_attach = on_attach,
-		capabilities = capabilities,
-		handlers = {
-			["textDocument/publishDiagnostics"] = vim.lsp.with(
-				vim.lsp.diagnostic.on_publish_diagnostics,
-				{ virtual_text = false }
-			),
-		},
-	}
-
+	local config = { on_attach = on_attach, capabilities = capabilities }
 	if server.name == "sumneko_lua" then
 		config.settings = { Lua = { diagnostics = { globals = { "vim" } } } }
 	end
@@ -132,6 +122,8 @@ local function setup_servers()
 		local config = make_config(server)
 		server:setup(config)
 	end
+
+    vim.diagnostic.config({ virtual_text = false })
 end
 
 setup_servers()
