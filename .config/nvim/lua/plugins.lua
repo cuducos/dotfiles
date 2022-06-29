@@ -114,6 +114,11 @@ local startup = function(use)
 			require("config.yaml")
 		end,
 	})
+	use({
+		"vinibispo/ruby.nvim",
+		ft = { "ruby" },
+		requires = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
+	})
 	use({ "fladson/vim-kitty" })
 	use({ "RRethy/nvim-treesitter-endwise", ft = { "lua", "ruby" } })
 	use({ "jose-elias-alvarez/nvim-lsp-ts-utils", ft = { "typescript" } })
