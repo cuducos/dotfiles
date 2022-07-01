@@ -86,6 +86,7 @@ local function setup_servers()
     if string.find(vim.loop.cwd(), "Shopify") then
         extra_servers = {
             "solargraph",
+            "sorbet",
             "tsserver",
         }
     else
