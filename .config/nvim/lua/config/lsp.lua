@@ -70,6 +70,8 @@ local function make_config(server)
     local config = { on_attach = on_attach, capabilities = capabilities }
     if server.name == "sumneko_lua" then
         config.settings = { Lua = { diagnostics = { globals = { "vim" } } } }
+    elseif server.name == "rust_analyzer" then
+        config.settings = { ["rust-analyzer"] = { checkOnSave = { command = "clippy" } } }
     end
 
     return config
