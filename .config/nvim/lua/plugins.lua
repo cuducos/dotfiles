@@ -124,6 +124,21 @@ local startup = function(use)
 	use({ "jose-elias-alvarez/nvim-lsp-ts-utils", ft = { "typescript" } })
 	use({ "ellisonleao/glow.nvim", ft = { "markdown" } })
 
+	-- debug
+	use({
+		"mfussenegger/nvim-dap",
+		config = function()
+			require("config.dap")
+		end,
+	})
+	use({
+		"suketa/nvim-dap-ruby",
+		ft = { "ruby" },
+		config = function()
+			require("config.dap_ruby")
+		end,
+	})
+
 	-- copilot
 	use({
 		"github/copilot.vim",
