@@ -89,12 +89,6 @@ local startup = function(use)
 		end,
 	})
 	use({
-		"simrat39/symbols-outline.nvim",
-		config = function()
-			require("config.symbols_outline")
-		end,
-	})
-	use({
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
