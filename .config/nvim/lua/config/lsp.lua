@@ -35,13 +35,12 @@ local function on_attach(client, bufnr)
         { "n", "[e", vim.lsp.diagnostic.goto_next, opts },
         { "n", "]e", vim.lsp.diagnostic.goto_prev, opts },
         { "n", "<leader>d", diagnostic_on_notify, opts },
-        { "n", "gS", require("telescope.builtin").lsp_document_symbols, opts },
+        { "n", "<leader>lsp", require("telescope.builtin").lsp_document_symbols, opts },
     }
     for _, mapping in pairs(mappings) do
         vim.keymap.set(unpack(mapping))
     end
 
-    -- Set autocommands conditional on server_capabilities
     if client.resolved_capabilities.document_highlight then
         local lsp_document_highlight = vim.api.nvim_create_augroup("LspDocumentHighlight", {})
         vim.api.nvim_create_autocmd("CursorHold", {
