@@ -101,6 +101,12 @@ local startup = function(use)
 			require("config.trouble")
 		end,
 	})
+	use({
+		"Maan2003/lsp_lines.nvim",
+		config = function()
+			require("config.lsp_lines")
+		end,
+	})
 
 	-- language specific
 	use({
