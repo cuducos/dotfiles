@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	group = vim.api.nvim_create_augroup("FormatOnSave", {}),
 	pattern = { "*.elm", "*.go", "*.rs" },
 	callback = function()
-		vim.lsp.formatting_seq_sync()
+		vim.lsp.buf.formatting_seq_sync()
 	end,
 })
 
