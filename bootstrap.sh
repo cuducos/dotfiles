@@ -30,6 +30,23 @@ if [ "$SPIN" ]; then
     rm git-delta_${DELTA_VERSION}_${ARCH}.deb
 fi
 
+# setup fish for diferent os/archs
+if [ -e /usr/bin/fish ]; then
+    echo "shell\t/usr/bin/fish" > $HOME/.config/kitty/shell.conf
+elif [ -e /usr/local/bin/fish ]; then  # macOS Intel
+    echo "shell\t/usr/local/bin/fish --login --interactive" > $HOME/.config/kitty/shell.conf
+elif [ -e /opt/homebrew/bin/fish ]; then  # macOS M1
+    echo "shell\t/opt/homebrew/bin/fish --login --interactive" > $HOME/.config/kitty/shell.conf
+fi
+
+# change font names for macos
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "font_family\tFiraCode Nerd Font Mono Retina" > $HOME/.config/kitty/macos.conf
+    echo "bold_font\tFiraCode Nerd Font Mono Bold" >> $HOME/.config/kitty/macos.conf
+    echo "italic_font\tFiraCode Nerd Font Mono Light" >> $HOME/.config/kitty/macos.conf
+    echo "bold_italic_font\tFiraCode Nerd Font Mono Medium" >> $HOME/.config/kitty/macos.conf
+fi
+
 # install Catppuccin for Kitty
 if [ ! -f "$HOME/.config/kitty/catppuccin-latte.conf" ]; then
     curl -Lo $HOME/.config/kitty/catppuccin-latte.conf https://raw.githubusercontent.com/catppuccin/kitty/main/latte.conf
