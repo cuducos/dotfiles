@@ -79,9 +79,11 @@ end
 
 local function setup_servers()
 	local required_servers = {
+		"bashls",
 		"cssls",
 		"gopls",
 		"jsonls",
+		"pyright",
 		"rust_analyzer",
 		"sumneko_lua",
 		"yamlls",
@@ -97,7 +99,6 @@ local function setup_servers()
 		extra_servers = {
 			"dockerls",
 			"elmls",
-			"pyright",
 		}
 	end
 	for _, server in pairs(extra_servers) do
