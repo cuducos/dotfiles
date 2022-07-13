@@ -237,6 +237,7 @@ local startup = function(use)
 	-- general tools
 	use({ "tpope/vim-abolish" })
 	use({ "vim-scripts/greplace.vim", cmd = "Gsearch" })
+	use({ "sQVe/sort.nvim" })
 	if vim.loop.fs_stat("/Users/cuducos/") ~= nil then
 		use({ "rizzatti/dash.vim" })
 	end
