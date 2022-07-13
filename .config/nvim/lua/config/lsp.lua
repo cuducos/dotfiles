@@ -43,7 +43,7 @@ local function on_attach(client, bufnr)
 	end
 
 	if client.resolved_capabilities.document_highlight then
-		local lsp_document_highlight = vim.api.nvim_create_augroup("LspDocumentHighlight", {})
+		vim.api.nvim_create_augroup("LspDocumentHighlight", {})
 		vim.api.nvim_create_autocmd("CursorHold", {
 			pattern = "<buffer>",
 			callback = function()
@@ -69,7 +69,7 @@ local function make_config(server)
 
 	local config = { on_attach = on_attach, capabilities = capabilities }
 	if server.name == "sumneko_lua" then
-		config.settings = { Lua = { diagnostics = { globals = { "vim" } } } }
+		config.settings = { Lua = { runtime = { version = "LuaJIT" }, diagnostics = { globals = { "vim" } } } }
 	elseif server.name == "rust_analyzer" then
 		config.settings = { ["rust-analyzer"] = { checkOnSave = { command = "clippy" } } }
 	end
