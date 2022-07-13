@@ -1,16 +1,15 @@
-NEOVIM_PYTHON_VENV=$HOME/.virtualenvs/neovim
-DOTFILES_DIR=`pwd`
-
 # create directories
 find . -type d | grep -v "^./.git" | cut -d/ -f2- | xargs -I@ mkdir -p $HOME/@
 
 # create symlinks
+DOTFILES_DIR=`pwd`
 ln -sf $DOTFILES_DIR/.fdignore $HOME/.fdignore
 ln -sf $DOTFILES_DIR/.gitconfig $HOME/.gitconfig
 ln -sf $DOTFILES_DIR/.gitignore_global $HOME/.gitignore_global
 find .config -type f | cut -d/ -f2- | xargs -I@ ln -sf $DOTFILES_DIR/.config/@ $HOME/.config/@
 
 # setup neovim's python virtualenv
+NEOVIM_PYTHON_VENV=$HOME/.virtualenvs/neovim
 if [ ! -d $NEOVIM_PYTHON_VENV ]; then
     python3 -m venv $NEOVIM_PYTHON_VENV
     $NEOVIM_PYTHON_VENV/bin/pip install -U pip
@@ -30,26 +29,63 @@ if [ "$SPIN" ]; then
     rm git-delta_${DELTA_VERSION}_${ARCH}.deb
 fi
 
-# setup fish for diferent os/archs
-if [ -e /usr/bin/fish ]; then
-    echo "shell\t/usr/bin/fish" > $HOME/.config/kitty/shell.conf
-elif [ -e /usr/local/bin/fish ]; then  # macOS Intel
-    echo "shell\t/usr/local/bin/fish --login --interactive" > $HOME/.config/kitty/shell.conf
-elif [ -e /opt/homebrew/bin/fish ]; then  # macOS M1
-    echo "shell\t/opt/homebrew/bin/fish --login --interactive" > $HOME/.config/kitty/shell.conf
+# setup fish and kitty for diferent os/archs
+KITTY_CONF="${HOME}/.config/kitty"
+
+function is_mac() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+function fisher() {
+    bin=`which fish`
+    if [ `is_mac` == "1" ]; then
+        bin="${bin} --login --interactive"
+    fi
+    echo "${bin}"
+}
+
+echo "shell\t$(fisher)" > $KITTY_CONF/shell.conf
+
+FONT_TYPES=(
+    "font_family"
+    "bold_font"
+    "italic_font"
+    "bold_italic_font"
+)
+MAC_FONTS=(
+     "FiraCode Nerd Font Mono Retina"
+     "FiraCode Nerd Font Mono Bold"
+     "FiraCode Nerd Font Mono Light"
+     "FiraCode Nerd Font Mono Medium"
+ )
+LINUX_FONTS=(
+    "Fira Code Retina Nerd Font Complete Mono"
+    "Fira Code Bold Nerd Font Complete Mono"
+    "Fira Code Light Nerd Font Complete Mono"
+    "Fira Code SemiBold Nerd Font Complete Mono"
+)
+
+if [ ! -f "$KITTY_CONF/fonts.conf" ]; then
+    touch $KITTY_CONF/fonts.conf
+
+    for i in {0..3}
+    do
+        if [ `is_mac` == "1" ]; then
+            font="${MAC_FONTS[$i]}"
+        else
+            font="${LINUX_FONTS[$i]}"
+        fi
+        echo "${FONT_TYPES[$i]}\t${font}" >> $KITTY_CONF/fonts.conf
+    done
 fi
 
-# change font names for macos
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "font_family\tFiraCode Nerd Font Mono Retina" > $HOME/.config/kitty/macos.conf
-    echo "bold_font\tFiraCode Nerd Font Mono Bold" >> $HOME/.config/kitty/macos.conf
-    echo "italic_font\tFiraCode Nerd Font Mono Light" >> $HOME/.config/kitty/macos.conf
-    echo "bold_italic_font\tFiraCode Nerd Font Mono Medium" >> $HOME/.config/kitty/macos.conf
-fi
-
-# install Catppuccin for Kitty
-if [ ! -f "$HOME/.config/kitty/catppuccin-latte.conf" ]; then
-    curl -Lo $HOME/.config/kitty/catppuccin-latte.conf https://raw.githubusercontent.com/catppuccin/kitty/main/latte.conf
+# install catppuccin for kitty
+if [ ! -f "$KITTY_CONF/catppuccin-latte.conf" ]; then
+    curl -Lo $KITTY_CONF/catppuccin-latte.conf https://raw.githubusercontent.com/catppuccin/kitty/main/latte.conf
 fi
 
 # setup neovim
