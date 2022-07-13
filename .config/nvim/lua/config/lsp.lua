@@ -116,19 +116,27 @@ local function setup_servers()
 		return false
 	end
 
-	local install = function(server)
+	local install = function(pending_servers)
+		if next(pending_servers) == nil then
+			return
+		end
+
 		if platform.is_headless then
-			installer.install_sync({ server })
+			installer.install_sync(pending_servers)
 		else
-			installer.install(server)
+			for _, server in pairs(pending_servers) do
+				installer.install(server)
+			end
 		end
 	end
 
+	local pending = {}
 	for _, server in pairs(required_servers) do
 		if not is_installed(server) then
-			install(server)
+			table.insert(pending, server)
 		end
 	end
+	install(pending)
 
 	for _, server in pairs(servers.get_installed_servers()) do
 		local config = make_config(server)
