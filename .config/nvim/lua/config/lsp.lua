@@ -87,7 +87,7 @@ local function setup_servers()
 		"yamlls",
 	}
 	local extra_servers = {}
-	if string.find(vim.loop.cwd(), "Shopify") then
+	if string.find(vim.loop.cwd(), "Shopify") or os.getenv("SPIN") ~= nil then
 		extra_servers = {
 			"solargraph",
 			"sorbet",
