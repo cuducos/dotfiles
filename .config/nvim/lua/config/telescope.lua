@@ -1,24 +1,26 @@
-local actions = require("telescope.actions")
-require("telescope").setup({ defaults = { mappings = { i = { ["<Esc>"] = actions.close } } } })
+local telescope = require("telescope")
+local builtin = require("telescope.builtin")
 
-_G.find_dotfiles = function()
-	require("telescope.builtin").find_files({
-		search_dirs = { "~/Dropbox/Projects/dotfiles", "~/src/dotfiles" },
-		hidden = true,
-		follow = true,
-	})
-end
-
+telescope.setup()
 local mappings = {
-	{ "n", "<Leader>f", [[<Cmd>Telescope git_files<CR>]] },
-	{ "n", "<Leader>G", [[<Cmd>Telescope git_status<CR>]] },
-	{ "n", "<Leader>e", [[<Cmd>Telescope find_files<CR>]] },
-	{ "n", "<Leader>b", [[<Cmd>Telescope buffers<CR>]] },
-	{ "n", "<Leader>o", [[<Cmd>Telescope oldfiles<CR>]] },
-	{ "n", "<Leader>/", [[<Cmd>Telescope live_grep<CR>]] },
-	{ "n", "<Leader>m", [[<Cmd>Telescope keymaps<CR>]] },
-	{ "n", "<Leader>df", [[<Cmd>lua find_dotfiles()<CR>]] },
-	{ "n", "<leader>n", require("telescope").extensions.notify.notify },
+	{ "n", "<Leader>f", builtin.git_files },
+	{ "n", "<Leader>G", builtin.git_status },
+	{ "n", "<Leader>b", builtin.buffers },
+	{ "n", "<Leader>o", builtin.oldfiles },
+	{ "n", "<Leader>/", builtin.live_grep },
+	{ "n", "<Leader>m", builtin.keymaps },
+	{ "n", "<leader>n", telescope.extensions.notify.notify },
+	{
+		"n",
+		"<Leader>df",
+		function()
+			builtin.find_files({
+				search_dirs = { "~/.config", "~/Dropbox/Projects/dotfiles", "~/src/dotfiles" },
+				hidden = true,
+				follow = true,
+			})
+		end,
+	},
 }
 for _, val in pairs(mappings) do
 	vim.keymap.set(unpack(val))
