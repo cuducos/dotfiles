@@ -37,6 +37,7 @@ local function on_attach(client, bufnr)
 		{ "n", "]e", vim.lsp.diagnostic.goto_prev, opts },
 		{ "n", "<leader>d", diagnostic_on_notify, opts },
 		{ "n", "<leader>lsp", require("telescope.builtin").lsp_document_symbols, opts },
+		{ "n", "<leader>ptc", require("config.lsp").toggle_pyright_type_checking, opts },
 	}
 	for _, mapping in pairs(mappings) do
 		vim.keymap.set(unpack(mapping))
@@ -150,12 +151,14 @@ setup_servers()
 
 M = {}
 
-M.pyright_type_checking = function(type_checking)
+M.toggle_pyright_type_checking = function()
 	local name = "pyright"
+	local type_checking = true
 
 	local clients = vim.lsp.buf_get_clients(0)
 	for _, client in pairs(clients) do
 		if client.name == name then
+			type_checking = client.config.settings.python.analysis.typeCheckingMode == "off"
 			vim.lsp.stop_client(client.id)
 			break
 		end
@@ -169,7 +172,6 @@ M.pyright_type_checking = function(type_checking)
 			end
 
 			server:setup(config)
-			-- vim.cmd("LspStart " .. name)
 			break
 		end
 	end
