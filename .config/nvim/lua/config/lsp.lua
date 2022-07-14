@@ -147,3 +147,32 @@ local function setup_servers()
 end
 
 setup_servers()
+
+M = {}
+
+M.pyright_type_checking = function(type_checking)
+	local name = "pyright"
+
+	local clients = vim.lsp.buf_get_clients(0)
+	for _, client in pairs(clients) do
+		if client.name == name then
+			vim.lsp.stop_client(client.id)
+			break
+		end
+	end
+
+	for _, server in pairs(servers.get_installed_servers()) do
+		if server.name == name then
+			local config = make_config(server)
+			if not type_checking then
+				config.settings = { python = { analysis = { typeCheckingMode = "off" } } }
+			end
+
+			server:setup(config)
+			-- vim.cmd("LspStart " .. name)
+			break
+		end
+	end
+end
+
+return M
