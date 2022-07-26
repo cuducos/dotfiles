@@ -57,10 +57,10 @@ local startup = function(use)
 		end,
 	})
 	use({
-		"neovim/nvim-lspconfig",
-		requires = { { "williamboman/nvim-lsp-installer" } },
+		"williamboman/mason.nvim",
+		requires = { "neovim/nvim-lspconfig", "williamboman/mason-lspconfig.nvim" },
 		config = function()
-			require("config.lsp")
+			require("config.mason")
 		end,
 	})
 	use({

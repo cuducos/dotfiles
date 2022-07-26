@@ -1,6 +1,74 @@
-local installer = require("nvim-lsp-installer")
-local platform = require("nvim-lsp-installer.core.platform")
-local servers = require("nvim-lsp-installer.servers")
+local lsp_config = require("lspconfig")
+local mason = require("mason")
+local mason_lsp_config = require("mason-lspconfig")
+
+local shopify = string.find(vim.loop.cwd(), "Shopify") or os.getenv("SPIN") ~= nil
+
+local base = {
+	servers = {
+		"cssls",
+		"sumneko_lua",
+		"yamlls",
+	},
+	linters = {
+		"luacheck",
+		"markdownlint",
+		"shellcheck",
+		"vale",
+	},
+	formatters = {
+		"sql-formatter",
+		"stylua",
+	},
+}
+
+local extra = {
+	servers = {},
+	linters = {},
+	formatters = {},
+}
+
+if shopify then
+	extra.servers = {
+		"solargraph",
+		"sorbet",
+		"tsserver",
+	}
+else
+	extra = {
+		servers = {
+			"bashls",
+			"dockerls",
+			"elmls",
+			"gopls",
+			"jsonls",
+			"pyright",
+			"rust_analyzer",
+		},
+		linters = {
+			"flake8",
+			"staticcheck",
+		},
+		formatters = {
+			"elm-format",
+			"isort",
+			"prettier",
+		},
+	}
+end
+
+local to_install = {
+	servers = {},
+	linters = {},
+	formatters = {},
+}
+for key, value in pairs(to_install) do
+	for _, src in pairs({ base, extra }) do
+		for _, value in pairs(src[key]) do
+			table.insert(to_install[key], value)
+		end
+	end
+end
 
 local diagnostic_on_notify = function()
 	local opts = {
@@ -60,94 +128,61 @@ local function on_attach(client, bufnr)
 	end
 end
 
-local function make_config(server)
+local function make_config()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
 	capabilities.textDocument.completion.completionItem.resolveSupport = {
 		properties = { "documentation", "detail", "additionalTextEdits" },
 	}
 	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-
-	local config = { on_attach = on_attach, capabilities = capabilities }
-	if server.name == "sumneko_lua" then
-		config.settings = { Lua = { runtime = { version = "LuaJIT" }, diagnostics = { globals = { "vim" } } } }
-	elseif server.name == "rust_analyzer" then
-		config.settings = { ["rust-analyzer"] = { checkOnSave = { command = "clippy" } } }
-	end
-
-	return config
+	return { on_attach = on_attach, capabilities = capabilities }
 end
 
 local function setup_servers()
-	local required_servers = {
-		"bashls",
-		"cssls",
-		"gopls",
-		"jsonls",
-		"pyright",
-		"rust_analyzer",
-		"sumneko_lua",
-		"yamlls",
-	}
-	local extra_servers = {}
-	if string.find(vim.loop.cwd(), "Shopify") or os.getenv("SPIN") ~= nil then
-		extra_servers = {
-			"solargraph",
-			"sorbet",
-			"tsserver",
-		}
-	else
-		extra_servers = {
-			"dockerls",
-			"elmls",
-		}
-	end
-	for _, server in pairs(extra_servers) do
-		table.insert(required_servers, server)
-	end
-
-	local installed = servers.get_installed_servers()
-	local is_installed = function(server_name)
-		for _, installed_server in pairs(installed) do
-			if server_name == installed_server.name then
-				return true
-			end
-		end
-
-		return false
-	end
-
-	local install = function(pending_servers)
-		if next(pending_servers) == nil then
-			return
-		end
-
-		if platform.is_headless then
-			installer.install_sync(pending_servers)
-		else
-			for _, server in pairs(pending_servers) do
-				installer.install(server)
-			end
-		end
-	end
-
-	local pending = {}
-	for _, server in pairs(required_servers) do
-		if not is_installed(server) then
-			table.insert(pending, server)
-		end
-	end
-	install(pending)
-
-	for _, server in pairs(servers.get_installed_servers()) do
-		local config = make_config(server)
-		server:setup(config)
-	end
-
+	mason.setup()
+	mason_lsp_config.setup({ ensure_installed = to_install.servers })
+	mason_lsp_config.setup_handlers({
+		function(_server_name)
+			return make_config()
+		end,
+		["rust_analyzer"] = function()
+			local config = make_config()
+			config.settings = {
+				["rust-analyzer"] = {
+					checkOnSave = { command = "clippy" },
+				},
+			}
+			return config
+		end,
+		["sumneko_lua"] = function()
+			local config = make_config()
+			config.settings = {
+				Lua = {
+					runtime = { version = "LuaJIT" },
+					diagnostics = { globals = { "vim" } },
+				},
+			}
+			return config
+		end,
+	})
 	vim.diagnostic.config({ virtual_text = false })
 end
 
+local function setup_linters_and_formatters()
+	local args = {}
+	for key, tbl in pairs(to_install) do
+		if key ~= "servers" then
+			for _, arg in pairs(tbl) do
+				table.insert(args, arg)
+			end
+		end
+	end
+
+	require("mason.api.command").MasonInstall(args)
+end
+
 setup_servers()
+setup_linters_and_formatters()
 
 M = {}
 
@@ -164,14 +199,14 @@ M.toggle_pyright_type_checking = function()
 		end
 	end
 
-	for _, server in pairs(servers.get_installed_servers()) do
+	for _, server in pairs(mason_lsp_config.get_installed_servers()) do
 		if server.name == name then
 			local config = make_config(server)
 			if not type_checking then
 				config.settings = { python = { analysis = { typeCheckingMode = "off" } } }
 			end
 
-			server:setup(config)
+			lsp_config[server].setup(config)
 			break
 		end
 	end
