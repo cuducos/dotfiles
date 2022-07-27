@@ -11,7 +11,6 @@ local base = {
 		"yamlls",
 	},
 	linters = {
-		"luacheck",
 		"markdownlint",
 		"shellcheck",
 		"vale",
@@ -142,8 +141,9 @@ local function setup_servers()
 	mason.setup()
 	mason_lsp_config.setup({ ensure_installed = to_install.servers })
 	mason_lsp_config.setup_handlers({
-		function(_server_name)
-			return make_config()
+		function(server)
+			local config = make_config()
+			lsp_config[server].setup(config)
 		end,
 		["rust_analyzer"] = function()
 			local config = make_config()
@@ -152,7 +152,7 @@ local function setup_servers()
 					checkOnSave = { command = "clippy" },
 				},
 			}
-			return config
+			lsp_config.rust_analyzer.setup(config)
 		end,
 		["sumneko_lua"] = function()
 			local config = make_config()
@@ -162,7 +162,7 @@ local function setup_servers()
 					diagnostics = { globals = { "vim" } },
 				},
 			}
-			return config
+			lsp_config.sumneko_lua.setup(config)
 		end,
 	})
 	vim.diagnostic.config({ virtual_text = false })
