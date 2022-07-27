@@ -104,7 +104,7 @@ local function on_attach(client, bufnr)
 		{ "n", "]e", vim.lsp.diagnostic.goto_prev, opts },
 		{ "n", "<leader>d", diagnostic_on_notify, opts },
 		{ "n", "<leader>lsp", require("telescope.builtin").lsp_document_symbols, opts },
-		{ "n", "<leader>ptc", require("config.lsp").toggle_pyright_type_checking, opts },
+		{ "n", "<leader>ptc", require("config.mason").toggle_pyright_type_checking, opts },
 	}
 	for _, mapping in pairs(mappings) do
 		vim.keymap.set(unpack(mapping))
@@ -169,16 +169,30 @@ local function setup_servers()
 end
 
 local function setup_linters_and_formatters()
+	local installed = require("mason-registry").get_installed_package_names()
+	local function is_installed(pkg)
+		for _, name in pairs(installed) do
+			if pkg == name then
+				return true
+			end
+		end
+		return false
+	end
+
 	local args = {}
 	for key, tbl in pairs(to_install) do
 		if key ~= "servers" then
 			for _, arg in pairs(tbl) do
-				table.insert(args, arg)
+				if not is_installed(arg) then
+					table.insert(args, arg)
+				end
 			end
 		end
 	end
 
-	require("mason.api.command").MasonInstall(args)
+	if #args > 0 then
+		require("mason.api.command").MasonInstall(args)
+	end
 end
 
 setup_servers()
@@ -201,7 +215,7 @@ M.toggle_pyright_type_checking = function()
 
 	for _, server in pairs(mason_lsp_config.get_installed_servers()) do
 		if server.name == name then
-			local config = make_config(server)
+			local config = make_config()
 			if not type_checking then
 				config.settings = { python = { analysis = { typeCheckingMode = "off" } } }
 			end
