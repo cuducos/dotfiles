@@ -61,6 +61,7 @@ local startup = function(use)
 		requires = { "neovim/nvim-lspconfig", "williamboman/mason-lspconfig.nvim" },
 		config = function()
 			require("config.mason")
+			require("config.ruby_lsp")
 		end,
 	})
 	use({
