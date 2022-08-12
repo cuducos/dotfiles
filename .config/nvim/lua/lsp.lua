@@ -97,7 +97,7 @@ local extra = {
 	formatters = {},
 }
 
-if shopify then
+if M.shopify then
 	extra.servers = {
 		"solargraph",
 		"sorbet",
