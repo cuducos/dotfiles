@@ -18,8 +18,7 @@ fi
 
 # install tools on spin
 if [ "$SPIN" ]; then
-    sudo apt install -y fd-find fish unzip
-    sudo chsh -s /usr/bin/fish "$USER"
+    sudo apt install -y fd-find rust-bat unzip
 
     # delta is not available as an apt package
     DELTA_VERSION=0.13.0
