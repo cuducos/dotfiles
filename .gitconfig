@@ -45,3 +45,5 @@
 
 [include]
 	path = /Users/cuducos/.config/dev/gitconfig
+[help]
+	autocorrect = 42
