@@ -99,8 +99,6 @@ local extra = {
 
 if M.shopify then
 	extra.servers = {
-		"solargraph",
-		"sorbet",
 		"tsserver",
 	}
 else
