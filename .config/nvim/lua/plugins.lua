@@ -102,6 +102,12 @@ local startup = function(use)
 			require("config.lsp_lines")
 		end,
 	})
+	use({
+		"haringsrob/nvim_context_vt",
+		config = function()
+			require("config.nvim_context_vt")
+		end,
+	})
 
 	-- language specific
 	use({
