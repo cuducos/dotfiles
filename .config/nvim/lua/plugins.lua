@@ -67,9 +67,7 @@ local startup = function(use)
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
-			"f3fora/cmp-spell",
 			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-calc",
 			"hrsh7th/cmp-emoji",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
@@ -77,7 +75,6 @@ local startup = function(use)
 			"quangnguyen30192/cmp-nvim-tags",
 			"ray-x/cmp-treesitter",
 			"lukas-reineke/cmp-rg",
-			"petertriho/cmp-git",
 		},
 		config = function()
 			require("config.cmp")
@@ -121,38 +118,8 @@ local startup = function(use)
 			require("config.yaml")
 		end,
 	})
-	use({
-		"vinibispo/ruby.nvim",
-		ft = { "ruby" },
-		requires = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
-	})
 	use({ "fladson/vim-kitty" })
 	use({ "RRethy/nvim-treesitter-endwise", ft = { "lua", "ruby" } })
-	use({ "jose-elias-alvarez/nvim-lsp-ts-utils", ft = { "typescript" } })
-	use({ "ellisonleao/glow.nvim", ft = { "markdown" } })
-
-	-- debug
-	use({
-		"mfussenegger/nvim-dap",
-		config = function()
-			require("config.dap")
-		end,
-	})
-	use({
-		"suketa/nvim-dap-ruby",
-		ft = { "ruby" },
-		config = function()
-			require("config.dap_ruby")
-		end,
-	})
-
-	-- copilot
-	use({
-		"github/copilot.vim",
-		config = function()
-			require("config.copilot")
-		end,
-	})
 
 	-- code comments
 	use({
@@ -224,7 +191,6 @@ local startup = function(use)
 			require("config.better_whitespace")
 		end,
 	})
-	use({ "tversteeg/registers.nvim" })
 	use({ "andymass/vim-matchup" })
 
 	-- navigation & selection
@@ -243,7 +209,6 @@ local startup = function(use)
 
 	-- general tools
 	use({ "tpope/vim-abolish" })
-	use({ "vim-scripts/greplace.vim", cmd = "Gsearch" })
 	use({ "sQVe/sort.nvim" })
 	if vim.loop.fs_stat("/Users/cuducos/") ~= nil then
 		use({ "rizzatti/dash.vim" })

@@ -15,11 +15,8 @@ cmp.setup({
 		{ name = "treesitter" },
 		{ name = "path" },
 		{ name = "rg" },
-		{ name = "spell" },
-		{ name = "cmp_git" },
 		{ name = "emoji" },
 		{ name = "buffer" },
-		{ name = "calc" },
 	},
 	formatting = {
 		format = function(_, vim_item)
