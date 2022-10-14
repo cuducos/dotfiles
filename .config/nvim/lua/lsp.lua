@@ -1,5 +1,4 @@
 local lsp_config = require("lspconfig")
-local mason = require("mason")
 local mason_lsp_config = require("mason-lspconfig")
 
 M = {}
@@ -42,6 +41,7 @@ local function on_attach(client, bufnr)
 		{ "n", "<leader>d", require("lsp").diagnostic_on_notify, opts },
 		{ "n", "<leader>lsp", require("telescope.builtin").lsp_document_symbols, opts },
 		{ "n", "<leader>ptc", require("lsp").toggle_pyright_type_checking, opts },
+		{ "n", "<leader>venv", require("lsp").python_virtualenv, opts },
 	}
 	for _, mapping in pairs(mappings) do
 		vim.keymap.set(unpack(mapping))
@@ -129,7 +129,7 @@ M.to_install = {
 	linters = {},
 	formatters = {},
 }
-for key, value in pairs(M.to_install) do
+for key, _ in pairs(M.to_install) do
 	for _, src in pairs({ base, extra }) do
 		for _, value in pairs(src[key]) do
 			table.insert(M.to_install[key], value)
@@ -152,11 +152,49 @@ M.toggle_pyright_type_checking = function()
 
 	for _, server in pairs(mason_lsp_config.get_installed_servers()) do
 		if server.name == name then
-			local config = make_config()
+			local config = M.make_config()
 			if not type_checking then
 				config.settings = { python = { analysis = { typeCheckingMode = "off" } } }
 			end
 
+			lsp_config[server].setup(config)
+			break
+		end
+	end
+end
+
+local function python_virtualenv()
+	if vim.fn.isdirectory(".venv") == 1 then
+		return vim.fn.getcwd() .. "/.venv"
+	end
+
+	if vim.fn.filereadable("pyproject.toml") == 1 then
+		local poetry = vim.fn.system("poetry env info -p"):gsub("\n", "")
+		if vim.fn.isdirectory(poetry) then
+			return poetry
+		end
+	end
+end
+
+M.python_virtualenv = function()
+	local name = "pyright"
+	local venv = python_virtualenv()
+	if venv == nil then
+		return
+	end
+
+	local clients = vim.lsp.buf_get_clients(0)
+	for _, client in pairs(clients) do
+		if client.name == name then
+			vim.lsp.stop_client(client.id)
+			break
+		end
+	end
+
+	for _, server in pairs(mason_lsp_config.get_installed_servers()) do
+		if server.name == name then
+			local config = M.make_config()
+			config.settings = { python = { venvPath = venv } }
 			lsp_config[server].setup(config)
 			break
 		end
