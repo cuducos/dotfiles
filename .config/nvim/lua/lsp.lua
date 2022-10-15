@@ -40,8 +40,6 @@ local function on_attach(client, bufnr)
 		{ "n", "]e", vim.lsp.diagnostic.goto_prev, opts },
 		{ "n", "<leader>d", require("lsp").diagnostic_on_notify, opts },
 		{ "n", "<leader>lsp", require("telescope.builtin").lsp_document_symbols, opts },
-		{ "n", "<leader>ptc", require("lsp").toggle_pyright_type_checking, opts },
-		{ "n", "<leader>venv", require("lsp").python_virtualenv, opts },
 	}
 	for _, mapping in pairs(mappings) do
 		vim.keymap.set(unpack(mapping))
@@ -137,68 +135,45 @@ for key, _ in pairs(M.to_install) do
 	end
 end
 
-M.toggle_pyright_type_checking = function()
-	local name = "pyright"
-	local type_checking = true
+M.make_pyright_config = function()
+	local config = M.make_config()
+	config.settings = {
+		pyright = { autoImportCompletion = true },
+		python = {
+			analysis = {
+				autoSearchPaths = true,
+				diagnosticMode = "openFilesOnly",
+				useLibraryCodeForTypes = true,
+				typeCheckingMode = "off",
+			},
+		},
+	}
 
-	local clients = vim.lsp.buf_get_clients(0)
-	for _, client in pairs(clients) do
-		if client.name == name then
-			type_checking = client.config.settings.python.analysis.typeCheckingMode == "off"
-			vim.lsp.stop_client(client.id)
-			break
+	local function venv_path()
+		if vim.fn.isdirectory(".venv") == 1 then
+			return vim.fn.getcwd() .. "/.venv"
 		end
-	end
 
-	for _, server in pairs(mason_lsp_config.get_installed_servers()) do
-		if server.name == name then
-			local config = M.make_config()
-			if not type_checking then
-				config.settings = { python = { analysis = { typeCheckingMode = "off" } } }
+		if vim.fn.filereadable("pyproject.toml") == 1 then
+			local poetry = vim.fn.system("poetry env info -p"):gsub("\n", "")
+			if vim.fn.isdirectory(poetry) then
+				return poetry
 			end
-
-			lsp_config[server].setup(config)
-			break
 		end
 	end
-end
 
-local function python_virtualenv()
-	if vim.fn.isdirectory(".venv") == 1 then
-		return vim.fn.getcwd() .. "/.venv"
-	end
-
-	if vim.fn.filereadable("pyproject.toml") == 1 then
-		local poetry = vim.fn.system("poetry env info -p"):gsub("\n", "")
-		if vim.fn.isdirectory(poetry) then
-			return poetry
-		end
-	end
-end
-
-M.python_virtualenv = function()
-	local name = "pyright"
-	local venv = python_virtualenv()
+	local venv = venv_path()
 	if venv == nil then
-		return
+		return config
 	end
 
-	local clients = vim.lsp.buf_get_clients(0)
-	for _, client in pairs(clients) do
-		if client.name == name then
-			vim.lsp.stop_client(client.id)
-			break
-		end
+	local packages = vim.fn.system(venv .. "/bin/python -m pip --list")
+	if string.find(packages, "mypy") ~= nil then
+		config.settings.python.analysis.typeCheckingMode = "basic"
 	end
 
-	for _, server in pairs(mason_lsp_config.get_installed_servers()) do
-		if server.name == name then
-			local config = M.make_config()
-			config.settings = { python = { venvPath = venv } }
-			lsp_config[server].setup(config)
-			break
-		end
-	end
+	config.settings.python.pythonPath = venv .. "/bin/python"
+	return config
 end
 
 return M

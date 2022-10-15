@@ -30,6 +30,10 @@ local function setup_servers()
 			}
 			lsp_config.sumneko_lua.setup(config)
 		end,
+		["pyright"] = function()
+			local config = lsp.make_pyright_config()
+			lsp_config.pyright.setup(config)
+		end,
 	})
 	vim.diagnostic.config({ virtual_text = false })
 end
