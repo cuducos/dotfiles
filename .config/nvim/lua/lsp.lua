@@ -1,6 +1,3 @@
-local lsp_config = require("lspconfig")
-local mason_lsp_config = require("mason-lspconfig")
-
 M = {}
 
 M.shopify = string.find(vim.loop.cwd(), "Shopify") or os.getenv("SPIN") ~= nil
