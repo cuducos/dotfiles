@@ -42,10 +42,12 @@ local function on_attach(client, bufnr)
 		{ "n", "<leader>lsp", require("telescope.builtin").lsp_document_symbols, opts },
 	}
 	for _, mapping in pairs(mappings) do
-		vim.keymap.set(unpack(mapping))
+		if mapping[3] ~= nil then
+			vim.keymap.set(unpack(mapping))
+		end
 	end
 
-	if client.resolved_capabilities.document_highlight then
+	if client.server_capabilities.document_highlight then
 		vim.api.nvim_create_augroup("LspDocumentHighlight", {})
 		vim.api.nvim_create_autocmd("CursorHold", {
 			pattern = "<buffer>",
