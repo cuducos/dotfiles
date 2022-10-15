@@ -10,11 +10,6 @@ function go_build_main_archs
             switch $arch
             case amd64 arm arm64
                 set -l output (string join "_" $name $os $arch)
-                switch $os
-                case windows
-                    set -l output "$output.exe"
-                end
-
                 set -l GOOS_BKP $GOOS
                 set -l GOARCH_BKP $GOARCH
                 set -x GOOS $os
@@ -26,5 +21,8 @@ function go_build_main_archs
                 set -x GOARCH $GOARCH_BKP
             end
         end
+    end
+    for f in (fd windows)
+        mv $f $f.exe
     end
 end
