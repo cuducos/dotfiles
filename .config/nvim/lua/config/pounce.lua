@@ -1,1 +1,1 @@
-vim.keymap.set("n", "m", "<Cmd>Pounce<CR>")
+vim.keymap.set("n", "<Tab>", "<Cmd>Pounce<CR>")
