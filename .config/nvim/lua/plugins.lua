@@ -35,7 +35,11 @@ local startup = function(use)
 	-- fuzzy finder
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = { "nvim-lua/plenary.nvim", "nvim-lua/popup.nvim" },
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-lua/popup.nvim",
+			"nvim-telescope/telescope-file-browser.nvim",
+		},
 		config = function()
 			require("config.telescope")
 		end,
@@ -142,15 +146,6 @@ local startup = function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("config.gitsigns")
-		end,
-	})
-
-	-- file tree
-	use({
-		"kyazdani42/nvim-tree.lua",
-		requires = { "kyazdani42/nvim-web-devicons" },
-		config = function()
-			require("config.tree")
 		end,
 	})
 

@@ -1,7 +1,9 @@
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 
-telescope.setup()
+telescope.setup({ extensions = { file_browser = { hijack_netrw = true } } })
+telescope.load_extension("file_browser")
+
 local mappings = {
 	{ "n", "<Leader>f", builtin.git_files },
 	{ "n", "<Leader>G", builtin.git_status },
@@ -10,6 +12,7 @@ local mappings = {
 	{ "n", "<Leader>/", builtin.live_grep },
 	{ "n", "<Leader>m", builtin.keymaps },
 	{ "n", "<leader>n", telescope.extensions.notify.notify },
+	{ "n", "<leader>nt", telescope.extensions.file_browser.file_browser },
 	{
 		"n",
 		"<Leader>df",
