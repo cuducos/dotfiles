@@ -1,5 +1,6 @@
 local luasnip = require("luasnip")
 local path = require("plenary.path")
+local util = require("lspconfig.util")
 
 luasnip.setup({
 	history = true,
@@ -10,7 +11,8 @@ luasnip.setup({
 local go_pkg_name = function()
 	local cur = vim.fn.expand("%")
 	local dir = path:new(cur):parent()
-	if dir == require("lspconfig.util").root_pattern(".git") then
+
+	if util.path.exists(dir .. path.path.sep .. ".git") == "directory" then
 		return "main"
 	end
 
