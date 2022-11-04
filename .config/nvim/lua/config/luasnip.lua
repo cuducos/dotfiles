@@ -1,6 +1,12 @@
 local luasnip = require("luasnip")
 local path = require("plenary.path")
 
+luasnip.setup({
+	history = true,
+	updateevents = "TextChanged,TextChangedI",
+	enable_autosnippets = true,
+})
+
 local go_pkg_name = function()
 	local cwd = vim.fn.getcwd()
 	local pkg = path:new(cwd)
