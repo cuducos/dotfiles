@@ -110,6 +110,15 @@ local startup = function(use)
 		end,
 	})
 
+	-- snippets
+	use({
+		"L3MON4D3/LuaSnip",
+		tag = "v1.*",
+		config = function()
+			require("config.luasnip")
+		end,
+	})
+
 	-- language specific
 	use({
 		"cuducos/yaml.nvim",
