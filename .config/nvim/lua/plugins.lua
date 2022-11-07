@@ -231,6 +231,13 @@ local startup = function(use)
 			require("config.notify")
 		end,
 	})
+	use({
+		"rgroli/other.nvim",
+		ft = { "ruby", "go" },
+		config = function()
+			require("config.other")
+		end,
+	})
 end
 
 -- load plugins
