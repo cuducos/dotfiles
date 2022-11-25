@@ -238,6 +238,7 @@ local startup = function(use)
 			require("config.other")
 		end,
 	})
+	use({ "vim-test/vim-test", ft = { "elm", "go", "javascript", "python", "ruby", "rust" } })
 end
 
 -- load plugins
