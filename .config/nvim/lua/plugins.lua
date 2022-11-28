@@ -52,7 +52,7 @@ local startup = function(use)
 		end,
 	})
 
-	-- lsp
+	-- lsp & treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = "TSUpdate",
@@ -107,6 +107,13 @@ local startup = function(use)
 		"haringsrob/nvim_context_vt",
 		config = function()
 			require("config.nvim_context_vt")
+		end,
+	})
+	use({
+		"AckslD/nvim-trevJ.lua",
+		ft = { "go", "html", "treesitter", "lua", "python", "ruby", "rust", "typescript" },
+		config = function()
+			require("config.trevj")
 		end,
 	})
 
