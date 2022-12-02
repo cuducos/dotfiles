@@ -252,6 +252,13 @@ local startup = function(use)
 			require("config.test")
 		end,
 	})
+	use({
+		"folke/persistence.nvim",
+		event = "BufReadPre",
+		config = function()
+			require("config.persistence")
+		end,
+	})
 end
 
 -- load plugins
