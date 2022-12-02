@@ -1,5 +1,8 @@
 local notify = require("notify")
-notify.setup({ render = "minimal" })
+notify.setup({
+	render = "minimal",
+	background_colour = "#eff1f5", -- catppuccin latte's base color
+})
 vim.keymap.set("n", "<leader>.", require("notify").dismiss)
 vim.notify = function(msg, ...)
 	if msg == nil or string.match(msg, [[^%s*$]]) then
