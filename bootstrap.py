@@ -93,7 +93,7 @@ def configure_kitty():
 
     fonts = "\n".join(f"{k}\t{v}" for k, v in FONTS.items())
     (KITTY_CONF / "fonts.conf").write_text(fonts)
-    (KITTY_CONF / "shell.conf").write_text(f"shell\t{fish()}")
+    (KITTY_CONF / "shell.conf").write_text(f"shell\t{fish}")
 
 
 def install_catppuccin_for_kitty():
