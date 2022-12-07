@@ -103,7 +103,10 @@ alias ll "ls -laGh"
 set -x BAT_THEME OneHalfLight
 
 # direnv
-direnv hook fish | source
+
+if type -q direnv
+  direnv hook fish | source
+end
 
 # brew's ruby
 set PATH /usr/local/opt/ruby/bin $PATH
