@@ -32,31 +32,29 @@ if not configs.ruby_lsp then
 				description = "Format using ruby-lsp",
 			},
 		},
-    on_attach = function(client, bufnr)
-      lsp.on_attach(client, bufnr)
+		on_attach = function(client, bufnr)
+			lsp.on_attach(client, bufnr)
 
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePre', 'CursorHold' }, {
-        buffer = bufnr,
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePre", "CursorHold" }, {
+				buffer = bufnr,
 
-        callback = function()
-          local params = vim.lsp.util.make_text_document_params(bufnr)
+				callback = function()
+					local params = vim.lsp.util.make_text_document_params(bufnr)
 
-          client.request(
-            'textDocument/diagnostic',
-            { textDocument = params },
-            function(err, result)
-              if err then return end
+					client.request("textDocument/diagnostic", { textDocument = params }, function(err, result)
+						if err then
+							return
+						end
 
-              vim.lsp.diagnostic.on_publish_diagnostics(
-                nil,
-                vim.tbl_extend('keep', params, { diagnostics = result.items }),
-                { bufnr = bufnr, client_id = client.id }
-              )
-            end
-          )
-        end,
-      })
-    end,
+						vim.lsp.diagnostic.on_publish_diagnostics(
+							nil,
+							vim.tbl_extend("keep", params, { diagnostics = result.items }),
+							{ bufnr = bufnr, client_id = client.id }
+						)
+					end)
+				end,
+			})
+		end,
 	}
 	if lsp.shopify then
 		require("lspconfig").ruby_lsp.setup(lsp.make_config())
