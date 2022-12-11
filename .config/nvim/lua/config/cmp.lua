@@ -35,12 +35,9 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lua" },
 		{ name = "nvim_lsp" },
-		{ name = "tags" },
 		{ name = "treesitter" },
 		{ name = "path" },
-		{ name = "rg" },
 		{ name = "emoji" },
-		{ name = "buffer" },
 	},
 	formatting = {
 		format = function(_, vim_item)

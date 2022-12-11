@@ -71,14 +71,11 @@ local startup = function(use)
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
-			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-emoji",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-path",
-			"quangnguyen30192/cmp-nvim-tags",
 			"ray-x/cmp-treesitter",
-			"lukas-reineke/cmp-rg",
 		},
 		config = function()
 			require("config.cmp")
