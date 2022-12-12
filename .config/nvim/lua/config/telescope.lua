@@ -14,6 +14,7 @@ local mappings = {
 	{ "n", "<leader>n", telescope.extensions.notify.notify },
 	{ "n", "<leader>nt", telescope.extensions.file_browser.file_browser },
 	{ "n", "<leader>s", builtin.lsp_document_symbols },
+	{ "n", "<leader>ts", builtin.treesitter },
 	{
 		"n",
 		"<Leader>df",
@@ -29,3 +30,7 @@ local mappings = {
 for _, val in pairs(mappings) do
 	vim.keymap.set(unpack(val))
 end
+
+vim.cmd(
+	"command! -nargs=? FindIn lua require('telescope.builtin').live_grep({type_filter = <f-args>, results_title = 'rg --type-list to show supported types'})"
+)
