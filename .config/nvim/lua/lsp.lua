@@ -79,7 +79,6 @@ local base = {
 	},
 	linters = {
 		"markdownlint",
-		"shellcheck",
 		"vale",
 	},
 	formatters = {
