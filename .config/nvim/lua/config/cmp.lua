@@ -33,6 +33,7 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
 	},
 	sources = {
+		{ name = "luasnip" },
 		{ name = "nvim_lua" },
 		{ name = "nvim_lsp" },
 		{ name = "treesitter" },
@@ -43,6 +44,11 @@ cmp.setup({
 		format = function(_, vim_item)
 			vim_item.dup = { buffer = 1, path = 1, nvim_lsp = 0 }
 			return vim_item
+		end,
+	},
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
 		end,
 	},
 	experimental = { ghost_text = true },

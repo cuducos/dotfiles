@@ -7,7 +7,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	PackerBboostraped = vim.fn.system(clone)
 end
 
-vim.cmd([[packadd packer.nvim]])
+vim.cmd("packadd packer.nvim")
 
 if PackerBboostraped then
 	require("packer").sync()
@@ -76,6 +76,7 @@ local startup = function(use)
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-path",
 			"ray-x/cmp-treesitter",
+			"saadparwaiz1/cmp_luasnip",
 		},
 		config = function()
 			require("config.cmp")
