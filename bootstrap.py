@@ -71,8 +71,8 @@ def prepare_spin_instance():
     os.system("sudo apt install -y fd-find rust-bat unzip")
 
     # delta is not an apt
-    version = "0.14.0"
-    deb = f"git-delta_{version}_{platform.machine()}.deb"
+    version = "0.15.1"
+    deb = f"git-delta_{version}_{platform.machine()}.deb".replace("x86_64", "amd64")
     url = f"https://github.com/dandavison/delta/releases/download/{version}/{deb}"
     with NamedTemporaryFile(suffix=".deb") as path:
         urlretrieve(url, filename=path.name)
