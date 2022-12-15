@@ -261,7 +261,6 @@ local startup = function(use)
 	})
 	use({
 		"folke/persistence.nvim",
-		event = "BufReadPre",
 		config = function()
 			require("config.persistence")
 		end,
