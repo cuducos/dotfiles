@@ -106,6 +106,15 @@ local startup = function(use)
 		config = function()
 			require("config.nvim_context_vt")
 		end,
+		cond = function()
+			local skip = { "python", "yaml" }
+			for _, ft in pairs(skip) do
+				if ft == vim.bo.filetype then
+					return false
+				end
+			end
+			return true
+		end,
 	})
 	use({
 		"AckslD/nvim-trevJ.lua",
