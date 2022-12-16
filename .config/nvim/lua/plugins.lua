@@ -265,6 +265,17 @@ local startup = function(use)
 			require("config.persistence")
 		end,
 	})
+	use({
+		"jackMort/ChatGPT.nvim",
+		config = function()
+			require("config.chatgpt")
+		end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	})
 end
 
 -- load plugins
