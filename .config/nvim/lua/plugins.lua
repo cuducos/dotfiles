@@ -265,6 +265,14 @@ local startup = function(use)
 			require("config.persistence")
 		end,
 	})
+
+    -- ai
+	use({
+		"github/copilot.vim",
+		config = function()
+			require("config.copilot")
+		end,
+	})
 	use({
 		"jackMort/ChatGPT.nvim",
 		config = function()
