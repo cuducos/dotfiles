@@ -11,7 +11,8 @@ DOTFILES_DIR = Path.cwd()
 DOTFILES_GIT = DOTFILES_DIR / ".git"
 HOME_DIR = Path.home()
 
-CONFIG_FILES = (DOTFILES_DIR / f for f in ("fdignore", "gitconfig", "gitignore_global"))
+CONFIG_FILE_NAMES = (".fdignore", ".gitconfig", ".gitignore_global", ".ripgreprc")
+CONFIG_FILES = (DOTFILES_DIR / f for f in CONFIG_FILE_NAMES)
 
 NEOVIM_VENV = HOME_DIR / ".virtualenvs" / "neovim"
 NEOVIM_PYTHON = NEOVIM_VENV / "bin" / "python"

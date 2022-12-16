@@ -58,6 +58,8 @@ end
 # getgist
 set --export GETGIST_USER cuducos
 
+# ripgrep
+set --export RIPGREP_CONFIG_PATH $HOME/.ripgreprc
 # go
 set PATH /usr/local/go/bin $PATH
 set PATH $HOME/go/bin $PATH
