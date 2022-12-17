@@ -1,4 +1,5 @@
 local cmp = require("cmp")
+local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 
 local has_words_before = function()
@@ -41,15 +42,21 @@ cmp.setup({
 		{ name = "emoji" },
 	},
 	formatting = {
-		format = function(_, vim_item)
-			vim_item.dup = { buffer = 1, path = 1, nvim_lsp = 0 }
-			return vim_item
-		end,
+		format = lspkind.cmp_format({
+			before = function(_, vim_item)
+				vim_item.dup = { buffer = 1, path = 1, nvim_lsp = 0 }
+				return vim_item
+			end,
+		}),
 	},
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
 		end,
+	},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
 	},
 	experimental = { ghost_text = true },
 })

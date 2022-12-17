@@ -75,6 +75,7 @@ local startup = function(use)
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-path",
+			"onsails/lspkind.nvim",
 			"ray-x/cmp-treesitter",
 			"saadparwaiz1/cmp_luasnip",
 		},
@@ -266,7 +267,7 @@ local startup = function(use)
 		end,
 	})
 
-    -- ai
+	-- ai
 	use({
 		"github/copilot.vim",
 		config = function()

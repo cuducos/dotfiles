@@ -35,7 +35,10 @@ local function setup_servers()
 			lsp_config.pyright.setup(config)
 		end,
 	})
-	vim.diagnostic.config({ virtual_text = false })
+	vim.diagnostic.config({
+		float = { border = "rounded" },
+		virtual_text = false,
+	})
 end
 
 local function setup_linters_and_formatters()
