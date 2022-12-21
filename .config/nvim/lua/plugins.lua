@@ -285,6 +285,13 @@ local startup = function(use)
 			"nvim-telescope/telescope.nvim",
 		},
 	})
+	use({
+		"rest-nvim/rest.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("config.rest")
+		end,
+	})
 end
 
 -- load plugins
