@@ -5,8 +5,25 @@ telescope.setup({ extensions = { file_browser = { hijack_netrw = true } } })
 telescope.load_extension("file_browser")
 
 local mappings = {
-	{ "n", "<Leader>f", builtin.git_files },
-	{ "n", "<Leader>F", builtin.find_files },
+	{
+		"n",
+		"<Leader>f",
+		function()
+			vim.fn.system("git rev-parse --is-inside-work-tree")
+			if vim.v.shell_error == 0 then
+				builtin.git_files()
+			else
+				builtin.find_files()
+			end
+		end,
+	},
+	{
+		"n",
+		"<Leader>F",
+		function()
+			builtin.find_files({ hidden = true, ignore = ".git/" })
+		end,
+	},
 	{ "n", "<Leader>G", builtin.git_status },
 	{ "n", "<Leader>b", builtin.buffers },
 	{ "n", "<Leader>o", builtin.oldfiles },
