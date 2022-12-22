@@ -285,6 +285,7 @@ local startup = function(use)
 			require("config.rest")
 		end,
 	})
+	use({ "stevearc/dressing.nvim" })
 end
 
 -- load plugins
