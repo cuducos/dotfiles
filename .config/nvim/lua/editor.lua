@@ -88,6 +88,7 @@ local function set_options()
 		termguicolors = true,
 		wildignore = "*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite",
 		laststatus = 3,
+		updatetime = 100,
 	}
 	for key, val in pairs(options) do
 		vim.opt[key] = val

@@ -2,29 +2,6 @@ M = {}
 
 M.shopify = string.find(vim.loop.cwd(), "Shopify") or os.getenv("SPIN") ~= nil
 
-M.diagnostic_on_notify = function()
-	local opts = {
-		format = function(item)
-			local severity = vim.log.levels.INFO
-			if item.severity == vim.diagnostic.severity.ERROR then
-				severity = vim.log.levels.ERROR
-			end
-			if item.severity == vim.diagnostic.severity.WARN then
-				severity = vim.log.levels.WARN
-			end
-
-			local message = string.format("%d:%d %s", item.lnum, item.col, item.message)
-			vim.notify(message, severity, { title = item.source })
-			return item.message
-		end,
-	}
-
-	local bufnr, _ = vim.diagnostic.open_float(opts)
-	if bufnr ~= nil then
-		vim.cmd("bw " .. bufnr)
-	end
-end
-
 local function on_attach(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.lsp.omnifunc")
 
@@ -35,7 +12,6 @@ local function on_attach(client, bufnr)
 		{ "n", "gs", vim.lsp.buf.hover, opts },
 		{ "n", "[e", vim.lsp.diagnostic.goto_next, opts },
 		{ "n", "]e", vim.lsp.diagnostic.goto_prev, opts },
-		{ "n", "<leader>d", require("lsp").diagnostic_on_notify, opts },
 		{ "n", "<leader>lsp", require("telescope.builtin").lsp_document_symbols, opts },
 	}
 	for _, mapping in pairs(mappings) do
@@ -43,6 +19,14 @@ local function on_attach(client, bufnr)
 			vim.keymap.set(unpack(mapping))
 		end
 	end
+
+	local diagnostic = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
+	vim.api.nvim_create_autocmd("CursorHold", {
+		callback = function()
+			vim.diagnostic.open_float(nil, { focus = false })
+		end,
+		group = diagnostic,
+	})
 
 	if client.server_capabilities.document_highlight then
 		vim.api.nvim_create_augroup("LspDocumentHighlight", {})

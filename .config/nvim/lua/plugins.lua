@@ -4,12 +4,12 @@ local install_path = vim.fn.stdpath("data") .. packer_path
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	local repo = "https://github.com/wbthomason/packer.nvim"
 	local clone = { "git", "clone", "--depth", "1", repo, install_path }
-	PackerBboostraped = vim.fn.system(clone)
+	PackerBoostraped = vim.fn.system(clone)
 end
 
 vim.cmd("packadd packer.nvim")
 
-if PackerBboostraped then
+if PackerBoostraped then
 	require("packer").sync()
 end
 
@@ -94,12 +94,6 @@ local startup = function(use)
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
 			require("config.trouble")
-		end,
-	})
-	use({
-		"Maan2003/lsp_lines.nvim",
-		config = function()
-			require("config.lsp_lines")
 		end,
 	})
 	use({
