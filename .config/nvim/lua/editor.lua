@@ -7,7 +7,7 @@ end
 local function set_mappings()
 	local mappings = {
 		{ "n", "<leader>,", "<Cmd>nohl<CR>" },
-		{ "n", "<Leader>n", ":set relativenumber!<CR>" },
+		{ "n", "<Leader>#", ":set relativenumber!<CR>" },
 		-- buffer and aplist navigation
 		{ "n", "<leader><leader>", "<C-^>" },
 		{ "n", "<C-h>", "<C-w>h<CR>" },
@@ -37,9 +37,6 @@ local function set_mappings()
 		{ "i", "<down>", "<nop>" },
 		{ "i", "<left>", "<nop>" },
 		{ "i", "<right>", "<nop>" },
-		-- autocompete line and filename
-		{ "i", "<C-l>", "<C-x><C-l>" },
-		{ "i", "<C-f>", "<C-x><C-f>" },
 		-- stop c, s and d from yanking
 		{ "n", "c", [["_c]] },
 		{ "x", "c", [["_c]] },

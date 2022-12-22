@@ -260,6 +260,14 @@ local startup = function(use)
 			require("config.persistence")
 		end,
 	})
+	use({
+		"rest-nvim/rest.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("config.rest")
+		end,
+	})
+	use({ "stevearc/dressing.nvim" })
 
 	-- ai
 	use({
@@ -279,14 +287,6 @@ local startup = function(use)
 			"nvim-telescope/telescope.nvim",
 		},
 	})
-	use({
-		"rest-nvim/rest.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("config.rest")
-		end,
-	})
-	use({ "stevearc/dressing.nvim" })
 end
 
 -- load plugins
