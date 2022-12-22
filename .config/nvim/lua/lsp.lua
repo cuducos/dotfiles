@@ -6,10 +6,11 @@ local function on_attach(client, bufnr)
 	local opts = { silent = true, noremap = true, buffer = true }
 	local mappings = {
 		{ "n", "gd", vim.lsp.buf.definition, opts },
+		{ "n", "gD", vim.lsp.buf.type_definition, opts },
 		{ "n", "gr", vim.lsp.buf.rename, opts },
 		{ "n", "gs", vim.lsp.buf.hover, opts },
-		{ "n", "[e", vim.lsp.diagnostic.goto_next, opts },
-		{ "n", "]e", vim.lsp.diagnostic.goto_prev, opts },
+		{ "n", "[e", vim.diagnostic.goto_next, opts },
+		{ "n", "]e", vim.diagnostic.goto_prev, opts },
 		{ "n", "<leader>s", require("telescope.builtin").lsp_document_symbols, opts },
 		{ "n", "<leader>S", require("telescope.builtin").lsp_workspace_symbols, opts },
 		{ "n", "<leader>r", require("telescope.builtin").lsp_references, opts },
