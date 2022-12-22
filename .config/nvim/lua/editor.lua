@@ -135,8 +135,8 @@ local function set_options()
     cnoreabbrev WQ wq
     cnoreabbrev Wqa wqa
 
-    iabbrev /t <ESC>oTODO<ESC>VgckJ$a
-    iabbrev /r <ESC>oTODO: remove<ESC>VgckJ$a
+    iabbrev /t <ESC>oTODO<ESC><ESC><ESC>VgckJ$a
+    iabbrev /r <ESC>oTODO: remove<ESC><ESC><ESC>VgckJ$a
     ]])
 end
 
