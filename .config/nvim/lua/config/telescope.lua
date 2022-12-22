@@ -13,7 +13,6 @@ local mappings = {
 	{ "n", "<Leader>m", builtin.keymaps },
 	{ "n", "<leader>n", telescope.extensions.notify.notify },
 	{ "n", "<leader>nt", telescope.extensions.file_browser.file_browser },
-	{ "n", "<leader>s", builtin.lsp_document_symbols },
 	{ "n", "<leader>ts", builtin.treesitter },
 	{
 		"n",

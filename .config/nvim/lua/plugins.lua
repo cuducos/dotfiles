@@ -37,7 +37,6 @@ local startup = function(use)
 		"nvim-telescope/telescope.nvim",
 		requires = {
 			"nvim-lua/plenary.nvim",
-			"nvim-lua/popup.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
 		},
 		config = function()

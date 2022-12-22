@@ -3,8 +3,6 @@ M = {}
 M.shopify = string.find(vim.loop.cwd(), "Shopify") or os.getenv("SPIN") ~= nil
 
 local function on_attach(client, bufnr)
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.lsp.omnifunc")
-
 	local opts = { silent = true, noremap = true, buffer = true }
 	local mappings = {
 		{ "n", "gd", vim.lsp.buf.definition, opts },
@@ -15,9 +13,7 @@ local function on_attach(client, bufnr)
 		{ "n", "<leader>lsp", require("telescope.builtin").lsp_document_symbols, opts },
 	}
 	for _, mapping in pairs(mappings) do
-		if mapping[3] ~= nil then
-			vim.keymap.set(unpack(mapping))
-		end
+		vim.keymap.set(unpack(mapping))
 	end
 
 	local diagnostic = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
