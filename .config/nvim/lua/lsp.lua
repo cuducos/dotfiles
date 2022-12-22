@@ -2,6 +2,16 @@ M = {}
 
 M.shopify = string.find(vim.loop.cwd(), "Shopify") or os.getenv("SPIN") ~= nil
 
+local has_float = function()
+	local wins = vim.api.nvim_list_wins()
+	for _, win in pairs(wins) do
+		if vim.api.nvim_win_get_config(win).relative ~= "" then
+			return true
+		end
+	end
+	return false
+end
+
 local function on_attach(client, bufnr)
 	local opts = { silent = true, noremap = true, buffer = true }
 	local mappings = {
@@ -22,6 +32,10 @@ local function on_attach(client, bufnr)
 	local diagnostic = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
 	vim.api.nvim_create_autocmd("CursorHold", {
 		callback = function()
+			if has_float() then
+				return
+			end
+
 			vim.diagnostic.open_float(nil, { focus = false })
 		end,
 		group = diagnostic,
