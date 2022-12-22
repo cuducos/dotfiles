@@ -89,6 +89,8 @@ local function set_options()
 		wildignore = "*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite",
 		laststatus = 3,
 		updatetime = 100,
+		completeopt = "menuone,noinsert,noselect",
+		shortmess = vim.opt.shortmess + "c",
 	}
 	for key, val in pairs(options) do
 		vim.opt[key] = val

@@ -77,6 +77,7 @@ local startup = function(use)
 			"onsails/lspkind.nvim",
 			"ray-x/cmp-treesitter",
 			"saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-copilot",
 		},
 		config = function()
 			require("config.cmp")
