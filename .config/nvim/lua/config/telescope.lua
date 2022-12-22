@@ -6,6 +6,7 @@ telescope.load_extension("file_browser")
 
 local mappings = {
 	{ "n", "<Leader>f", builtin.git_files },
+	{ "n", "<Leader>F", builtin.find_files },
 	{ "n", "<Leader>G", builtin.git_status },
 	{ "n", "<Leader>b", builtin.buffers },
 	{ "n", "<Leader>o", builtin.oldfiles },

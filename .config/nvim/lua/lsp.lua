@@ -10,7 +10,9 @@ local function on_attach(client, bufnr)
 		{ "n", "gs", vim.lsp.buf.hover, opts },
 		{ "n", "[e", vim.lsp.diagnostic.goto_next, opts },
 		{ "n", "]e", vim.lsp.diagnostic.goto_prev, opts },
-		{ "n", "<leader>lsp", require("telescope.builtin").lsp_document_symbols, opts },
+		{ "n", "<leader>s", require("telescope.builtin").lsp_document_symbols, opts },
+		{ "n", "<leader>S", require("telescope.builtin").lsp_workspace_symbols, opts },
+		{ "n", "<leader>r", require("telescope.builtin").lsp_references, opts },
 	}
 	for _, mapping in pairs(mappings) do
 		vim.keymap.set(unpack(mapping))
