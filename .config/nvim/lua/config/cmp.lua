@@ -23,7 +23,7 @@ cmp.setup({
 			end
 		end, { "i", "s" }),
 		["<Esc>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+		["<CR>"] = cmp.mapping.confirm(),
 	},
 	sources = {
 		{ name = "copilot" },
