@@ -268,6 +268,12 @@ local startup = function(use)
 		end,
 	})
 	use({ "stevearc/dressing.nvim" })
+	use({
+		"ellisonleao/carbon-now.nvim",
+		config = function()
+			require("config.carbon")
+		end,
+	})
 
 	-- ai
 	use({
