@@ -230,6 +230,12 @@ local startup = function(use)
 		end,
 	})
 	use({
+		"akinsho/toggleterm.nvim",
+		config = function()
+			require("config.toggleterm")
+		end,
+	})
+	use({
 		"ojroques/vim-oscyank",
 		config = function()
 			require("config.oscyank")
