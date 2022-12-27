@@ -223,17 +223,21 @@ local startup = function(use)
 	-- general tools
 	use({ "tpope/vim-abolish" })
 	use({ "sQVe/sort.nvim" })
-	if vim.loop.fs_stat("/Users/cuducos/") ~= nil then
-		use({ "rizzatti/dash.vim" })
-	end
-	if os.getenv("SPIN") ~= nil then
-		use({
-			"ojroques/vim-oscyank",
-			config = function()
-				require("config.oscyank")
-			end,
-		})
-	end
+	use({
+		"rizzatti/dash.vim",
+		cond = function()
+			return vim.loop.fs_stat("/Users/cuducos/") ~= nil
+		end,
+	})
+	use({
+		"ojroques/vim-oscyank",
+		config = function()
+			require("config.oscyank")
+		end,
+		cond = function()
+			return os.getenv("SPIN") ~= nil
+		end,
+	})
 	use({
 		"rcarriga/nvim-notify",
 		config = function()
@@ -286,6 +290,9 @@ local startup = function(use)
 		"jackMort/ChatGPT.nvim",
 		config = function()
 			require("config.chatgpt")
+		end,
+		cond = function()
+			return os.getenv("OPENAI_API_KEY") ~= nil
 		end,
 		requires = {
 			"MunifTanjim/nui.nvim",
