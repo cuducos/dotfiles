@@ -22,8 +22,8 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i", "s" }),
-		["<Esc>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm(),
+		["<Esc>"] = cmp.mapping.close(),
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	},
 	sources = {
 		{ name = "copilot" },
@@ -55,5 +55,4 @@ cmp.setup({
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
-	experimental = { ghost_text = true },
 })

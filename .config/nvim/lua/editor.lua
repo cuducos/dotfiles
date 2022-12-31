@@ -67,8 +67,8 @@ local function set_options()
 		termguicolors = true,
 		wildignore = "*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite",
 		laststatus = 3,
-		updatetime = 100,
-		completeopt = "menuone,noinsert,noselect",
+		updatetime = 500,
+		completeopt = "menu,menuone,preview,noselect",
 		shortmess = vim.opt.shortmess + "c",
 	}
 	for key, val in pairs(options) do
