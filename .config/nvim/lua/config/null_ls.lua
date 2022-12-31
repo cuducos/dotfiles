@@ -41,8 +41,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 local mappings = {
-	{ "n", "<leader>ca", vim.lsp.buf.code_action },
-	{ "n", "<leader>af", vim.lsp.buf.format },
+	{ "n", "<Leader><Leader>", vim.lsp.buf.code_action },
+	{ "n", "<Leader>a", vim.lsp.buf.format },
 }
 for _, mapping in pairs(mappings) do
 	vim.keymap.set(unpack(mapping))

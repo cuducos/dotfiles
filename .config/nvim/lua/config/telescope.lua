@@ -28,7 +28,7 @@ local mappings = {
 	{ "n", "<Leader>b", builtin.buffers },
 	{ "n", "<Leader>o", builtin.oldfiles },
 	{ "n", "<Leader>/", builtin.live_grep },
-	{ "n", "<Leader>m", builtin.keymaps },
+	{ "n", "<Leader>k", builtin.keymaps },
 	{ "n", "<leader>n", telescope.extensions.notify.notify },
 	{ "n", "<leader>nt", telescope.extensions.file_browser.file_browser },
 	{ "n", "<leader>ts", builtin.treesitter },
