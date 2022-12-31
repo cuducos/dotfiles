@@ -175,13 +175,6 @@ local startup = function(use)
 			require("config.lualine")
 		end,
 	})
-	use({
-		"jose-elias-alvarez/buftabline.nvim",
-		requires = { "kyazdani42/nvim-web-devicons" },
-		config = function()
-			require("config.buftabline")
-		end,
-	})
 
 	-- visual hints
 	use({ "markonm/traces.vim" })
@@ -211,12 +204,6 @@ local startup = function(use)
 		"rlane/pounce.nvim",
 		config = function()
 			require("config.pounce")
-		end,
-	})
-	use({
-		"terryma/vim-expand-region",
-		config = function()
-			require("config.expand_region")
 		end,
 	})
 
@@ -262,12 +249,6 @@ local startup = function(use)
 		ft = { "elm", "go", "javascript", "python", "ruby", "rust" },
 		config = function()
 			require("config.test")
-		end,
-	})
-	use({
-		"folke/persistence.nvim",
-		config = function()
-			require("config.persistence")
 		end,
 	})
 	use({

@@ -9,15 +9,7 @@ local function set_mappings()
 		{ "n", "<leader>,", "<Cmd>nohl<CR>" },
 		{ "n", "<Leader>#", ":set relativenumber!<CR>" },
 		-- buffer and aplist navigation
-		{ "n", "<leader><leader>", "<C-^>" },
-		{ "n", "<C-h>", "<C-w>h<CR>" },
-		{ "n", "<C-j>", "<C-w>j<CR>" },
-		{ "n", "<C-k>", "<C-w>k<CR>" },
-		{ "n", "<C-l>", "<C-w>l<CR>" },
 		{ "n", "<leader>Q", "<C-w>c<CR>" },
-		{ "n", "<leader>w", "<Cmd>w<CR>" },
-		{ "n", "<leader>z", "<Cmd>bp<CR>" },
-		{ "n", "<leader>x", "<Cmd>bn<CR>" },
 		{ "n", "<leader>qa", "<Cmd>bufdo bw<CR>" },
 		{ "n", "<leader>q", "<Cmd>bw<CR>" },
 		-- indent and keep selection
@@ -28,15 +20,6 @@ local function set_mappings()
 		{ "n", "<C-k>", ":m .-2<CR>==" },
 		{ "v", "J", ":m '>+1<CR>gv=gv" },
 		{ "v", "K", ":m '<-2<CR>gv=gv" },
-		-- disable arrows
-		{ "n", "<up>", "<nop>" },
-		{ "n", "<down>", "<nop>" },
-		{ "n", "<left>", "<nop>" },
-		{ "n", "<right>", "<nop>" },
-		{ "i", "<up>", "<nop>" },
-		{ "i", "<down>", "<nop>" },
-		{ "i", "<left>", "<nop>" },
-		{ "i", "<right>", "<nop>" },
 		-- stop c, s and d from yanking
 		{ "n", "c", [["_c]] },
 		{ "x", "c", [["_c]] },
@@ -53,7 +36,6 @@ local function set_mappings()
 		-- select the end of the line without linebreak
 		{ "v", "$", "$h" },
 	}
-
 	for _, val in pairs(mappings) do
 		vim.keymap.set(unpack(val))
 	end
