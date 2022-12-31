@@ -41,6 +41,12 @@ local function on_attach(client, bufnr)
 		group = diagnostic,
 	})
 
+	local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+	for type, icon in pairs(signs) do
+		local hl = "DiagnosticSign" .. type
+		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+	end
+
 	if client.server_capabilities.document_highlight then
 		vim.api.nvim_create_augroup("LspDocumentHighlight", {})
 		vim.api.nvim_create_autocmd("CursorHold", {

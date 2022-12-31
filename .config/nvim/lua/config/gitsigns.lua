@@ -1,32 +1,22 @@
+local opts = { noremap = true, buffer = true }
+
 require("gitsigns").setup({
+	signs = {
+		add = { text = "" },
+		change = { text = "" },
+		delete = { text = "" },
+		topdelete = { text = "" },
+		changedelete = { text = "" },
+		untracked = { text = "┆" },
+	},
 	numhl = true,
-	on_attach = function(bufnr)
-		vim.api.nvim_buf_set_keymap(
-			bufnr,
-			"n",
-			"]h",
-			"&diff ? ']h' : '<cmd>Gitsigns next_hunk<CR>'",
-			{ noremap = true, expr = true }
-		)
-		vim.api.nvim_buf_set_keymap(
-			bufnr,
-			"n",
-			"[h",
-			"&diff ? '[h' : '<cmd>Gitsigns prev_hunk<CR>'",
-			{ noremap = true, expr = true }
-		)
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>hs", ":Gitsigns stage_hunk<CR>", { noremap = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "v", "<leader>hs", ":Gitsigns stage_hunk<CR>", { noremap = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>hr", ":Gitsigns reset_hunk<CR>", { noremap = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "v", "<leader>hr", ":Gitsigns reset_hunk<CR>", { noremap = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>", { noremap = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", { noremap = true })
-		vim.api.nvim_buf_set_keymap(
-			bufnr,
-			"n",
-			"<leader>hb",
-			"<cmd>Gitsigns toggle_current_line_blame<CR>",
-			{ noremap = true }
-		)
+	on_attach = function(_)
+		vim.keymap.set("n", "+", require("gitsigns").next_hunk, opts)
+		vim.keymap.set("n", "_", require("gitsigns").prev_hunk, opts)
+		vim.keymap.set("n", "<Leader>hp", require("gitsigns").preview_hunk, opts)
+		vim.keymap.set("n", "<Leader>hs", require("gitsigns").stage_hunk, opts)
+		vim.keymap.set("n", "<Leader>hr", require("gitsigns").reset_hunk, opts)
+		vim.keymap.set("n", "<Leader>hu", require("gitsigns").undo_stage_hunk, opts)
+		vim.keymap.set("n", "<Leader>hb", require("gitsigns").toggle_current_line_blame, opts)
 	end,
 })
