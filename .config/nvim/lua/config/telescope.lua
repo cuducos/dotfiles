@@ -13,7 +13,7 @@ local mappings = {
 			if vim.v.shell_error == 0 then
 				builtin.git_files()
 			else
-				builtin.find_files()
+				builtin.find_files({ hidden = true })
 			end
 		end,
 	},
