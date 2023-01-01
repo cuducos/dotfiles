@@ -101,6 +101,7 @@ local base = {
 	formatters = {
 		"sql-formatter",
 		"stylua",
+		"rustfmt",
 	},
 }
 
