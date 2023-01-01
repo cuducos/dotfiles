@@ -124,6 +124,12 @@ local startup = function(use)
 			require("config.iswap")
 		end,
 	})
+	use({
+		"j-hui/fidget.nvim",
+		config = function()
+			require("config.fidget")
+		end,
+	})
 
 	-- snippets
 	use({
