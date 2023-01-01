@@ -1,6 +1,6 @@
 [user]
     name = Eduardo Cuducos
-    email = 4732915+cuducos@users.noreply.github.com
+    email = 432915+cuducos@users.noreply.github.com
 
 [color]
     diff = auto
@@ -22,7 +22,7 @@
 [cola]
     spellcheck = true
 [pull]
-	rebase = false
+    rebase = false
 
 [pager]
     diff = delta
@@ -44,6 +44,7 @@
     file-decoration-style = none
 
 [include]
-	path = /Users/cuducos/.config/dev/gitconfig
+    path = /Users/cuducos/.config/dev/gitconfig
+
 [help]
-	autocorrect = 70
+    autocorrect = 42
