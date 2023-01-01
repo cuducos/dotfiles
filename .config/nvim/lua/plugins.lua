@@ -118,6 +118,12 @@ local startup = function(use)
 			require("config.trevj")
 		end,
 	})
+	use({
+		"mizlan/iswap.nvim",
+		config = function()
+			require("config.iswap")
+		end,
+	})
 
 	-- snippets
 	use({
