@@ -1,4 +1,4 @@
-if os.execute("fish --version") == 0 then
+if vim.fn.executable("fish") == 1 then
 	vim.o.shell = "fish"
 end
 

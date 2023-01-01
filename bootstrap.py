@@ -110,7 +110,7 @@ def configure_nvim():
     commands = (
         ("packadd packer.nvim", "quitall"),
         ("autocmd User PackerComplete quitall", "PackerSync"),
-        ("UpdateRemotePlugins", "quitall"),
+        ("silent UpdateRemotePlugins", "quitall"),
     )
     for cmd1, cmd2 in commands:
         os.system(f"nvim --headless -c '{cmd1}' -c '{cmd2}'")
