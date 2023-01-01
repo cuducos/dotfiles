@@ -8,6 +8,7 @@ local function set_mappings()
 	local mappings = {
 		{ "n", "<leader>,", "<Cmd>nohl<CR>" },
 		{ "n", "<Leader>#", ":set relativenumber!<CR>" },
+		{ "n", "<leader>w", ":w<CR>" },
 		-- buffer and aplist navigation
 		{ "n", "<leader>Q", "<C-w>c<CR>" },
 		{ "n", "<leader>qa", "<Cmd>bufdo bw<CR>" },
