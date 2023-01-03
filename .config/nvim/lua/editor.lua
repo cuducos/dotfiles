@@ -77,11 +77,11 @@ local function set_options()
 	end
 
 	local line_numbers = vim.api.nvim_create_augroup("LineNumbers", {})
-	local set_relative = { "InsertEnter", "FocusGained", "BufEnter" }
+	local set_relative = { "InsertLeave", "FocusGained", "BufEnter", "CmdlineLeave", "WinEnter" }
 	for _, value in pairs(set_relative) do
 		vim.api.nvim_create_autocmd(value, { group = line_numbers, pattern = "*", command = "set relativenumber" })
 	end
-	local set_non_relative = { "InsertLeave", "FocusLost", "BufLeave" }
+	local set_non_relative = { "InsertEnter", "FocusLost", "BufLeave", "CmdlineEnter", "WinLeave" }
 	for _, value in pairs(set_non_relative) do
 		vim.api.nvim_create_autocmd(value, { group = line_numbers, pattern = "*", command = "set norelativenumber" })
 	end
