@@ -277,6 +277,13 @@ local startup = function(use)
 			require("config.carbon")
 		end,
 	})
+	use({
+		"goolord/alpha-nvim",
+		requires = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("config.alpha")
+		end,
+	})
 
 	-- ai
 	use({
