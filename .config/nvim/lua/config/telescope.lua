@@ -32,7 +32,7 @@ local mappings = {
 		end,
 	},
 	{ "n", "<Leader>G", builtin.git_status },
-	{ "n", "<Leader>b", builtin.buffers },
+	{ "n", "<Tab><Tab>", builtin.buffers },
 	{ "n", "<Leader>o", builtin.oldfiles },
 	{ "n", "<Leader>/", builtin.live_grep },
 	{ "n", "<Leader>k", builtin.keymaps },
@@ -55,6 +55,7 @@ for _, val in pairs(mappings) do
 	vim.keymap.set(unpack(val))
 end
 
+vim.cmd("command! -nargs=? FindInDir lua require('telescope.builtin').live_grep({search_dirs = { <f-args> }})")
 vim.cmd(
-	"command! -nargs=? FindIn lua require('telescope.builtin').live_grep({type_filter = <f-args>, results_title = 'rg --type-list to show supported types'})"
+	"command! -nargs=? FindByType lua require('telescope.builtin').live_grep({type_filter = <f-args>, results_title = 'rg --type-list to show supported types'})"
 )
