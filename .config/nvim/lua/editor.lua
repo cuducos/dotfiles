@@ -9,7 +9,8 @@ local function set_mappings()
 		{ "n", "<leader>,", "<Cmd>nohl<CR>" },
 		{ "n", "<Leader>#", ":set relativenumber!<CR>" },
 		{ "n", "<leader>w", ":w<CR>" },
-		-- buffer and aplist navigation
+		{ "n", "vv", "viw" },
+		-- buffer and split management
 		{ "n", "<leader>Q", "<C-w>c<CR>" },
 		{ "n", "<leader>qa", "<Cmd>bufdo bw<CR>" },
 		{ "n", "<leader>q", "<Cmd>bw<CR>" },
