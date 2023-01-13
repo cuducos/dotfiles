@@ -19,6 +19,13 @@ local mappings = {
 	},
 	{
 		"n",
+		"<Leader>-",
+		function()
+			telescope.extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h") })
+		end,
+	},
+	{
+		"n",
 		"<Leader>F",
 		function()
 			builtin.find_files({ hidden = true, ignore = ".git/" })
