@@ -284,6 +284,14 @@ local startup = function(use)
 			require("config.alpha")
 		end,
 	})
+	use({
+		"michaelb/sniprun",
+		run = "bash install.sh",
+		cmd = { "SnipRun", "SnipInfo" },
+		cond = function()
+			return vim.fn.executable("cargo") == 1
+		end,
+	})
 
 	-- ai
 	use({
