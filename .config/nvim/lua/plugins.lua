@@ -230,15 +230,6 @@ local startup = function(use)
 		end,
 	})
 	use({
-		"ojroques/vim-oscyank",
-		config = function()
-			require("config.oscyank")
-		end,
-		cond = function()
-			return os.getenv("SPIN") ~= nil
-		end,
-	})
-	use({
 		"rcarriga/nvim-notify",
 		config = function()
 			require("config.notify")
