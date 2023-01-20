@@ -114,13 +114,6 @@ local startup = function(use)
 		end,
 	})
 	use({
-		"AckslD/nvim-trevJ.lua",
-		ft = { "go", "html", "treesitter", "lua", "python", "ruby", "rust", "typescript" },
-		config = function()
-			require("config.trevj")
-		end,
-	})
-	use({
 		"mizlan/iswap.nvim",
 		config = function()
 			require("config.iswap")
