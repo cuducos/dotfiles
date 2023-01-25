@@ -16,11 +16,10 @@ local highlights_for = function(mode)
 	if mode == "Mini" then
 		fmt.background = "#d0d3dc"
 	end
-	result = {
+	return {
 		border = "Normal",
 		accent = wilder.make_hl("WilderAccent" .. mode, "Pmenu", { { a = 1 }, { a = 1 }, fmt }),
 	}
-	return result
 end
 
 wilder.setup({ modes = { ":", "/" } })

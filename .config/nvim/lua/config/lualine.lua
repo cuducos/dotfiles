@@ -1,4 +1,4 @@
-function search_count()
+local function search_count()
 	if vim.v.hlsearch == 0 then
 		return ""
 	end
