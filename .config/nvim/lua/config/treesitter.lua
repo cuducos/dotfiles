@@ -18,6 +18,7 @@ require("nvim-treesitter.configs").setup({
 		"scss",
 		"toml",
 		"yaml",
+		"vim",
 	},
 	highlight = { enable = true, disable = {} },
 	incremental_selection = {
