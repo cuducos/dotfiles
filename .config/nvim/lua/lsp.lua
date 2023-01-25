@@ -24,6 +24,8 @@ local function on_attach(client, bufnr)
 		{ "n", "<leader>s", require("telescope.builtin").lsp_document_symbols, opts },
 		{ "n", "<leader>S", require("telescope.builtin").lsp_workspace_symbols, opts },
 		{ "n", "<leader>r", require("telescope.builtin").lsp_references, opts },
+		{ "n", "<Leader>a", vim.lsp.buf.format },
+		{ "n", "<Leader><Leader>", vim.lsp.buf.code_action },
 	}
 	for _, mapping in pairs(mappings) do
 		vim.keymap.set(unpack(mapping))

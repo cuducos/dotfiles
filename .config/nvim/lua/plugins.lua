@@ -1,25 +1,17 @@
 -- bootstrap Packer
-local fresh_install = false
-local packer_path = "/site/pack/packer/start/packer.nvim"
-local install_path = vim.fn.stdpath("data") .. packer_path
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	local repo = "https://github.com/wbthomason/packer.nvim"
-	local clone = { "git", "clone", "--depth", "1", repo, install_path }
-	vim.fn.system(clone)
-	fresh_install = true
+	vim.fn.system({
+		"git",
+		"clone",
+		"--depth",
+		"1",
+		"https://github.com/wbthomason/packer.nvim",
+		install_path,
+	})
 end
 
 vim.cmd("packadd packer.nvim")
-
-if fresh_install then
-	require("packer").sync()
-end
-
-local packer_user_config = vim.api.nvim_create_augroup("PackerUserConfig", {})
-vim.api.nvim_create_autocmd(
-	"BufWritePost",
-	{ group = packer_user_config, pattern = "plugins.lua", command = "source <afile> | PackerCompile" }
-)
 
 -- add plugins
 local startup = function(use)
@@ -78,8 +70,18 @@ local startup = function(use)
 			"hrsh7th/cmp-path",
 			"onsails/lspkind.nvim",
 			"ray-x/cmp-treesitter",
-			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-copilot",
+			{
+				"saadparwaiz1/cmp_luasnip",
+				requires = {
+					"L3MON4D3/LuaSnip",
+					tag = "v1.*",
+					requires = { "rafamadriz/friendly-snippets" },
+					config = function()
+						require("config.luasnip")
+					end,
+				},
+			},
 		},
 		config = function()
 			require("config.cmp")
@@ -123,15 +125,6 @@ local startup = function(use)
 		"j-hui/fidget.nvim",
 		config = function()
 			require("config.fidget")
-		end,
-	})
-
-	-- snippets
-	use({
-		"L3MON4D3/LuaSnip",
-		tag = "v1.*",
-		config = function()
-			require("config.luasnip")
 		end,
 	})
 
@@ -303,4 +296,4 @@ local startup = function(use)
 end
 
 -- load plugins
-return require("packer").startup(startup)
+return require("packer").startup({ startup, config = { autoremove = true } })

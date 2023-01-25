@@ -24,5 +24,5 @@ require("catppuccin").setup({
 })
 vim.cmd("colorscheme catppuccin")
 
--- make set float window background color to the same as the normal window
+-- set float window background color to the same as the normal window
 vim.cmd("highlight NormalFloat guifg=#4c4f69 guibg=#eff1f5")
