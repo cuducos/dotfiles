@@ -55,10 +55,11 @@ local startup = function(use)
 	})
 	use({
 		"williamboman/mason.nvim",
-		requires = { "neovim/nvim-lspconfig", "williamboman/mason-lspconfig.nvim" },
+		requires = { "neovim/nvim-lspconfig", "williamboman/mason-lspconfig.nvim", "simrat39/rust-tools.nvim" },
 		config = function()
 			require("config.mason")
 			require("config.ruby_lsp")
+			require("config.rust_tools")
 		end,
 	})
 	use({

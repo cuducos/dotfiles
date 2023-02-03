@@ -12,7 +12,7 @@ local has_float = function()
 	return false
 end
 
-local function on_attach(client, bufnr)
+M.on_attach = function(client, _bufnr)
 	local opts = { silent = true, noremap = true, buffer = true }
 	local mappings = {
 		{ "n", "gd", vim.lsp.buf.definition, opts },
@@ -87,7 +87,7 @@ M.make_config = function()
 		properties = { "documentation", "detail", "additionalTextEdits" },
 	}
 	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-	return { on_attach = on_attach, capabilities = capabilities, handlers = handlers }
+	return { on_attach = M.on_attach, capabilities = capabilities, handlers = handlers }
 end
 
 local base = {

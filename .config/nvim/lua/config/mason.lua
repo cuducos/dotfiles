@@ -12,13 +12,7 @@ local function setup_servers()
 			lsp_config[server].setup(config)
 		end,
 		["rust_analyzer"] = function()
-			local config = lsp.make_config()
-			config.settings = {
-				["rust-analyzer"] = {
-					checkOnSave = { command = "clippy" },
-				},
-			}
-			lsp_config.rust_analyzer.setup(config)
+			return -- done in rust_tools
 		end,
 		["sumneko_lua"] = function()
 			local config = lsp.make_config()
