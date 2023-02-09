@@ -95,7 +95,6 @@ set PATH $HOME/.npm-global/bin $PATH
 if test -f /opt/dev/dev.fish
   source /opt/dev/dev.fish
   set -x DISABLE_SPRING true
-  set -x DISABLE_HYPERWALLET_API_INTERCEPTOR 1
 end
 
 # aliases
