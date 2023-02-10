@@ -29,7 +29,7 @@ require("lualine").setup({
 				},
 			},
 		},
-		lualine_x = { search_count, "diagnostics", "fileformat", "encoding" },
+		lualine_x = { "lsp_progress", search_count, "diagnostics", "fileformat", "encoding" },
 		lualine_y = { "diff" },
 		lualine_z = { "location", "progress" },
 	},

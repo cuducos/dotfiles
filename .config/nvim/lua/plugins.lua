@@ -122,12 +122,6 @@ local startup = function(use)
 			require("config.iswap")
 		end,
 	})
-	use({
-		"j-hui/fidget.nvim",
-		config = function()
-			require("config.fidget")
-		end,
-	})
 
 	-- language specific
 	use({
@@ -171,7 +165,10 @@ local startup = function(use)
 	-- status & tab lines
 	use({
 		"hoob3rt/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		requires = {
+			{ "kyazdani42/nvim-web-devicons", opt = true },
+			"WhoIsSethDaniel/lualine-lsp-progress.nvim",
+		},
 		config = function()
 			require("config.lualine")
 		end,
