@@ -93,7 +93,7 @@ end
 local base = {
 	servers = {
 		"cssls",
-		"sumneko_lua",
+		"lua_ls",
 		"yamlls",
 	},
 	linters = {

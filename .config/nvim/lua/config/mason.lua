@@ -14,7 +14,7 @@ local function setup_servers()
 		["rust_analyzer"] = function()
 			return -- done in rust_tools
 		end,
-		["sumneko_lua"] = function()
+		["lua_ls"] = function()
 			local config = lsp.make_config()
 			config.settings = {
 				Lua = {
@@ -22,7 +22,7 @@ local function setup_servers()
 					diagnostics = { globals = { "vim" } },
 				},
 			}
-			lsp_config.sumneko_lua.setup(config)
+			lsp_config.lua_ls.setup(config)
 		end,
 		["pyright"] = function()
 			local config = lsp.make_pyright_config()
