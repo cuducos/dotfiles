@@ -99,6 +99,7 @@ end
 
 # aliases
 alias ll "ls -laGh"
+alias tmp "cd (mktemp -d)"
 
 # bat
 set -x BAT_THEME OneHalfLight
