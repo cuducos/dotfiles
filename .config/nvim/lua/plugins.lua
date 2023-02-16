@@ -270,6 +270,23 @@ local startup = function(use)
 		end,
 	})
 
+	-- shopify
+	use({
+		"ojroques/vim-oscyank",
+		config = function()
+			require("config.oscyank")
+		end,
+		cond = function()
+			return os.getenv("SPIN") ~= nil
+		end,
+	})
+	use({
+		"Shopify/spin-hud",
+		cond = function()
+			return os.getenv("SPIN") ~= nil
+		end,
+	})
+
 	-- ai
 	use({
 		"github/copilot.vim",
