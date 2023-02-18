@@ -3,7 +3,7 @@ import platform
 import venv
 from itertools import chain
 from pathlib import Path
-from tempfile import NamedTemporaryFile
+from tempfile import TemporaryDirectory
 from urllib.request import urlretrieve
 
 
@@ -33,6 +33,10 @@ LINUX_FONTS = {
     "Fira Code SemiBold Nerd Font Complete Mono",
 }
 FONTS = dict(zip(FONT_KEYS, MAC_FONTS if IS_MAC else LINUX_FONTS))
+RUST_REPOS = (
+    ("dandavison/delta", "0.15.1"),
+    ("chmln/sd", "v0.7.6"),
+)
 
 
 def create_all_dirs():
@@ -70,14 +74,10 @@ def prepare_spin_instance():
         return
 
     os.system("sudo apt install -y fd-find rust-bat unzip")
-
-    # delta is not an apt
-    version = "0.15.1"
-    deb = f"git-delta_{version}_{platform.machine()}.deb".replace("x86_64", "amd64")
-    url = f"https://github.com/dandavison/delta/releases/download/{version}/{deb}"
-    with NamedTemporaryFile(suffix=".deb") as path:
-        urlretrieve(url, filename=path.name)
-        os.system(f"sudo dpkg -i {path}")
+    for repo, tag in RUST_REPOS:  # delta and sd are not available via apt
+        with TemporaryDirectory() as path:
+            os.system(f"git clone --branch {tag} https://github.com/{repo}.git {path}")
+            os.system(f"cargo install --path {path}")
 
 
 def configure_kitty():
@@ -124,3 +124,4 @@ if __name__ == "__main__":
     configure_kitty()
     install_catppuccin_for_kitty()
     configure_nvim()
+    print()

@@ -20,8 +20,13 @@ RUN apt update && \
     apt install -y curl fd-find gcc git python3 python3-venv wget && \
     ln -s $(which fdfind) /usr/local/bin/fd && \
     rm -rf /var/lib/apt/lists/*
+
 RUN useradd -ms /bin/bash cuducos
 USER cuducos
+
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y && \
+    echo "source $HOME/.cargo/env" >> $HOME/.bashrc
+
 WORKDIR /home/cuducos/dotfiles/
 ADD . .
 CMD ./bootstrap.sh
