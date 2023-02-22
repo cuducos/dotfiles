@@ -97,15 +97,6 @@ def configure_kitty():
     (KITTY_CONF / "shell.conf").write_text(f"shell\t{fish}")
 
 
-def install_catppuccin_for_kitty():
-    path = KITTY_CONF / "catppuccin-latte.conf"
-    if path.exists():
-        return
-
-    url = "https://raw.githubusercontent.com/catppuccin/kitty/main/latte.conf"
-    urlretrieve(str(url), filename=path)
-
-
 def configure_nvim():
     commands = (
         ("packadd packer.nvim", "quitall"),
@@ -122,6 +113,5 @@ if __name__ == "__main__":
     create_nvim_virtualenv()
     prepare_spin_instance()
     configure_kitty()
-    install_catppuccin_for_kitty()
     configure_nvim()
     print()
