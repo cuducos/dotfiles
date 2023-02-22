@@ -196,6 +196,12 @@ local startup = function(use)
 		end,
 	})
 	use({ "andymass/vim-matchup" })
+	use({
+		"m4xshen/smartcolumn.nvim",
+		config = function()
+			require("config.smartcolumn")
+		end,
+	})
 
 	-- navigation & selection
 	use({

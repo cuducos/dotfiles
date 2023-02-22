@@ -48,7 +48,6 @@ local function set_options()
 		autoindent = true,
 		autoread = true,
 		clipboard = "unnamed,unnamedplus",
-		colorcolumn = "80,88,120",
 		cursorline = true,
 		expandtab = true,
 		foldenable = false,
