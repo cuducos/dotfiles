@@ -30,7 +30,7 @@ require("lualine").setup({
 			},
 		},
 		lualine_x = {
-			{ "lsp_progress", hide = { "ruby_lsp", "copilot" } },
+			{ "lsp_progress", hide = { "copilot", "null-ls", "ruby_lsp", "yamlls" } },
 			search_count,
 			"diagnostics",
 			"fileformat",
