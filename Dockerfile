@@ -24,9 +24,6 @@ RUN apt update && \
 RUN useradd -ms /bin/bash cuducos
 USER cuducos
 
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y && \
-    echo "source $HOME/.cargo/env" >> $HOME/.bashrc
-
 WORKDIR /home/cuducos/dotfiles/
 ADD . .
 CMD ./bootstrap.sh

@@ -1,10 +1,12 @@
+from itertools import chain
+from contextlib import contextmanager
+from multiprocessing import Process
+from pathlib import Path
+from tempfile import NamedTemporaryFile, TemporaryDirectory
+from urllib.request import urlretrieve
 import os
 import platform
 import venv
-from itertools import chain
-from pathlib import Path
-from tempfile import TemporaryDirectory
-from urllib.request import urlretrieve
 
 
 DOTFILES_DIR = Path.cwd()
@@ -33,10 +35,11 @@ LINUX_FONTS = {
     "Fira Code SemiBold Nerd Font Complete Mono",
 }
 FONTS = dict(zip(FONT_KEYS, MAC_FONTS if IS_MAC else LINUX_FONTS))
-RUST_REPOS = (
+RUST_PKGS = (
     ("dandavison/delta", "0.15.1"),
     ("chmln/sd", "v0.7.6"),
 )
+APT_PKGS = ("fd-find", "rust-bat", "unzip")
 
 
 def create_all_dirs():
@@ -69,15 +72,42 @@ def create_nvim_virtualenv():
     os.system(f"{NEOVIM_PYTHON} -m pip install black neovim")
 
 
+def install_from_git_with_cargo(repo, tag):
+    with TemporaryDirectory() as path:
+        os.system(f"git clone --branch {tag} https://github.com/{repo}.git {path}")
+        os.system(f"{HOME_DIR / '.cargo' / 'bin' / 'cargo'} install --path {path}")
+
+
 def prepare_spin_instance():
     if not os.getenv("SPIN"):
         return
 
-    os.system("sudo apt install -y fd-find rust-bat unzip")
-    for repo, tag in RUST_REPOS:  # delta and sd are not available via apt
-        with TemporaryDirectory() as path:
-            os.system(f"git clone --branch {tag} https://github.com/{repo}.git {path}")
-            os.system(f"cargo install --path {path}")
+    with NamedTemporaryFile() as tmp:
+        urlretrieve("https://sh.rustup.rs", filename=tmp.name)
+        os.system(f"sh {tmp.name} -y")
+
+    tasks = [
+        Process(target=lambda: install_from_git_with_cargo(repo, tag))
+        for repo, tag in RUST_PKGS
+    ]
+    tasks.append(
+        Process(target=lambda: os.system(f"sudo apt install -y {' '.join(APT_PKGS)}"))
+    )
+    for task in tasks:
+        tasks.start()
+    for task in tasks:
+        task.join()
+
+
+@contextmanager
+def provisioned_spin():
+    if not os.getenv("SPIN"):
+        return
+
+    spin = Process(target=prepare_spin_instance)
+    spin.start()
+    yield
+    spin.join()
 
 
 def configure_kitty():
@@ -108,10 +138,9 @@ def configure_nvim():
 
 
 if __name__ == "__main__":
-    create_all_dirs()
-    create_all_symlinks()
-    create_nvim_virtualenv()
-    prepare_spin_instance()
-    configure_kitty()
-    configure_nvim()
-    print()
+    with provisioned_spin():
+        create_all_dirs()
+        create_all_symlinks()
+        configure_kitty()
+        create_nvim_virtualenv()
+        configure_nvim()
