@@ -2,7 +2,11 @@ local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 
 telescope.setup({ extensions = { file_browser = { hijack_netrw = true } } })
-telescope.load_extension("file_browser")
+
+local extensions = { "advanced_git_search", "file_browser" }
+for _, ext in pairs(extensions) do
+	telescope.load_extension(ext)
+end
 
 local mappings = {
 	{
@@ -39,6 +43,7 @@ local mappings = {
 	{ "n", "<leader>n", telescope.extensions.notify.notify },
 	{ "n", "<leader>nt", telescope.extensions.file_browser.file_browser },
 	{ "n", "<leader>ts", builtin.treesitter },
+	{ "n", "<leader>gb", telescope.extensions.advanced_git_search.diff_commit_file },
 	{
 		"n",
 		"<Leader>df",

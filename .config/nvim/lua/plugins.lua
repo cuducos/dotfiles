@@ -32,6 +32,10 @@ local startup = function(use)
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-file-browser.nvim",
+			{
+				"aaronhallaert/advanced-git-search.nvim",
+				requires = { "tpope/vim-fugitive" },
+			},
 		},
 		config = function()
 			require("config.telescope")
