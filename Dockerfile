@@ -17,7 +17,7 @@ COPY --from=neovim /usr/local/share/nvim /usr/local/share/nvim
 COPY --from=neovim /usr/local/lib/nvim /usr/local/lib/nvim
 COPY --from=neovim /usr/local/bin/nvim /usr/local/bin/nvim
 RUN apt update && \
-    apt install -y curl fd-find gcc git python3 python3-venv wget && \
+    apt install -y curl fd-find gcc git nodejs npm python3 python3-venv wget && \
     ln -s $(which fdfind) /usr/local/bin/fd && \
     rm -rf /var/lib/apt/lists/*
 

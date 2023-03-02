@@ -1,6 +1,5 @@
 from itertools import chain
-from contextlib import contextmanager
-from multiprocessing import Process
+from multiprocessing import Process, freeze_support
 from pathlib import Path
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from urllib.request import urlretrieve
@@ -42,6 +41,31 @@ RUST_PKGS = (
 APT_PKGS = ("fd-find", "rust-bat", "unzip")
 
 
+class ConcurrentRunner:
+    def __init__(self):
+        self.tasks = []
+
+    def __enter__(self):
+        return self
+
+    def run(self, func, *args):
+        task = Process(target=func, args=args)
+        task.start()
+        self.tasks.append(task)
+
+    def __exit__(self, _exc_type, _exc_value, _exc_tb):
+        for task in self.tasks:
+            task.join()
+
+
+def which(bin):
+    for directory in os.environ["PATH"].split(os.pathsep):
+        path = Path(directory) / bin
+        if not path.exists() or not path.is_file():
+            continue
+        return path
+
+
 def create_all_dirs():
     for path in DOTFILES_DIR.glob("**/*"):
         if not path.is_dir() or DOTFILES_GIT in path.parents:
@@ -63,61 +87,37 @@ def create_all_symlinks():
         target.symlink_to(path)
 
 
-def create_nvim_virtualenv():
-    if NEOVIM_VENV.exists():
-        return
-
-    venv.create(NEOVIM_VENV, with_pip=True)
-    os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade pip")
-    os.system(f"{NEOVIM_PYTHON} -m pip install black neovim")
-
-
 def install_from_git_with_cargo(repo, tag):
     with TemporaryDirectory() as path:
         os.system(f"git clone --branch {tag} https://github.com/{repo}.git {path}")
         os.system(f"{HOME_DIR / '.cargo' / 'bin' / 'cargo'} install --path {path}")
 
 
-def prepare_spin_instance():
-    if not os.getenv("SPIN"):
+def install_rust():
+    if which("cargo"):
         return
 
     with NamedTemporaryFile() as tmp:
         urlretrieve("https://sh.rustup.rs", filename=tmp.name)
         os.system(f"sh {tmp.name} -y")
 
-    tasks = [
-        Process(target=lambda: install_from_git_with_cargo(repo, tag))
-        for repo, tag in RUST_PKGS
-    ]
-    tasks.append(
-        Process(target=lambda: os.system(f"sudo apt install -y {' '.join(APT_PKGS)}"))
-    )
-    for task in tasks:
-        tasks.start()
-    for task in tasks:
-        task.join()
 
-
-@contextmanager
-def provisioned_spin():
+def configure_spin():
     if not os.getenv("SPIN"):
         return
 
-    spin = Process(target=prepare_spin_instance)
-    spin.start()
-    yield
-    spin.join()
+    with ConcurrentRunner() as runner:
+        apt = f"apt install -y {' '.join(APT_PKGS)}"
+        if which("sudo"):
+            apt = f"sudo {apt}"
+
+        runner.run(os.system, apt)
+        install_rust()
+        for repo, tag in RUST_PKGS:
+            runner.run(install_from_git_with_cargo, repo, tag)
 
 
 def configure_kitty():
-    def which(bin):
-        for directory in os.environ["PATH"].split(os.pathsep):
-            path = Path(directory) / bin
-            if not path.exists() or not path.is_file():
-                continue
-            return path
-
     fish = which("fish")
     if IS_MAC:
         fish = f"{fish} --login --interactive"
@@ -128,6 +128,13 @@ def configure_kitty():
 
 
 def configure_nvim():
+    if NEOVIM_VENV.exists():
+        return
+
+    venv.create(NEOVIM_VENV, with_pip=True)
+    os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade pip")
+    os.system(f"{NEOVIM_PYTHON} -m pip install black neovim")
+
     commands = (
         ("packadd packer.nvim", "quitall"),
         ("autocmd User PackerComplete quitall", "PackerSync"),
@@ -138,9 +145,10 @@ def configure_nvim():
 
 
 if __name__ == "__main__":
-    with provisioned_spin():
+    freeze_support()
+    with ConcurrentRunner() as runner:
+        runner.run(configure_spin)
         create_all_dirs()
         create_all_symlinks()
-        configure_kitty()
-        create_nvim_virtualenv()
-        configure_nvim()
+        runner.run(configure_kitty)
+        runner.run(configure_nvim)
