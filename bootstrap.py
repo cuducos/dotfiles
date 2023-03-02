@@ -53,7 +53,7 @@ class ConcurrentRunner:
         task.start()
         self.tasks.append(task)
 
-    def __exit__(self, _exc_type, _exc_value, _exc_tb):
+    def __exit__(self, *_):
         for task in self.tasks:
             task.join()
 
@@ -128,12 +128,10 @@ def configure_kitty():
 
 
 def configure_nvim():
-    if NEOVIM_VENV.exists():
-        return
-
-    venv.create(NEOVIM_VENV, with_pip=True)
-    os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade pip")
-    os.system(f"{NEOVIM_PYTHON} -m pip install black neovim")
+    if not NEOVIM_VENV.exists():
+        venv.create(NEOVIM_VENV, with_pip=True)
+        os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade pip")
+        os.system(f"{NEOVIM_PYTHON} -m pip install black neovim")
 
     commands = (
         ("packadd packer.nvim", "quitall"),
