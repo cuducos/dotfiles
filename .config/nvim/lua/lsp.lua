@@ -99,11 +99,13 @@ local base = {
 	linters = {
 		"markdownlint",
 		"vale",
+		"yamllint",
 	},
 	formatters = {
 		"sql-formatter",
 		"stylua",
 		"rustfmt",
+		"prettierd",
 	},
 }
 
@@ -129,17 +131,17 @@ if M.shopify then
 else
 	extra = {
 		servers = {
-			"bashls",
 			"dockerls",
 			"elmls",
 			"gopls",
 			"jsonls",
 			"pyright",
+			"ruff-lsp",
 			"rust_analyzer",
 		},
 		linters = {
-			"flake8",
 			"staticcheck",
+			"ruff",
 		},
 		formatters = {
 			"elm-format",
