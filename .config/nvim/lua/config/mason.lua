@@ -1,10 +1,10 @@
 local lsp = require("lsp")
 local lsp_config = require("lspconfig")
-local mason = require("mason")
-local mason_lsp_config = require("mason-lspconfig")
 
 local function setup_servers()
-	mason.setup()
+	require("mason").setup()
+
+	local mason_lsp_config = require("mason-lspconfig")
 	mason_lsp_config.setup({ ensure_installed = lsp.to_install.servers })
 	mason_lsp_config.setup_handlers({
 		function(server)

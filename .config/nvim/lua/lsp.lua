@@ -12,7 +12,7 @@ local has_float = function()
 	return false
 end
 
-M.on_attach = function(client, _bufnr)
+M.on_attach = function(client, _)
 	local opts = { silent = true, noremap = true, buffer = true }
 	local mappings = {
 		{ "n", "gd", vim.lsp.buf.definition, opts },
@@ -114,8 +114,17 @@ local extra = {
 }
 
 if M.shopify then
-	extra.servers = {
-		"tsserver",
+	extra = {
+		servers = {
+			"ruby_ls",
+			"tsserver",
+		},
+		linters = {
+			"rubocop",
+		},
+		formatters = {
+			"rubocop",
+		},
 	}
 else
 	extra = {
