@@ -102,10 +102,10 @@ local base = {
 		"yamllint",
 	},
 	formatters = {
+		"prettierd",
+		"rustfmt",
 		"sql-formatter",
 		"stylua",
-		"rustfmt",
-		"prettierd",
 	},
 }
 
@@ -120,6 +120,8 @@ if M.shopify then
 		servers = {
 			"ruby_ls",
 			"tsserver",
+			"solargraph",
+			"sorbet",
 		},
 		linters = {
 			"rubocop",
@@ -140,8 +142,8 @@ else
 			"rust_analyzer",
 		},
 		linters = {
-			"staticcheck",
 			"ruff",
+			"staticcheck",
 		},
 		formatters = {
 			"elm-format",
