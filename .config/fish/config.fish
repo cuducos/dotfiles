@@ -100,6 +100,7 @@ end
 # aliases
 alias ll "ls -laGh"
 alias tmp "cd (mktemp -d)"
+alias tmpy "tmp && python -m venv .venv/ && source .venv/bin/activate.fish && pip install -U pip"
 
 # bat
 set -x BAT_THEME OneHalfLight
