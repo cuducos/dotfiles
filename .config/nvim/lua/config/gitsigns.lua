@@ -10,6 +10,9 @@ require("gitsigns").setup({
 		untracked = { text = "┆" },
 	},
 	numhl = true,
+	current_line_blame_opts = {
+		virt_text_pos = "right_align",
+	},
 	on_attach = function(_)
 		vim.keymap.set("n", "+", require("gitsigns").next_hunk, opts)
 		vim.keymap.set("n", "_", require("gitsigns").prev_hunk, opts)
