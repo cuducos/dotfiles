@@ -138,7 +138,7 @@ else
 			"gopls",
 			"jsonls",
 			"pyright",
-			"ruff-lsp",
+			"ruff_lsp",
 			"rust_analyzer",
 		},
 		linters = {
