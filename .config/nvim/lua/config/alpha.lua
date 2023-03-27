@@ -1,3 +1,5 @@
+local dashboard = require("alpha.themes.dashboard")
+
 local headers = {
 	{
 
@@ -54,14 +56,27 @@ local header = {
 	opts = { position = "center", hl = "Debug" },
 }
 
-local default_mru_ignore = { "gitcommit" }
+local buttons = {
+	type = "group",
+	val = {
+		{ type = "text", val = "Quick links", opts = { hl = "SpecialComment", position = "center" } },
+		{ type = "padding", val = 1 },
+		dashboard.button("e", "  New file", "<cmd>ene<CR>"),
+		dashboard.button("SPC f f", "  Find file"),
+		dashboard.button("SPC f g", "  Live grep"),
+		dashboard.button("c", "  Configuration", "<cmd>cd ~/.config/nvim/ <CR>"),
+		dashboard.button("u", "  Update plugins", "<cmd>PackerSync<CR>"),
+		dashboard.button("q", "  Quit", "<cmd>qa<CR>"),
+	},
+	position = "center",
+}
 
 local config = require("alpha.themes.theta").config
 config.layout[2] = header
 config.layout[6].val = {
 	config.layout[6].val[1],
 	config.layout[6].val[2],
-	config.layout[6].val[3],
+	dashboard.button("i", "  New file", "<cmd>ene<CR>"),
 	config.layout[6].val[7],
 	config.layout[6].val[8],
 }
