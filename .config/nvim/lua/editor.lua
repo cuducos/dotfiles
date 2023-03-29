@@ -48,7 +48,7 @@ local function set_options()
 		autoindent = true,
 		autoread = true,
 		clipboard = "unnamed,unnamedplus",
-		colorcolumn = "80,88,120",
+		colorcolumn = "80",
 		cursorline = true,
 		expandtab = true,
 		foldenable = false,
@@ -127,3 +127,16 @@ end
 set_globals()
 set_mappings()
 set_options()
+
+local colorcolumns_by_filetype = {
+	python = "88",
+	ruby = "120",
+	gitcommit = "72",
+}
+
+for ft, len in pairs(colorcolumns_by_filetype) do
+	vim.api.nvim_create_autocmd({ "FileType" }, {
+		pattern = ft,
+		command = "setlocal colorcolumn=" .. len,
+	})
+end

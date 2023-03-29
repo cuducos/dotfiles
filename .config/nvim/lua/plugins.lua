@@ -178,6 +178,7 @@ local startup = function(use)
 	})
 
 	-- visual hints
+	use("Bekaboo/deadcolumn.nvim")
 	use({ "markonm/traces.vim" })
 	use({
 		"winston0410/range-highlight.nvim",
