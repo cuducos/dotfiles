@@ -1,10 +1,10 @@
 FROM debian:bullseye-slim AS neovim
-ENV NVIM_VERSION 0.8.1
+ENV NVIM_VERSION v0.8.1
 ENV CMAKE_BUILD_TYPE Release
-ENV BUILD_REQUIREMENTS "autoconf automake  cmake  curl doxygen g++ gettext git libtool libtool-bin ninja-build pkg-config unzip"
+ENV BUILD_REQUIREMENTS "cmake curl gcc gettext git ninja-build unzip"
 RUN apt update && \
     apt install -y ${BUILD_REQUIREMENTS} && \
-    git clone --branch v${NVIM_VERSION} https://github.com/neovim/neovim && \
+    git clone --branch ${NVIM_VERSION} https://github.com/neovim/neovim && \
     cd neovim && \
     make install && \
     rm -rf ../neovim && \
