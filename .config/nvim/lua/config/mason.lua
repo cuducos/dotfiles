@@ -28,6 +28,11 @@ local function setup_servers()
 			local config = lsp.make_pyright_config()
 			lsp_config.pyright.setup(config)
 		end,
+		["yamlls"] = function()
+			local config = lsp.make_config()
+			config.settings = { yaml = { keyOrdering = false } }
+			lsp_config.yamlls.setup(config)
+		end,
 	})
 	vim.diagnostic.config({
 		float = { border = "rounded" },
