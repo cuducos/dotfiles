@@ -1,1 +1,1 @@
-require("chatgpt").setup({ keymaps = { close = { "<C-c>" } } })
+require("chatgpt").setup({ yank_register = [["]] })
