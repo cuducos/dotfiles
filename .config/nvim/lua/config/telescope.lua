@@ -35,6 +35,7 @@ local mappings = {
 			builtin.find_files({ hidden = true, ignore = ".git/" })
 		end,
 	},
+	{ "n", "<C-Space>", builtin.builtin },
 	{ "n", "<Leader>G", builtin.git_status },
 	{ "n", "<Tab><Tab>", builtin.buffers },
 	{ "n", "<Leader>o", builtin.oldfiles },
@@ -43,6 +44,7 @@ local mappings = {
 	{ "n", "<leader>n", telescope.extensions.notify.notify },
 	{ "n", "<leader>nt", telescope.extensions.file_browser.file_browser },
 	{ "n", "<leader>ts", builtin.treesitter },
+	{ "n", "<leader>lr", builtin.lsp_references },
 	{
 		"n",
 		"<leader>gb",
