@@ -275,21 +275,23 @@ local startup = function(use)
 	})
 
 	-- shopify
-	use({
-		"ojroques/vim-oscyank",
-		config = function()
-			require("config.oscyank")
-		end,
-		cond = function()
-			return os.getenv("SPIN") ~= nil
-		end,
-	})
-	use({
-		"Shopify/spin-hud",
-		cond = function()
-			return os.getenv("SPIN") ~= nil
-		end,
-	})
+	if os.getenv("SPIN") ~= nil then
+		use({
+			"ojroques/vim-oscyank",
+			config = function()
+				require("config.oscyank")
+			end,
+			cond = function()
+				return os.getenv("SPIN") ~= nil
+			end,
+		})
+		use({
+			"Shopify/spin-hud",
+			cond = function()
+				return os.getenv("SPIN") ~= nil
+			end,
+		})
+	end
 
 	-- ai
 	use({
