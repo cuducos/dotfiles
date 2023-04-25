@@ -29,7 +29,7 @@ end
 
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = vim.api.nvim_create_augroup("FormatOnSave", {}),
-	pattern = { "*.elm", "*.go", "*.rs", "*.rb", "*.py" },
+	pattern = { "*.elm", "*.go", "*.py", "*.rb", "*.rs", "*.ts", "*.tsx" },
 	callback = function()
 		local path = vim.api.nvim_buf_get_name(0)
 		if is_ruby(path) and not is_shopify(path) then

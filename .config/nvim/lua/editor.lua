@@ -121,6 +121,7 @@ local function set_options()
 
     iabbrev /t <ESC>oTODO<ESC><ESC><ESC>VgckJ$a
     iabbrev /r <ESC>oTODO: remove<ESC><ESC><ESC>VgckJ$a
+    iabbrev byebug binding.pry
     ]])
 end
 
