@@ -52,6 +52,8 @@ local function set_options()
 		cursorline = true,
 		expandtab = true,
 		foldenable = false,
+		foldmethod = "expr",
+		foldexpr = "nvim_treesitter#foldexpr()",
 		hidden = true,
 		ignorecase = true,
 		mouse = "a",
