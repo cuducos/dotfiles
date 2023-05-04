@@ -56,3 +56,4 @@
     lo = log --oneline
     ad = add -p
     br = branch
+    sw = switch
