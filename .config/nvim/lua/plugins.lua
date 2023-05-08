@@ -232,7 +232,7 @@ local startup = function(use)
 	})
 	use({
 		"rgroli/other.nvim",
-		ft = { "ruby", "go" },
+		ft = { "ruby", "go", "typescriptreact" },
 		config = function()
 			require("config.other")
 		end,
