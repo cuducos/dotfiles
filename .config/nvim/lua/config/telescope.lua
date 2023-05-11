@@ -1,7 +1,15 @@
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 
-telescope.setup({ extensions = { file_browser = { hijack_netrw = true } } })
+telescope.setup({
+	defaults = {
+		layout_strategy = "vertical",
+		layout_config = {
+			vertical = { width = 0.99, height = 0.99 },
+		},
+	},
+	extensions = { file_browser = { hijack_netrw = true } },
+})
 
 local extensions = { "advanced_git_search", "file_browser" }
 for _, ext in pairs(extensions) do
