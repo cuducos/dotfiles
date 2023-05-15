@@ -31,7 +31,6 @@ local startup = function(use)
 		"nvim-telescope/telescope.nvim",
 		requires = {
 			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-file-browser.nvim",
 			{
 				"aaronhallaert/advanced-git-search.nvim",
 				requires = { "tpope/vim-fugitive" },
@@ -162,6 +161,15 @@ local startup = function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("config.gitsigns")
+		end,
+	})
+
+	-- file tree
+	use({
+		"kyazdani42/nvim-tree.lua",
+		requires = { "kyazdani42/nvim-web-devicons" },
+		config = function()
+			require("config.tree")
 		end,
 	})
 

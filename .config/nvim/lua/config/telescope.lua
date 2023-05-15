@@ -8,13 +8,9 @@ telescope.setup({
 			vertical = { width = 0.99, height = 0.99 },
 		},
 	},
-	extensions = { file_browser = { hijack_netrw = true } },
 })
 
-local extensions = { "advanced_git_search", "file_browser" }
-for _, ext in pairs(extensions) do
-	telescope.load_extension(ext)
-end
+telescope.load_extension("advanced_git_search")
 
 local mappings = {
 	{
@@ -31,13 +27,6 @@ local mappings = {
 	},
 	{
 		"n",
-		"<Leader>-",
-		function()
-			telescope.extensions.file_browser.file_browser({ path = vim.fn.expand("%:p:h") })
-		end,
-	},
-	{
-		"n",
 		"<Leader>F",
 		function()
 			builtin.find_files({ hidden = true, ignore = ".git/" })
@@ -50,7 +39,6 @@ local mappings = {
 	{ "n", "<Leader>/", builtin.live_grep },
 	{ "n", "<Leader>k", builtin.keymaps },
 	{ "n", "<leader>n", telescope.extensions.notify.notify },
-	{ "n", "<leader>nt", telescope.extensions.file_browser.file_browser },
 	{ "n", "<leader>ts", builtin.treesitter },
 	{ "n", "<leader>lr", builtin.lsp_references },
 	{
