@@ -1,10 +1,13 @@
-vim.g.nvim_tree_width = 36
-vim.g.nvim_tree_width_allow_resize = 1
-
 require("nvim-tree").setup({
+	disable_netrw = true,
+	view = { width = "38%" },
 	renderer = {
 		highlight_opened_files = "all",
 		add_trailing = true,
+	},
+	diagnostics = {
+		enable = true,
+		show_on_dirs = true,
 	},
 	filters = {
 		custom = {
