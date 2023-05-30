@@ -67,13 +67,14 @@ local startup = function(use)
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
+			"hrsh7th/cmp-copilot",
 			"hrsh7th/cmp-emoji",
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-document-symbol",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-path",
 			"onsails/lspkind.nvim",
 			"ray-x/cmp-treesitter",
-			"hrsh7th/cmp-copilot",
 			{
 				"saadparwaiz1/cmp_luasnip",
 				requires = {
