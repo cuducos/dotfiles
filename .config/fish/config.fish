@@ -122,5 +122,7 @@ if type -q ezz
 end
 
 if type -q wed
-  wed
+    if [ (uname -o | string lower) = 'darwin' ]
+        wed notify
+    end
 end
