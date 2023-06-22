@@ -282,6 +282,7 @@ local startup = function(use)
 			return vim.fn.executable("cargo") == 1
 		end,
 	})
+	use("lewis6991/fileline.nvim")
 
 	-- shopify
 	if os.getenv("SPIN") ~= nil then
