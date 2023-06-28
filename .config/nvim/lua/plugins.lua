@@ -283,6 +283,12 @@ local startup = function(use)
 		end,
 	})
 	use("lewis6991/fileline.nvim")
+	use({
+		"m4xshen/hardtime.nvim",
+		config = function()
+			require("config.hardtime")
+		end,
+	})
 
 	-- shopify
 	if os.getenv("SPIN") ~= nil then
