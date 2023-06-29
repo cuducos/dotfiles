@@ -35,6 +35,51 @@ local function setup_servers()
 			config.settings = { yaml = { keyOrdering = false } }
 			lsp_config.yamlls.setup(config)
 		end,
+		["gopls"] = function()
+			local config = lsp.make_config()
+			config.settings = {
+				gopls = {
+					hints = {
+						assignVariableTypes = true,
+						compositeLiteralFields = true,
+						compositeLiteralTypes = true,
+						constantValues = true,
+						functionTypeParameters = true,
+						parameterNames = true,
+						rangeVariableTypes = true,
+					},
+				},
+			}
+			lsp_config.gopls.setup(config)
+		end,
+		["tsserver"] = function()
+			local config = lsp.make_config()
+			config.settings = {
+				javascript = {
+					inlayHints = {
+						includeInlayEnumMemberValueHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayParameterNameHints = "all",
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayVariableTypeHints = true,
+					},
+				},
+				typescript = {
+					inlayHints = {
+						includeInlayEnumMemberValueHints = true,
+						includeInlayFunctionLikeReturnTypeHints = true,
+						includeInlayFunctionParameterTypeHints = true,
+						includeInlayParameterNameHints = "all",
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayVariableTypeHints = true,
+					},
+				},
+			}
+			lsp_config.tsserver.setup(config)
+		end,
 	})
 	vim.diagnostic.config({
 		float = { border = "rounded" },
