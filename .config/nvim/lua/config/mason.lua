@@ -12,7 +12,7 @@ local function setup_servers()
 			lsp_config[server].setup(config)
 		end,
 		["rust_analyzer"] = function()
-			return -- done in rust_tools
+			-- done in rust_tools
 		end,
 		["lua_ls"] = function()
 			local config = lsp.make_config()
@@ -20,6 +20,8 @@ local function setup_servers()
 				Lua = {
 					runtime = { version = "LuaJIT" },
 					diagnostics = { globals = { "vim" } },
+					completion = { callSnippet = "Replace" },
+					hint = { enable = true },
 				},
 			}
 			lsp_config.lua_ls.setup(config)

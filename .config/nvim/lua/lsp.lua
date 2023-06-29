@@ -63,6 +63,9 @@ M.on_attach = function(client, _)
 				vim.lsp.buf.clear_references()
 			end,
 		})
+		if client.server_capabilities.inlayHint then
+			vim.lsp.buf.inlay_hints(0, true)
+		end
 	end
 end
 
