@@ -26,6 +26,13 @@ M.on_attach = function(client, _)
 		{ "n", "<leader>r", require("telescope.builtin").lsp_references, opts },
 		{ "n", "<Leader>a", vim.lsp.buf.format },
 		{ "n", "<Leader><Leader>", vim.lsp.buf.code_action },
+		{
+			"n",
+			"<Leader>ih",
+			function()
+				vim.lsp.buf.inlay_hint(0, nil)
+			end,
+		},
 	}
 	for _, mapping in pairs(mappings) do
 		vim.keymap.set(unpack(mapping))
@@ -63,9 +70,6 @@ M.on_attach = function(client, _)
 				vim.lsp.buf.clear_references()
 			end,
 		})
-		if client.server_capabilities.inlayHint then
-			vim.lsp.buf.inlay_hints(0, true)
-		end
 	end
 end
 
