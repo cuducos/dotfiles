@@ -1,3 +1,3 @@
 -- modules
-require("plugins")
 require("editor")
+require("plugins")
