@@ -10,8 +10,6 @@ telescope.setup({
 	},
 })
 
-telescope.load_extension("advanced_git_search")
-
 local mappings = {
 	{
 		"n",
@@ -41,14 +39,6 @@ local mappings = {
 	{ "n", "<leader>n", telescope.extensions.notify.notify },
 	{ "n", "<leader>ts", builtin.treesitter },
 	{ "n", "<leader>lr", builtin.lsp_references },
-	{
-		"n",
-		"<leader>gb",
-		function()
-			require("gitsigns").toggle_current_line_blame()
-			telescope.extensions.advanced_git_search.diff_commit_file()
-		end,
-	},
 	{
 		"n",
 		"<Leader>df",
