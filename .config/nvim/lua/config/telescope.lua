@@ -36,9 +36,9 @@ local mappings = {
 	{ "n", "<Leader>o", builtin.oldfiles },
 	{ "n", "<Leader>/", builtin.live_grep },
 	{ "n", "<Leader>k", builtin.keymaps },
-	{ "n", "<leader>n", telescope.extensions.notify.notify },
-	{ "n", "<leader>ts", builtin.treesitter },
-	{ "n", "<leader>lr", builtin.lsp_references },
+	{ "n", "<Leader>n", telescope.extensions.notify.notify },
+	{ "n", "<Leader>ts", builtin.treesitter },
+	{ "n", "<Leader>lr", builtin.lsp_references },
 	{
 		"n",
 		"<Leader>df",

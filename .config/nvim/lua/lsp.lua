@@ -21,9 +21,9 @@ M.on_attach = function(client, _)
 		{ "n", "gs", vim.lsp.buf.hover, opts },
 		{ "n", "=", vim.diagnostic.goto_next, opts },
 		{ "n", "-", vim.diagnostic.goto_prev, opts },
-		{ "n", "<leader>s", require("telescope.builtin").lsp_document_symbols, opts },
-		{ "n", "<leader>S", require("telescope.builtin").lsp_workspace_symbols, opts },
-		{ "n", "<leader>r", require("telescope.builtin").lsp_references, opts },
+		{ "n", "<Leader>s", require("telescope.builtin").lsp_document_symbols, opts },
+		{ "n", "<Leader>S", require("telescope.builtin").lsp_workspace_symbols, opts },
+		{ "n", "<Leader>r", require("telescope.builtin").lsp_references, opts },
 		{ "n", "<Leader>a", vim.lsp.buf.format },
 		{ "n", "<Leader><Leader>", vim.lsp.buf.code_action },
 		{

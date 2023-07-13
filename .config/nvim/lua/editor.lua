@@ -6,14 +6,14 @@ end
 
 local function set_mappings()
 	local mappings = {
-		{ "n", "<leader>,", "<Cmd>nohl<CR>" },
+		{ "n", "<Leader>,", "<Cmd>nohl<CR>" },
 		{ "n", "<Leader>#", ":set relativenumber!<CR>" },
-		{ "n", "<leader>w", ":w<CR>" },
+		{ "n", "<Leader>w", ":w<CR>" },
 		{ "n", "vv", "viw" },
 		-- buffer and split management
-		{ "n", "<leader>Q", "<C-w>c<CR>" },
-		{ "n", "<leader>qa", "<Cmd>bufdo bw<CR>" },
-		{ "n", "<leader>q", "<Cmd>bw<CR>" },
+		{ "n", "<Leader>Q", "<C-w>c<CR>" },
+		{ "n", "<Leader>qa", "<Cmd>bufdo bw<CR>" },
+		{ "n", "<Leader>q", "<Cmd>bw<CR>" },
 		-- indent and keep selection
 		{ "", ">", ">gv", {} },
 		{ "", "<", "<gv", {} },
