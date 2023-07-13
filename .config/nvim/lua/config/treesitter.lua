@@ -6,6 +6,7 @@ require("nvim-treesitter.configs").setup({
 		"fish",
 		"go",
 		"gomod",
+		"gitcommit",
 		"html",
 		"http",
 		"javascript",
