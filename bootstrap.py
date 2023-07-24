@@ -35,10 +35,10 @@ LINUX_FONTS = {
 }
 FONTS = dict(zip(FONT_KEYS, MAC_FONTS if IS_MAC else LINUX_FONTS))
 RUST_PKGS = (
-    ("dandavison/delta", "0.15.1"),
+    ("dandavison/delta", "0.16.5"),
     ("chmln/sd", "v0.7.6"),
 )
-APT_PKGS = ("fd-find", "rust-bat", "unzip")
+APT_PKGS = ("fd-find", "bat", "unzip")
 
 
 class ConcurrentRunner:
