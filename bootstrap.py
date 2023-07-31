@@ -133,8 +133,13 @@ def configure_nvim():
         os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade pip")
         os.system(f"{NEOVIM_PYTHON} -m pip install black neovim")
 
-    os.system("nvim --headless '+Lazy! sync' +qa")
-    os.system("nvim --headless -c 'silent UpdateRemotePlugins' -c 'quitall'")
+    commands = (
+        ("packadd packer.nvim", "quitall"),
+        ("autocmd User PackerComplete quitall", "PackerSync"),
+        ("silent UpdateRemotePlugins", "quitall"),
+    )
+    for cmd1, cmd2 in commands:
+        os.system(f"nvim --headless -c '{cmd1}' -c '{cmd2}'")
 
 
 if __name__ == "__main__":
