@@ -13,12 +13,13 @@ RUN apt update && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-FROM debian:bullseye-slim
+FROM golang:1.20-bullseye
 COPY --from=neovim /usr/local/share/nvim /usr/local/share/nvim
 COPY --from=neovim /usr/local/lib/nvim /usr/local/lib/nvim
 COPY --from=neovim /usr/local/bin/nvim /usr/local/bin/nvim
 RUN apt update && \
-    apt install -y curl fd-find gcc git nodejs npm python3 python3-venv wget && \
+    apt install -y curl fd-find gcc git nodejs npm python3 python3-venv unzip wget && \
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y && \
     ln -s $(which fdfind) /usr/local/bin/fd && \
     rm -rf /var/lib/apt/lists/*
 
