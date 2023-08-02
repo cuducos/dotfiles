@@ -88,7 +88,7 @@ local startup = function(use)
 	})
 	use({
 		"folke/trouble.nvim",
-		keys = "<Leader>nt",
+		keys = "<Leader>t",
 		requires = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("config.trouble")
@@ -156,7 +156,6 @@ local startup = function(use)
 	-- file tree
 	use({
 		"nvim-tree/nvim-tree.lua",
-		keys = "<Leader>nt",
 		requires = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("config.tree")
