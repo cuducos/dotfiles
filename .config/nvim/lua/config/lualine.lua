@@ -8,6 +8,18 @@ local function search_count()
 	return string.format(" %d of %d", result.current, denominator)
 end
 
+require("lsp-progress").setup({
+	format = function(msg)
+		return table.concat(msg, " ")
+	end,
+})
+
+vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+vim.api.nvim_create_autocmd("User LspProgressStatusUpdated", {
+	group = "lualine_augroup",
+	callback = require("lualine").refresh,
+})
+
 require("lualine").setup({
 	options = {
 		theme = "catppuccin",
@@ -30,7 +42,7 @@ require("lualine").setup({
 			},
 		},
 		lualine_x = {
-			{ "lsp_progress", hide = { "copilot", "null-ls", "ruby_lsp", "yamlls" } },
+			{ require("lsp-progress").progress, hide = { "copilot", "null-ls", "ruby_lsp", "yamlls" } },
 			search_count,
 			"diagnostics",
 			"fileformat",

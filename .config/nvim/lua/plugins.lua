@@ -167,7 +167,7 @@ local startup = function(use)
 		"hoob3rt/lualine.nvim",
 		requires = {
 			{ "nvim-tree/nvim-web-devicons", opt = true },
-			"WhoIsSethDaniel/lualine-lsp-progress.nvim",
+			"linrongbin16/lsp-progress.nvim",
 		},
 		config = function()
 			require("config.lualine")
