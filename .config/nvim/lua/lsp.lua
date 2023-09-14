@@ -176,13 +176,13 @@ end
 M.make_pyright_config = function()
 	local config = M.make_config()
 	config.settings = {
-		pyright = { autoImportCompletion = true },
 		python = {
 			analysis = {
+				autoImportCompletion = true,
 				autoSearchPaths = true,
 				diagnosticMode = "openFilesOnly",
-				useLibraryCodeForTypes = true,
 				typeCheckingMode = "off",
+				useLibraryCodeForTypes = true,
 			},
 		},
 	}
