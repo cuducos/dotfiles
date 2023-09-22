@@ -202,9 +202,9 @@ local plugins = {
 
 	-- navigation & selection
 	{
-		"rlane/pounce.nvim",
+		"ggandor/leap.nvim",
 		config = function()
-			require("config.pounce")
+			require("config.leap")
 		end,
 	},
 
