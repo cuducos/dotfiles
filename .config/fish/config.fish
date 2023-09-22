@@ -32,6 +32,7 @@ end
 
 # brew
 if test -f /opt/homebrew/bin/brew
+  set -x HOMEBREW_NO_AUTO_UPDATE 1
   eval (/opt/homebrew/bin/brew shellenv)
 end
 
