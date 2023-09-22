@@ -207,6 +207,12 @@ local plugins = {
 			require("config.leap")
 		end,
 	},
+	{
+		"karb94/neoscroll.nvim",
+		config = function()
+			require("config.neoscroll")
+		end,
+	},
 
 	-- general tools
 	{ "tpope/vim-abolish" },
