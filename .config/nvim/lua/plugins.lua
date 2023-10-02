@@ -82,9 +82,9 @@ local plugins = {
 		end,
 	},
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		config = function()
-			require("config.null_ls")
+			require("config.none_ls")
 		end,
 	},
 	{
