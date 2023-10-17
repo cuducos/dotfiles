@@ -110,6 +110,13 @@ local plugins = {
 			return true
 		end,
 	},
+	{
+		"hinell/lsp-timeout.nvim",
+		dependencies = { "neovim/nvim-lspconfig" },
+		config = function()
+			require("config.lsp_timeout")
+		end,
+	},
 
 	-- language specific
 	{
