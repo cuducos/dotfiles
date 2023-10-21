@@ -101,6 +101,7 @@ local base = {
 	servers = {
 		"cssls",
 		"lua_ls",
+		"tsserver",
 		"yamlls",
 	},
 	linters = {
@@ -126,7 +127,6 @@ if M.shopify then
 	extra = {
 		servers = {
 			"ruby_ls",
-			"tsserver",
 			"solargraph",
 			"sorbet",
 		},
