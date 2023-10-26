@@ -21,5 +21,6 @@ require("nvim-tree").setup({
 		},
 	},
 })
-
 vim.keymap.set("n", "<Leader>nt", "<Cmd>NvimTreeToggle<CR>")
+
+require("lsp-file-operations").setup()

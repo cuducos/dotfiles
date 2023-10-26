@@ -165,7 +165,10 @@ local plugins = {
 	{
 		"nvim-tree/nvim-tree.lua",
 		keys = "<Leader>nt",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			"antosha417/nvim-lsp-file-operations",
+		},
 		config = function()
 			require("config.tree")
 		end,
