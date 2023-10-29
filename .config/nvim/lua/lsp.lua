@@ -205,8 +205,8 @@ M.make_pyright_config = function()
 		return config
 	end
 
-	local packages = vim.fn.system(venv .. "/bin/python -m pip --list")
-	if string.find(packages, "mypy") ~= nil then
+	local mypy = vim.fn.system(venv .. "/bin/python -m pip show mypy")
+	if string.find(mypy, "Name: mypy") ~= nil then
 		config.settings.python.analysis.typeCheckingMode = "basic"
 	end
 
