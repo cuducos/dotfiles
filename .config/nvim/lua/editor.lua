@@ -14,6 +14,9 @@ local function set_mappings()
 		{ "n", "<Leader>Q", "<C-w>c<CR>" },
 		{ "n", "<Leader>qa", "<Cmd>bufdo bw<CR>" },
 		{ "n", "<Leader>q", "<Cmd>bw<CR>" },
+		-- move horizontally between splits
+		{ "n", "H", "<C-w>h" },
+		{ "n", "L", "<C-w>l" },
 		-- indent and keep selection
 		{ "", ">", ">gv", {} },
 		{ "", "<", "<gv", {} },
