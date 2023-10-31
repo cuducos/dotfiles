@@ -1,11 +1,12 @@
-from itertools import chain
-from multiprocessing import Process, freeze_support
-from pathlib import Path
-from tempfile import NamedTemporaryFile, TemporaryDirectory
-from urllib.request import urlretrieve
 import os
 import platform
 import venv
+from itertools import chain
+from multiprocessing import Process, freeze_support
+from pathlib import Path
+from stat import S_IXGRP, S_IXOTH, S_IXUSR
+from tempfile import NamedTemporaryFile
+from urllib.request import urlopen
 
 
 DOTFILES_DIR = Path.cwd()
@@ -34,11 +35,18 @@ LINUX_FONTS = {
     "Fira Code SemiBold Nerd Font Complete Mono",
 }
 FONTS = dict(zip(FONT_KEYS, MAC_FONTS if IS_MAC else LINUX_FONTS))
-RUST_PKGS = (
-    ("dandavison/delta", "0.16.5"),
-    ("chmln/sd", "v0.7.6"),
-)
+
 APT_PKGS = ("fd-find", "bat", "unzip")
+DEB_PKGS = (
+    "https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb",
+    "https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb",
+)
+BIN_PKGS = (
+    (
+        "sd",
+        "https://github.com/chmln/sd/releases/download/v0.7.6/sd-v0.7.6-x86_64-unknown-linux-gnu",
+    ),
+)
 
 
 class ConcurrentRunner:
@@ -87,19 +95,39 @@ def create_all_symlinks():
         target.symlink_to(path)
 
 
-def install_from_git_with_cargo(repo, tag):
-    with TemporaryDirectory() as path:
-        os.system(f"git clone --branch {tag} https://github.com/{repo}.git {path}")
-        os.system(f"{HOME_DIR / '.cargo' / 'bin' / 'cargo'} install --path {path}")
+def install_bin(name, url):
+    bin = HOME_DIR / "bin"
+    if not bin.exists():
+        bin.mkdir()
+
+    path = bin/ name
+    if not path.exists():
+        path.touch()
+
+    with urlopen(url) as resp:
+        path.write_bytes(resp.read())
+    path.chmod(path.stat().st_mode | S_IXUSR | S_IXGRP | S_IXOTH)
 
 
-def install_rust():
-    if which("cargo"):
-        return
+def install_deb(url):
+    with NamedTemporaryFile(suffix=".deb") as tmp:
+        with urlopen(url) as resp:
+            Path(tmp.name).write_bytes(resp.read())
 
-    with NamedTemporaryFile() as tmp:
-        urlretrieve("https://sh.rustup.rs", filename=tmp.name)
-        os.system(f"sh {tmp.name} -y")
+        cmd = f"dpkg -i {tmp.name}"
+        if which("sudo"):
+            cmd = f"sudo {cmd}"
+        os.system(cmd)
+
+
+def install_via_package_manager():
+    apt = f"apt install -y {' '.join(APT_PKGS)}"
+    if which("sudo"):
+        apt = f"sudo {apt}"
+    os.system(apt)
+
+    for url in DEB_PKGS:
+        install_deb(url)
 
 
 def configure_spin():
@@ -107,14 +135,9 @@ def configure_spin():
         return
 
     with ConcurrentRunner() as runner:
-        apt = f"apt install -y {' '.join(APT_PKGS)}"
-        if which("sudo"):
-            apt = f"sudo {apt}"
-
-        runner.run(os.system, apt)
-        install_rust()
-        for repo, tag in RUST_PKGS:
-            runner.run(install_from_git_with_cargo, repo, tag)
+        runner.run(install_via_package_manager)
+        for name, url in BIN_PKGS:
+            runner.run(install_bin, name, url)
 
 
 def configure_kitty():
