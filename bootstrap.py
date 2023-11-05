@@ -20,6 +20,8 @@ NEOVIM_VENV = HOME_DIR / ".virtualenvs" / "neovim"
 NEOVIM_PYTHON = NEOVIM_VENV / "bin" / "python"
 
 KITTY_CONF = HOME_DIR / ".config" / "kitty"
+CATPPUCCIN_THEMES = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/"
+
 IS_MAC = platform.system().lower() == "darwin"
 FONT_KEYS = ("font_family", "bold_font", "italic_font", "bold_italic_font")
 MAC_FONTS = (
@@ -74,6 +76,14 @@ def which(bin):
         return path
 
 
+def download_as(url, path):
+    if not path.exists():
+        path.touch()
+
+    with urlopen(url) as resp:
+        path.write_bytes(resp.read())
+
+
 def create_all_dirs():
     for path in DOTFILES_DIR.glob("**/*"):
         if not path.is_dir() or DOTFILES_GIT in path.parents:
@@ -100,20 +110,14 @@ def install_bin(name, url):
     if not bin.exists():
         bin.mkdir()
 
-    path = bin/ name
-    if not path.exists():
-        path.touch()
-
-    with urlopen(url) as resp:
-        path.write_bytes(resp.read())
+    path = bin / name
+    download_as(url, path)
     path.chmod(path.stat().st_mode | S_IXUSR | S_IXGRP | S_IXOTH)
 
 
 def install_deb(url):
     with NamedTemporaryFile(suffix=".deb") as tmp:
-        with urlopen(url) as resp:
-            Path(tmp.name).write_bytes(resp.read())
-
+        download_as(url, tmp.name)
         cmd = f"dpkg -i {tmp.name}"
         if which("sudo"):
             cmd = f"sudo {cmd}"
@@ -148,6 +152,15 @@ def configure_kitty():
     fonts = "\n".join(f"{k}\t{v}" for k, v in FONTS.items())
     (KITTY_CONF / "fonts.conf").write_text(fonts)
     (KITTY_CONF / "shell.conf").write_text(f"shell\t{fish}")
+
+    with ConcurrentRunner() as runner:
+        for theme in ("latte", "frappe"):
+            path = KITTY_CONF / f"catppuccin-{theme}.conf"
+            if path.exists():
+                continue
+
+            url = f"{CATPPUCCIN_THEMES}{theme}.conf"
+            runner.run(download_as, url, path)
 
 
 def configure_nvim():
