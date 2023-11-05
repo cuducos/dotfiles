@@ -25,11 +25,6 @@ if test -f $HOME/.env.fish
     source $HOME/.env.fish
 end
 
-# make Docker macOS less annoying
-if test -f /opt/homebrew/bin/brew
-  set -x DOCKER_BUILDKIT 0
-end
-
 # brew
 if test -f /opt/homebrew/bin/brew
   set -x HOMEBREW_NO_AUTO_UPDATE 1
@@ -61,6 +56,7 @@ set --export GETGIST_USER cuducos
 
 # ripgrep
 set --export RIPGREP_CONFIG_PATH $HOME/.ripgreprc
+
 # go
 set PATH /usr/local/go/bin $PATH
 set PATH $HOME/go/bin $PATH
