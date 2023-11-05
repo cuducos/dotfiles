@@ -17,6 +17,17 @@ vim.api.nvim_create_autocmd("User", {
 	callback = require("lualine").refresh,
 })
 
+local lsp_progress_or_yaml_key_value = function()
+	if vim.bo.filetype == "yaml" then
+		local yaml = require("yaml_nvim").get_yaml_key_and_value()
+		if string.len(yaml) <= 80 then
+			return yaml
+		end
+	end
+
+	return require("lsp-progress").progress()
+end
+
 require("lualine").setup({
 	options = {
 		theme = "catppuccin",
@@ -39,10 +50,7 @@ require("lualine").setup({
 			},
 		},
 		lualine_x = {
-			{
-				require("lsp-progress").progress,
-				hide = { "copilot", "null-ls", "ruby_lsp", "yamlls" },
-			},
+			{ lsp_progress_or_yaml_key_value, hide = { "copilot", "null-ls", "ruby_lsp" } },
 			search_count,
 			"diagnostics",
 			"fileformat",
