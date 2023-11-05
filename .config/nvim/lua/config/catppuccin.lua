@@ -1,4 +1,5 @@
-vim.g.catppuccin_flavour = os.getenv("CATPPUCCIN_THEME") or "latte"
+local theme = os.getenv("CATPPUCCIN_THEME") or "latte"
+vim.g.catppuccin_flavour = theme
 
 local colors = require("catppuccin.palettes").get_palette()
 require("catppuccin").setup({
@@ -27,4 +28,8 @@ require("catppuccin").setup({
 vim.cmd("colorscheme catppuccin")
 
 -- set float window background color to the same as the normal window
-vim.cmd("highlight NormalFloat guifg=#4c4f69 guibg=#eff1f5")
+if theme == "frappe" then
+	vim.cmd("highlight NormalFloat guifg=#b9bcee guibg=#303445")
+else
+	vim.cmd("highlight NormalFloat guifg=#4c4f69 guibg=#eff1f5")
+end
