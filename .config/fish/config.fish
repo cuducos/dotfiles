@@ -115,28 +115,3 @@ end
 
 # brew's ruby
 set PATH /usr/local/opt/ruby/bin $PATH
-
-if type -q ezz
-  if type -q boteco
-    alias sextou "boteco (ezz --name Boteco --on today --at 17:00 -d 420 -p 42 -t America/Sao_Paulo)"
-  end
-end
-
-# wed
-if type -q wed
-    if [ (uname -o | string lower) = 'darwin' ]
-        set -l WED_NOTIFICATION_FILE $HOME/.last_wed_notification
-        set -l NOW (date +%s)
-        set -l ONE_HOUR 3600
-
-        if [ ! -e $WED_NOTIFICATION_FILE ]
-            echo "0" > $WED_NOTIFICATION_FILE
-        end
-
-        set -l LAST_WED_NOTIFICATION (cat $WED_NOTIFICATION_FILE)
-        if [ $NOW -gt (math $LAST_WED_NOTIFICATION + $ONE_HOUR) ]
-            wed notify
-            echo $NOW > $WED_NOTIFICATION_FILE
-        end
-    end
-end
