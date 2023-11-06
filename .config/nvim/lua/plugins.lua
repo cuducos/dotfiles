@@ -179,7 +179,7 @@ local plugins = {
 		"hoob3rt/lualine.nvim",
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons", opt = true },
-			"linrongbin16/lsp-progress.nvim",
+			"WhoIsSethDaniel/lualine-lsp-progress.nvim",
 		},
 		config = function()
 			require("config.lualine")
