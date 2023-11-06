@@ -1,4 +1,18 @@
--- main editor configs
+local go_to_github_repo = function()
+	local repo = vim.fn.expand("<cfile>")
+	if not string.find(repo, "^[a-zA-Z0-9-_.]*/[a-zA-Z0-9-_.]*$") then
+		return
+	end
+
+	local url = "https://github.com/" .. repo
+	local cmd = "xdg-open"
+	if vim.fn.has("mac") == 1 then
+		cmd = "open"
+	end
+
+	vim.fn.jobstart({ cmd, url }, { detach = true })
+end
+
 local function set_globals()
 	vim.g.mapleader = " "
 	vim.g.python3_host_prog = vim.loop.os_homedir() .. "/.virtualenvs/neovim/bin/python"
@@ -10,6 +24,7 @@ local function set_mappings()
 		{ "n", "<Leader>#", ":set relativenumber!<CR>" },
 		{ "n", "<Leader>w", ":w<CR>" },
 		{ "n", "vv", "viw" },
+		{ "n", "<Leader>gh", go_to_github_repo },
 		-- buffer and split management
 		{ "n", "<Leader>Q", "<C-w>c<CR>" },
 		{ "n", "<Leader>qa", "<Cmd>bufdo bw<CR>" },
