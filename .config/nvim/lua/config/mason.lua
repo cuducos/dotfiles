@@ -24,9 +24,7 @@ local function setup_servers()
 			local config = lsp.make_config()
 			lsp_config[server].setup(config)
 		end,
-		["rust_analyzer"] = function()
-			-- done in rust_tools
-		end,
+		["rust_analyzer"] = function() end, -- done in rust_tools
 		["lua_ls"] = function()
 			local config = lsp.make_config()
 			config.settings = {

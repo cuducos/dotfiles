@@ -223,12 +223,6 @@ local plugins = {
 		end,
 	},
 	{
-		"karb94/neoscroll.nvim",
-		config = function()
-			require("config.neoscroll")
-		end,
-	},
-	{
 		"drybalka/tree-climber.nvim",
 		config = function()
 			require("config.climber")
@@ -297,21 +291,6 @@ local plugins = {
 		config = function()
 			require("config.copilot")
 		end,
-	},
-	{
-		"jackMort/ChatGPT.nvim",
-		cmd = "ChatGPT",
-		config = function()
-			require("config.chatgpt")
-		end,
-		cond = function()
-			return os.getenv("OPENAI_API_KEY") ~= nil
-		end,
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
 	},
 }
 

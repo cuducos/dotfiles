@@ -2,21 +2,24 @@ local none_ls = require("null-ls")
 
 none_ls.setup({
 	sources = {
-		none_ls.builtins.formatting.ruff,
-		none_ls.builtins.formatting.ruff_format,
-		none_ls.builtins.formatting.elm_format,
-		none_ls.builtins.formatting.gofmt,
-		none_ls.builtins.formatting.goimports,
-		none_ls.builtins.formatting.prettier,
-		none_ls.builtins.formatting.rubocop,
-		none_ls.builtins.formatting.rustfmt,
-		none_ls.builtins.formatting.stylua,
+		none_ls.builtins.code_actions.eslint,
+		none_ls.builtins.code_actions.gomodifytags,
+		none_ls.builtins.code_actions.refactoring,
 		none_ls.builtins.code_actions.gitsigns,
 		none_ls.builtins.diagnostics.eslint,
 		none_ls.builtins.diagnostics.fish,
 		none_ls.builtins.diagnostics.rubocop,
 		none_ls.builtins.diagnostics.staticcheck,
 		none_ls.builtins.diagnostics.tsc,
+		none_ls.builtins.formatting.elm_format,
+		none_ls.builtins.formatting.gofmt,
+		none_ls.builtins.formatting.goimports,
+		none_ls.builtins.formatting.prettierd,
+		none_ls.builtins.formatting.rubocop,
+		none_ls.builtins.formatting.ruff,
+		none_ls.builtins.formatting.ruff_format,
+		none_ls.builtins.formatting.rustfmt,
+		none_ls.builtins.formatting.stylua,
 	},
 })
 

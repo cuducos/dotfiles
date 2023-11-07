@@ -100,18 +100,19 @@ end
 local base = {
 	servers = {
 		"cssls",
+		"jsonls",
 		"lua_ls",
+		"ruff_lsp",
+		"rust_analyzer",
 		"tsserver",
 		"yamlls",
 	},
 	linters = {
 		"markdownlint",
-		"vale",
 		"yamllint",
 	},
 	formatters = {
 		"prettierd",
-		"sql-formatter",
 		"stylua",
 	},
 }
@@ -142,10 +143,7 @@ else
 			"dockerls",
 			"elmls",
 			"gopls",
-			"jsonls",
 			"pyright",
-			"ruff_lsp",
-			"rust_analyzer",
 		},
 		linters = {
 			"ruff",
@@ -153,8 +151,6 @@ else
 		},
 		formatters = {
 			"elm-format",
-			"isort",
-			"prettier",
 		},
 	}
 end
