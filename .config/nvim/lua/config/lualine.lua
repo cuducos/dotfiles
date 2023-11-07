@@ -19,9 +19,13 @@ vim.api.nvim_create_autocmd("User", {
 
 local lsp_progress_or_yaml_key_value = function()
 	if vim.bo.filetype == "yaml" then
-		local yaml = require("yaml_nvim").get_yaml_key_and_value()
-		if string.len(yaml) <= 80 then
-			return yaml
+		local yaml = require("yaml_nvim")
+		local options = { yaml.get_yaml_key_and_value, yaml.get_yaml_key }
+		for _, func in ipairs(options) do
+			local path = func()
+			if string.len(path) <= 80 then
+				return path
+			end
 		end
 		return ""
 	end
