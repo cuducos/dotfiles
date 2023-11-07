@@ -2,7 +2,8 @@ local none_ls = require("null-ls")
 
 none_ls.setup({
 	sources = {
-		none_ls.builtins.formatting.black,
+		none_ls.builtins.formatting.ruff,
+		none_ls.builtins.formatting.ruff_format,
 		none_ls.builtins.formatting.elm_format,
 		none_ls.builtins.formatting.gofmt,
 		none_ls.builtins.formatting.goimports,
@@ -23,19 +24,33 @@ local is_ruby = function(path)
 	return string.match(path, ".rb$") == ".rb"
 end
 
+local is_lua = function(path)
+	return string.match(path, ".lua$") == ".lua"
+end
+
 local is_shopify = function(path)
 	return string.find(path, "Shopify") ~= nil
 end
 
+local is_mine = function(path)
+	local origin = vim.fn.system("git remote show origin -n")
+	return string.find(origin, "cuducos") ~= nil
+end
+
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = vim.api.nvim_create_augroup("FormatOnSave", {}),
-	pattern = { "*.elm", "*.go", "*.py", "*.rb", "*.rs", "*.ts", "*.tsx" },
+	pattern = { "*.elm", "*.go", "*.lua", "*.py", "*.rb", "*.rs", "*.ts", "*.tsx" },
 	callback = function()
 		local path = vim.api.nvim_buf_get_name(0)
 		if is_ruby(path) and not is_shopify(path) then
+			return
+		end
+		if is_lua(path) and not is_mine() then
 			return
 		end
 
 		vim.lsp.buf.format()
 	end,
 })
+
+print(is_mine())

@@ -167,7 +167,7 @@ def configure_nvim():
     if not NEOVIM_VENV.exists():
         venv.create(NEOVIM_VENV, with_pip=True)
         os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade pip")
-        os.system(f"{NEOVIM_PYTHON} -m pip install black neovim")
+        os.system(f"{NEOVIM_PYTHON} -m pip install ruff")
 
     os.system("nvim --headless '+Lazy! sync' +qa")
     os.system("nvim --headless -c 'silent UpdateRemotePlugins' -c 'quitall'")
