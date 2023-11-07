@@ -68,6 +68,7 @@ local function set_options()
 	local options = {
 		autoindent = true,
 		autoread = true,
+		swapfile = false,
 		clipboard = "unnamed,unnamedplus",
 		colorcolumn = "80",
 		cursorline = true,
