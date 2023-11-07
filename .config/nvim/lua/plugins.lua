@@ -224,6 +224,12 @@ local plugins = {
 			require("config.neoscroll")
 		end,
 	},
+	{
+		"drybalka/tree-climber.nvim",
+		config = function()
+			require("config.climber")
+		end,
+	},
 
 	-- general tools
 	{ "tpope/vim-abolish" },
