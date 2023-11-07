@@ -48,7 +48,11 @@ local plugins = {
 	},
 	{
 		"williamboman/mason.nvim",
-		dependencies = { "neovim/nvim-lspconfig", "williamboman/mason-lspconfig.nvim", "simrat39/rust-tools.nvim" },
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"williamboman/mason-lspconfig.nvim",
+			"simrat39/rust-tools.nvim",
+		},
 		config = function()
 			require("config.mason")
 			require("config.rust_tools")
@@ -179,7 +183,7 @@ local plugins = {
 		"hoob3rt/lualine.nvim",
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons", opt = true },
-			{ "cuducos/lsp-progress.nvim", branch = "ruby" }, -- see https://github.com/linrongbin16/lsp-progress.nvim/pull/95
+			"linrongbin16/lsp-progress.nvim",
 		},
 		config = function()
 			require("config.lualine")

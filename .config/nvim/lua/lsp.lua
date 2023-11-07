@@ -111,7 +111,6 @@ local base = {
 	},
 	formatters = {
 		"prettierd",
-		"rustfmt",
 		"sql-formatter",
 		"stylua",
 	},
