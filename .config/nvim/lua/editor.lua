@@ -29,8 +29,10 @@ local function set_mappings()
 		{ "n", "<Leader>Q", "<C-w>c<CR>" },
 		{ "n", "<Leader>qa", "<Cmd>bufdo bw<CR>" },
 		{ "n", "<Leader>q", "<Cmd>bw<CR>" },
-		{ "n", "H", "<C-w>h" },
-		{ "n", "L", "<C-w>l" },
+		{ "n", "<Home>", "<C-w>h" },
+		{ "n", "<End>", "<C-w>l" },
+		{ "n", "<PageUp>", "<C-w>k" },
+		{ "n", "<PageDown>", "<C-w>j" },
 		-- indent and keep selection
 		{ "", ">", ">gv", {} },
 		{ "", "<", "<gv", {} },
