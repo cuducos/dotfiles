@@ -7,4 +7,3 @@ function bu
     brew cleanup -s
     rm -rfv (brew --cache)
 end
-

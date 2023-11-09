@@ -28,12 +28,11 @@ cmp.setup({
 	sources = {
 		{ name = "copilot" },
 		{ name = "nvim_lsp_document_symbol" },
-		{ name = "luasnip" },
 		{ name = "nvim_lua" },
 		{ name = "nvim_lsp" },
 		{ name = "treesitter" },
 		{ name = "path" },
-		{ name = "emoji" },
+		{ name = "buffer" },
 	},
 	formatting = {
 		format = lspkind.cmp_format({

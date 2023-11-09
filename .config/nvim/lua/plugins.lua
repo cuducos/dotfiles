@@ -62,24 +62,12 @@ local plugins = {
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-copilot",
-			"hrsh7th/cmp-emoji",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-document-symbol",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-path",
 			"onsails/lspkind.nvim",
 			"ray-x/cmp-treesitter",
-			{
-				"saadparwaiz1/cmp_luasnip",
-				dependencies = {
-					"L3MON4D3/LuaSnip",
-					version = "v1.*",
-					dependencies = { "rafamadriz/friendly-snippets" },
-					config = function()
-						require("config.luasnip")
-					end,
-				},
-			},
 		},
 		config = function()
 			require("config.cmp")
@@ -113,6 +101,10 @@ local plugins = {
 			end
 			return true
 		end,
+	},
+	{
+		"ckolkey/ts-node-action",
+		dependencies = { "nvim-treesitter" },
 	},
 	{
 		"hinell/lsp-timeout.nvim",
@@ -214,6 +206,14 @@ local plugins = {
 		end,
 	},
 	{ "andymass/vim-matchup" },
+	{
+		"L3MON4D3/LuaSnip",
+		version = "v2.*",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		config = function()
+			require("config.luasnip")
+		end,
+	},
 
 	-- navigation & selection
 	{

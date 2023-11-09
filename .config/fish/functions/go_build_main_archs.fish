@@ -6,20 +6,20 @@ function go_build_main_archs
         set -l arch (string split '/' $dist -f2)
 
         switch $os
-        case linux darwin windows
-            switch $arch
-            case amd64 arm arm64
-                set -l output (string join "_" $name $os $arch)
-                set -l GOOS_BKP $GOOS
-                set -l GOARCH_BKP $GOARCH
-                set -x GOOS $os
-                set -x GOARCH $arch
+            case linux darwin windows
+                switch $arch
+                    case amd64 arm arm64
+                        set -l output (string join "_" $name $os $arch)
+                        set -l GOOS_BKP $GOOS
+                        set -l GOARCH_BKP $GOARCH
+                        set -x GOOS $os
+                        set -x GOARCH $arch
 
-                go build -o $output main.go
+                        go build -o $output main.go
 
-                set -x GOOS $GOOS_BKP
-                set -x GOARCH $GOARCH_BKP
-            end
+                        set -x GOOS $GOOS_BKP
+                        set -x GOARCH $GOARCH_BKP
+                end
         end
     end
     for f in (fd windows)
