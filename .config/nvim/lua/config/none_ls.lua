@@ -61,5 +61,3 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 		vim.lsp.buf.format({ async = true })
 	end,
 })
-
-print(is_mine())
