@@ -41,7 +41,7 @@ local is_shopify = function(path)
 	return string.find(path, "Shopify") ~= nil
 end
 
-local is_mine = function(path)
+local is_mine = function()
 	local origin = vim.fn.system("git remote show origin -n")
 	return string.find(origin, "cuducos") ~= nil
 end
@@ -58,7 +58,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 			return
 		end
 
-		vim.lsp.buf.format()
+		vim.lsp.buf.format({ async = true })
 	end,
 })
 
