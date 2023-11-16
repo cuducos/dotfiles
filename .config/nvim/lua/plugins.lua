@@ -25,7 +25,10 @@ local plugins = {
 	-- fuzzy finder
 	{
 		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{ "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
+		},
 		config = function()
 			require("config.telescope")
 		end,

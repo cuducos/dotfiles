@@ -9,6 +9,7 @@ telescope.setup({
 		},
 	},
 })
+telescope.load_extension("live_grep_args")
 
 local mappings = {
 	{
@@ -34,11 +35,23 @@ local mappings = {
 	{ "n", "<Leader>G", builtin.git_status },
 	{ "n", "<Tab><Tab>", builtin.buffers },
 	{ "n", "<Leader>o", builtin.oldfiles },
-	{ "n", "<Leader>/", builtin.live_grep },
 	{ "n", "<Leader>k", builtin.keymaps },
 	{ "n", "<Leader>n", telescope.extensions.notify.notify },
 	{ "n", "<Leader>ts", builtin.treesitter },
 	{ "n", "<Leader>lr", builtin.lsp_references },
+	{
+		"n",
+		"<Leader>/",
+		function()
+			local buf = vim.api.nvim_get_current_buf()
+			local type = vim.api.nvim_buf_get_option(buf, "buftype")
+			if type ~= "nofile" and vim.fn.expand("<cword>") ~= "" then
+				require("telescope-live-grep-args.shortcuts").grep_word_under_cursor()
+			else
+				telescope.extensions.live_grep_args.live_grep_args()
+			end
+		end,
+	},
 	{
 		"n",
 		"<Leader>df",
@@ -54,8 +67,3 @@ local mappings = {
 for _, val in pairs(mappings) do
 	vim.keymap.set(unpack(val))
 end
-
-vim.cmd("command! -nargs=? FindInDir lua require('telescope.builtin').live_grep({search_dirs = { <f-args> }})")
-vim.cmd(
-	"command! -nargs=? FindByType lua require('telescope.builtin').live_grep({type_filter = <f-args>, results_title = 'rg --type-list to show supported types'})"
-)
