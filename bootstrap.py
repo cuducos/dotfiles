@@ -6,12 +6,12 @@ from multiprocessing import Process, freeze_support
 from pathlib import Path
 from stat import S_IXGRP, S_IXOTH, S_IXUSR
 from tempfile import NamedTemporaryFile
-from urllib.request import urlopen
-
+from urllib.request import urlopen, urlretrieve
 
 DOTFILES_DIR = Path.cwd()
 DOTFILES_GIT = DOTFILES_DIR / ".git"
 HOME_DIR = Path.home()
+CARGO_BIN = HOME_DIR / ".cargo" / "bin" / "cargo"
 
 CONFIG_FILE_NAMES = (".fdignore", ".gitconfig", ".gitignore_global", ".ripgreprc")
 CONFIG_FILES = (DOTFILES_DIR / f for f in CONFIG_FILE_NAMES)
@@ -39,15 +39,10 @@ LINUX_FONTS = {
 FONTS = dict(zip(FONT_KEYS, MAC_FONTS if IS_MAC else LINUX_FONTS))
 
 APT_PKGS = ("fd-find", "bat", "unzip")
+CRATES_PKGS = ("sd", "typos-cli")
 DEB_PKGS = (
     "https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb",
     "https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb",
-)
-BIN_PKGS = (
-    (
-        "sd",
-        "https://github.com/chmln/sd/releases/download/v0.7.6/sd-v0.7.6-x86_64-unknown-linux-gnu",
-    ),
 )
 
 
@@ -105,6 +100,16 @@ def create_all_symlinks():
         target.symlink_to(path)
 
 
+def install_cargo():
+    with NamedTemporaryFile() as tmp:
+        urlretrieve("https://sh.rustup.rs", filename=tmp.name)
+        os.system(f"sh {tmp.name} -y")
+
+
+def install_with_cargo(pkg):
+    os.system(f"{CARGO_BIN} install {pkg}")
+
+
 def install_bin(name, url):
     bin = HOME_DIR / "bin"
     if not bin.exists():
@@ -117,7 +122,7 @@ def install_bin(name, url):
 
 def install_deb(url):
     with NamedTemporaryFile(suffix=".deb") as tmp:
-        download_as(url, tmp.name)
+        download_as(url, Path(tmp.name))
         cmd = f"dpkg -i {tmp.name}"
         if which("sudo"):
             cmd = f"sudo {cmd}"
@@ -140,8 +145,9 @@ def configure_spin():
 
     with ConcurrentRunner() as runner:
         runner.run(install_via_package_manager)
-        for name, url in BIN_PKGS:
-            runner.run(install_bin, name, url)
+        install_cargo()
+        for pkg in CRATES_PKGS:
+            runner.run(install_with_cargo, pkg)
 
 
 def configure_kitty():
