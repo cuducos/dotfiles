@@ -26,7 +26,6 @@ local function set_mappings()
 		{ "n", "vv", "viw" },
 		{ "n", "<Leader>gh", go_to_github_repo },
 		-- buffer and split management
-		{ "n", "<Leader>Q", "<C-w>c<CR>" },
 		{ "n", "<Leader>qa", "<Cmd>bufdo bw<CR>" },
 		{ "n", "<Leader>q", "<Cmd>bw<CR>" },
 		{ "n", "<Home>", "<C-w>h" },
@@ -172,3 +171,17 @@ for ft, len in pairs(colorcolumns_by_filetype) do
 		command = "setlocal colorcolumn=" .. len,
 	})
 end
+
+vim.keymap.set("n", "<cr>", function()
+	local path = vim.fn.expand("<cfile>")
+	local buf = vim.api.nvim_get_current_buf()
+	local cwd = vim.api.nvim_buf_get_name(buf):match("(.*/)")
+
+	local handler = io.open(cwd .. path)
+	if handler == nil then
+		return "<cr>"
+	end
+
+	handler:close()
+	return "gF"
+end, {})
