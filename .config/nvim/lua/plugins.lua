@@ -249,14 +249,6 @@ local plugins = {
 			require("config.other")
 		end,
 	},
-	{
-		"vim-test/vim-test",
-		cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast" },
-		ft = { "elm", "go", "javascript", "python", "ruby", "rust" },
-		config = function()
-			require("config.test")
-		end,
-	},
 	{ "stevearc/dressing.nvim" },
 	{
 		"ellisonleao/carbon-now.nvim",
