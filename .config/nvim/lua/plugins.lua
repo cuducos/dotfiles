@@ -129,7 +129,7 @@ local plugins = {
 			require("config.yaml")
 		end,
 	},
-	{ "fladson/vim-kitty" },
+	{ "fladson/vim-kitty", ft = { "kitty" } },
 	{ "RRethy/nvim-treesitter-endwise", ft = { "lua", "ruby" } },
 
 	-- code comments
