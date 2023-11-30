@@ -39,19 +39,8 @@ local mappings = {
 	{ "n", "<Leader>n", telescope.extensions.notify.notify },
 	{ "n", "<Leader>ts", builtin.treesitter },
 	{ "n", "<Leader>lr", builtin.lsp_references },
-	{
-		"n",
-		"<Leader>/",
-		function()
-			local buf = vim.api.nvim_get_current_buf()
-			local type = vim.api.nvim_buf_get_option(buf, "buftype")
-			if type ~= "nofile" and vim.fn.expand("<cword>") ~= "" then
-				require("telescope-live-grep-args.shortcuts").grep_word_under_cursor()
-			else
-				telescope.extensions.live_grep_args.live_grep_args()
-			end
-		end,
-	},
+	{ "n", "<Leader>/", telescope.extensions.live_grep_args.live_grep_args },
+	{ "v", "<Leader>/", require("telescope-live-grep-args.shortcuts").grep_visual_selection },
 	{
 		"n",
 		"<Leader>df",
