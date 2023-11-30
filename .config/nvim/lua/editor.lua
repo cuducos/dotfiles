@@ -13,6 +13,20 @@ local go_to_github_repo = function()
 	vim.fn.jobstart({ cmd, url }, { detach = true })
 end
 
+local beginning_of_the_line = function()
+	local cursor = vim.api.nvim_win_get_cursor(0)
+	local line = cursor[1]
+	local column = cursor[2]
+	local contents = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]
+	local text = string.sub(contents, 1, column - 1)
+
+	if string.match(text, "^[%s\t]*$") ~= nil then
+		vim.api.nvim_win_set_cursor(0, { line, 0 })
+	else
+		vim.api.nvim_feedkeys("^", "n", false)
+	end
+end
+
 local function set_globals()
 	vim.g.mapleader = " "
 	vim.g.python3_host_prog = vim.loop.os_homedir() .. "/.virtualenvs/neovim/bin/python"
@@ -25,6 +39,7 @@ local function set_mappings()
 		{ "n", "<Leader>w", ":w<CR>" },
 		{ "n", "vv", "viw" },
 		{ "n", "<Leader>gh", go_to_github_repo },
+		{ "n", "0", beginning_of_the_line },
 		-- buffer and split management
 		{ "n", "<Leader>qa", "<Cmd>bufdo bw<CR>" },
 		{ "n", "<Leader>q", "<Cmd>bw<CR>" },
