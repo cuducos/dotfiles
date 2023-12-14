@@ -221,7 +221,13 @@ local plugins = {
 	-- navigation & selection
 	{
 		"folke/flash.nvim",
-		keys = { { "<Tab>", mode = { "n", "x", "o" }, require("flash").jump } },
+		keys = { {
+			"<Tab>",
+			mode = { "n", "x", "o" },
+			function()
+				require("flash").jump()
+			end,
+		} },
 	},
 	{
 		"drybalka/tree-climber.nvim",
