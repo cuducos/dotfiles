@@ -220,10 +220,8 @@ local plugins = {
 
 	-- navigation & selection
 	{
-		"ggandor/leap.nvim",
-		config = function()
-			require("config.leap")
-		end,
+		"folke/flash.nvim",
+		keys = { { "<Tab>", mode = { "n", "x", "o" }, require("flash").jump } },
 	},
 	{
 		"drybalka/tree-climber.nvim",
