@@ -7,7 +7,6 @@ luasnip.setup({
 	store_selection_keys = "<Tab>",
 })
 
-luasnip.filetype_extend("ruby", { "rails" })
 luasnip.filetype_extend("python", { "django", "djangohtml" })
 
 require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/snippets/" })

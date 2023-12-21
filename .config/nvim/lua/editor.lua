@@ -176,7 +176,6 @@ set_options()
 
 local colorcolumns_by_filetype = {
 	python = "88",
-	ruby = "120",
 	gitcommit = "72",
 }
 

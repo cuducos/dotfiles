@@ -2,16 +2,12 @@ import os
 import platform
 import venv
 from itertools import chain
-from multiprocessing import Process, freeze_support
 from pathlib import Path
-from stat import S_IXGRP, S_IXOTH, S_IXUSR
-from tempfile import NamedTemporaryFile
-from urllib.request import urlopen, urlretrieve
+from urllib.request import urlopen
 
 DOTFILES_DIR = Path.cwd()
 DOTFILES_GIT = DOTFILES_DIR / ".git"
 HOME_DIR = Path.home()
-CARGO_BIN = HOME_DIR / ".cargo" / "bin" / "cargo"
 
 CONFIG_FILE_NAMES = (".fdignore", ".gitconfig", ".gitignore_global", ".ripgreprc")
 CONFIG_FILES = (DOTFILES_DIR / f for f in CONFIG_FILE_NAMES)
@@ -37,30 +33,6 @@ LINUX_FONTS = {
     "Fira Code SemiBold Nerd Font Complete Mono",
 }
 FONTS = dict(zip(FONT_KEYS, MAC_FONTS if IS_MAC else LINUX_FONTS))
-
-APT_PKGS = ("fd-find", "bat", "unzip")
-CRATES_PKGS = ("sd", "typos-cli")
-DEB_PKGS = (
-    "https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb",
-    "https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb",
-)
-
-
-class ConcurrentRunner:
-    def __init__(self):
-        self.tasks = []
-
-    def __enter__(self):
-        return self
-
-    def run(self, func, *args):
-        task = Process(target=func, args=args)
-        task.start()
-        self.tasks.append(task)
-
-    def __exit__(self, *_):
-        for task in self.tasks:
-            task.join()
 
 
 def which(bin):
@@ -100,56 +72,6 @@ def create_all_symlinks():
         target.symlink_to(path)
 
 
-def install_cargo():
-    with NamedTemporaryFile() as tmp:
-        urlretrieve("https://sh.rustup.rs", filename=tmp.name)
-        os.system(f"sh {tmp.name} -y")
-
-
-def install_with_cargo(pkg):
-    os.system(f"{CARGO_BIN} install {pkg}")
-
-
-def install_bin(name, url):
-    bin = HOME_DIR / "bin"
-    if not bin.exists():
-        bin.mkdir()
-
-    path = bin / name
-    download_as(url, path)
-    path.chmod(path.stat().st_mode | S_IXUSR | S_IXGRP | S_IXOTH)
-
-
-def install_deb(url):
-    with NamedTemporaryFile(suffix=".deb") as tmp:
-        download_as(url, Path(tmp.name))
-        cmd = f"dpkg -i {tmp.name}"
-        if which("sudo"):
-            cmd = f"sudo {cmd}"
-        os.system(cmd)
-
-
-def install_via_package_manager():
-    apt = f"apt install -y {' '.join(APT_PKGS)}"
-    if which("sudo"):
-        apt = f"sudo {apt}"
-    os.system(apt)
-
-    for url in DEB_PKGS:
-        install_deb(url)
-
-
-def configure_spin():
-    if not os.getenv("SPIN"):
-        return
-
-    with ConcurrentRunner() as runner:
-        runner.run(install_via_package_manager)
-        install_cargo()
-        for pkg in CRATES_PKGS:
-            runner.run(install_with_cargo, pkg)
-
-
 def configure_kitty():
     fish = which("fish")
     if IS_MAC:
@@ -159,14 +81,13 @@ def configure_kitty():
     (KITTY_CONF / "fonts.conf").write_text(fonts)
     (KITTY_CONF / "shell.conf").write_text(f"shell\t{fish}")
 
-    with ConcurrentRunner() as runner:
-        for theme in ("latte", "frappe"):
-            path = KITTY_CONF / f"catppuccin-{theme}.conf"
-            if path.exists():
-                continue
+    for theme in ("latte", "frappe"):
+        path = KITTY_CONF / f"catppuccin-{theme}.conf"
+        if path.exists():
+            continue
 
-            url = f"{CATPPUCCIN_THEMES}{theme}.conf"
-            runner.run(download_as, url, path)
+        url = f"{CATPPUCCIN_THEMES}{theme}.conf"
+        download_as(url, path)
 
 
 def configure_nvim():
@@ -183,10 +104,7 @@ def configure_nvim():
 
 
 if __name__ == "__main__":
-    freeze_support()
-    with ConcurrentRunner() as runner:
-        runner.run(configure_spin)
-        create_all_dirs()
-        create_all_symlinks()
-        runner.run(configure_kitty)
-        runner.run(configure_nvim)
+    create_all_dirs()
+    create_all_symlinks()
+    configure_kitty()
+    configure_nvim()

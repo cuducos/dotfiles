@@ -130,7 +130,7 @@ local plugins = {
 		end,
 	},
 	{ "fladson/vim-kitty", ft = { "kitty" } },
-	{ "RRethy/nvim-treesitter-endwise", ft = { "lua", "ruby" } },
+	{ "RRethy/nvim-treesitter-endwise", ft = { "lua" } },
 
 	-- code comments
 	{
@@ -221,13 +221,15 @@ local plugins = {
 	-- navigation & selection
 	{
 		"folke/flash.nvim",
-		keys = { {
-			"<Tab>",
-			mode = { "n", "x", "o" },
-			function()
-				require("flash").jump()
-			end,
-		} },
+		keys = {
+			{
+				"<Tab>",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+			},
+		},
 	},
 	{
 		"drybalka/tree-climber.nvim",
@@ -248,7 +250,7 @@ local plugins = {
 	{
 		"rgroli/other.nvim",
 		cmd = "Other",
-		ft = { "ruby", "go", "typescriptreact" },
+		ft = { "go", "typescriptreact" },
 		config = function()
 			require("config.other")
 		end,
@@ -292,15 +294,5 @@ local plugins = {
 		end,
 	},
 }
-
-if os.getenv("SPIN") ~= nil then
-	table.insert(plugins, { "Shopify/spin-hud" })
-	table.insert(plugins, {
-		"ojroques/vim-oscyank",
-		config = function()
-			require("config.oscyank")
-		end,
-	})
-end
 
 require("lazy").setup(plugins)

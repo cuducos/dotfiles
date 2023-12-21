@@ -50,12 +50,12 @@ require("lualine").setup({
 					modified = "",
 					readonly = "",
 					unnamed = "¯\\_(ツ)_/¯",
-					newfile = "", -- Text to show for new created file before first writting
+					newfile = "", -- Text to show for new created file before first writing
 				},
 			},
 		},
 		lualine_x = {
-			{ lsp_progress_or_yaml_key_value, hide = { "copilot", "null-ls", "ruby_lsp" } },
+			{ lsp_progress_or_yaml_key_value, hide = { "copilot", "null_ls" } },
 			search_count,
 			"diagnostics",
 			"fileformat",

@@ -12,7 +12,6 @@ none_ls.setup({
 		none_ls.builtins.completion.tags,
 		none_ls.builtins.diagnostics.eslint,
 		none_ls.builtins.diagnostics.fish,
-		none_ls.builtins.diagnostics.rubocop,
 		none_ls.builtins.diagnostics.staticcheck,
 		none_ls.builtins.diagnostics.tsc,
 		none_ls.builtins.diagnostics.typos,
@@ -21,7 +20,6 @@ none_ls.setup({
 		none_ls.builtins.formatting.gofmt,
 		none_ls.builtins.formatting.goimports,
 		none_ls.builtins.formatting.prettierd,
-		none_ls.builtins.formatting.rubocop,
 		none_ls.builtins.formatting.ruff,
 		none_ls.builtins.formatting.ruff_format,
 		none_ls.builtins.formatting.rustfmt,
@@ -29,16 +27,8 @@ none_ls.setup({
 	},
 })
 
-local is_ruby = function(path)
-	return string.match(path, ".rb$") == ".rb"
-end
-
 local is_lua = function(path)
 	return string.match(path, ".lua$") == ".lua"
-end
-
-local is_shopify = function(path)
-	return string.find(path, "Shopify") ~= nil
 end
 
 local is_mine = function()
@@ -51,13 +41,10 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	pattern = { "*.elm", "*.fish", "*.go", "*.lua", "*.py", "*.rb", "*.rs", "*.ts", "*.tsx" },
 	callback = function()
 		local path = vim.api.nvim_buf_get_name(0)
-		if is_ruby(path) and not is_shopify(path) then
-			return
-		end
 		if is_lua(path) and not is_mine() then
 			return
 		end
 
-		vim.lsp.buf.format({ async = true })
+		vim.lsp.buf.format({ async = false })
 	end,
 })

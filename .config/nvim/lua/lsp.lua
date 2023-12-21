@@ -1,7 +1,5 @@
 M = {}
 
-M.shopify = string.find(vim.loop.cwd(), "Shopify") or os.getenv("SPIN") ~= nil
-
 local has_float = function()
 	local wins = vim.api.nvim_list_wins()
 	for _, win in pairs(wins) do
@@ -103,11 +101,15 @@ M.make_config = function()
 	return { on_attach = M.on_attach, capabilities = capabilities, handlers = handlers }
 end
 
-local base = {
+M.to_install = {
 	servers = {
 		"cssls",
+		"dockerls",
+		"elmls",
+		"gopls",
 		"jsonls",
 		"lua_ls",
+		"pyright",
 		"ruff_lsp",
 		"rust_analyzer",
 		"tsserver",
@@ -115,64 +117,16 @@ local base = {
 	},
 	linters = {
 		"markdownlint",
+		"ruff",
+		"staticcheck",
 		"yamllint",
 	},
 	formatters = {
+		"elm-format",
 		"prettierd",
 		"stylua",
 	},
 }
-
-local extra = {
-	servers = {},
-	linters = {},
-	formatters = {},
-}
-
-if M.shopify then
-	extra = {
-		servers = {
-			"ruby_ls",
-			"solargraph",
-			"sorbet",
-		},
-		linters = {
-			"rubocop",
-		},
-		formatters = {
-			"rubocop",
-		},
-	}
-else
-	extra = {
-		servers = {
-			"dockerls",
-			"elmls",
-			"gopls",
-			"pyright",
-		},
-		linters = {
-			"ruff",
-			"staticcheck",
-		},
-		formatters = {
-			"elm-format",
-		},
-	}
-end
-
-M.to_install = {
-	servers = {},
-	linters = {},
-	formatters = {},
-}
-for key, _ in pairs(M.to_install) do
-	for _, src in pairs({ base, extra }) do
-		for _, value in pairs(src[key]) do
-			table.insert(M.to_install[key], value)
-		end
-	end
-end
 
 M.make_pyright_config = function()
 	local config = M.make_config()
