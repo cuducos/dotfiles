@@ -112,6 +112,7 @@ M.to_install = {
 		"pyright",
 		"ruff_lsp",
 		"rust_analyzer",
+		"sqlls",
 		"tsserver",
 		"yamlls",
 	},
