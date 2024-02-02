@@ -1,5 +1,5 @@
 switch (date +%m)
-    case 01 2 12
+    case 01 02 12
         set -g sunrise 7
         set -g sunset 16
     case 03 04 05
