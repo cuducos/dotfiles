@@ -134,9 +134,10 @@ local plugins = {
 
 	-- code comments
 	{
-		"b3nj5m1n/kommentary",
+		"numToStr/Comment.nvim",
+		lazy = false,
 		config = function()
-			require("config.kommentary")
+			require("config.comment").setup()
 		end,
 	},
 
