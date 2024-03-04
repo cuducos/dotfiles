@@ -26,24 +26,19 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	},
 	sources = {
-		{ name = "copilot" },
+		{ name = "codeium" },
 		{ name = "nvim_lsp_document_symbol" },
 		{ name = "nvim_lua" },
 		{ name = "nvim_lsp" },
 		{ name = "treesitter" },
 		{ name = "path" },
-		{ name = "buffer" },
 	},
 	formatting = {
-		format = lspkind.cmp_format({
-			before = function(entry, item)
-				if entry.source.name == "copilot" then
-					item.kind = "Copilot "
-					item.kind_hl_group = "CmpItemKindCopilot"
-				end
-				item.dup = { buffer = 1, path = 1, nvim_lsp = 0 }
-				return item
-			end,
+		format = require("lspkind").cmp_format({
+			mode = "symbol",
+			maxwidth = 50,
+			ellipsis_char = "...",
+			symbol_map = { Codeium = "" },
 		}),
 	},
 	snippet = {

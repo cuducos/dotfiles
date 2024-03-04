@@ -64,7 +64,15 @@ local plugins = {
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
-			"hrsh7th/cmp-copilot",
+			{
+				"Exafunction/codeium.nvim",
+				dependencies = {
+					"nvim-lua/plenary.nvim",
+				},
+				config = function()
+					require("config.codeium")
+				end,
+			},
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-document-symbol",
 			"hrsh7th/cmp-nvim-lua",
@@ -289,10 +297,16 @@ local plugins = {
 
 	-- ai
 	{
-		"github/copilot.vim",
+		"jackMort/ChatGPT.nvim",
 		config = function()
-			require("config.copilot")
+			require("config.chatgpt")
 		end,
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"folke/trouble.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
 	},
 }
 
