@@ -117,9 +117,11 @@ M.to_install = {
 		"yamlls",
 	},
 	linters = {
+		"eslint-lsp",
 		"markdownlint",
 		"ruff",
 		"staticcheck",
+		"typos-lsp",
 		"yamllint",
 	},
 	formatters = {
