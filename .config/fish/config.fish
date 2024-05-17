@@ -76,7 +76,7 @@ end
 set PATH $HOME/.nodenv/bin $PATH
 if type -q nodenv
   status --is-interactive; and source (nodenv init -|psub)
-  nodenv global 13.14.0
+  nodenv global 18.20.2
 end
 
 # poetry
