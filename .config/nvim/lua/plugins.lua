@@ -140,15 +140,6 @@ local plugins = {
 	{ "fladson/vim-kitty", ft = { "kitty" } },
 	{ "RRethy/nvim-treesitter-endwise", ft = { "lua" } },
 
-	-- code comments
-	{
-		"numToStr/Comment.nvim",
-		lazy = false,
-		config = function()
-			require("config.comment")
-		end,
-	},
-
 	-- git
 	{
 		"NeogitOrg/neogit",
