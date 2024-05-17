@@ -73,6 +73,7 @@ M.on_attach = function(client, _)
 			end,
 		})
 	end
+	vim.lsp.inlay_hint.enable()
 end
 
 M.make_config = function()
