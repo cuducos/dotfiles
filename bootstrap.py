@@ -93,9 +93,9 @@ def configure_kitty():
 def configure_nvim():
     if not NEOVIM_VENV.exists():
         venv.create(NEOVIM_VENV, with_pip=True)
-        os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade pip")
-        os.system(f"{NEOVIM_PYTHON} -m pip install ruff ruff-lsp")
 
+    os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade pip")
+    os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade ruff ruff-lsp")
     os.system("nvim --headless '+Lazy! sync' +qa")
     os.system("nvim --headless -c 'silent UpdateRemotePlugins' -c 'quitall'")
     os.system(
