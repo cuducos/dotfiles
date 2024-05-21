@@ -3,5 +3,5 @@
 Replacing files in `~/.config` by symlinks to the files in this repository:
 
 ```console
-$ ./bootstrap.sh
+$ python bootstrap.py
 ```
