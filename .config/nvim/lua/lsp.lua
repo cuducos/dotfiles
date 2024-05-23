@@ -23,6 +23,9 @@ M.on_attach = function(client, _)
 			"n",
 			"<Leader>a",
 			function()
+				if vim.bo.filetype == "python" then
+					vim.lsp.buf.code_action({ apply = true, context = { only = { "source.fixAll.ruff" } } })
+				end
 				vim.lsp.buf.format({ async = true })
 			end,
 		},
@@ -132,6 +135,9 @@ M.to_install = {
 M.make_pyright_config = function()
 	local config = M.make_config()
 	config.settings = {
+		pyright = {
+			disableOrganizeImports = true, -- this is covered by ruff-lsp
+		},
 		python = {
 			analysis = {
 				autoImportCompletion = true,
