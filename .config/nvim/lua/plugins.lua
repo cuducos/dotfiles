@@ -117,13 +117,6 @@ local plugins = {
 		"ckolkey/ts-node-action",
 		dependencies = { "nvim-treesitter" },
 	},
-	{
-		"hinell/lsp-timeout.nvim",
-		dependencies = { "neovim/nvim-lspconfig" },
-		config = function()
-			require("config.lsp_timeout")
-		end,
-	},
 
 	-- language specific
 	{
