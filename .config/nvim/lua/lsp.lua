@@ -120,7 +120,6 @@ M.to_install = {
 	linters = {
 		"eslint-lsp",
 		"markdownlint",
-		"ruff",
 		"staticcheck",
 		"typos-lsp",
 		"yamllint",
