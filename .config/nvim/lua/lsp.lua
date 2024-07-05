@@ -34,7 +34,7 @@ M.on_attach = function(client, _)
 			"n",
 			"<Leader>ih",
 			function()
-				vim.lsp.buf.inlay_hint(0, nil)
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), { bufnr = 0 })
 			end,
 		},
 	}
