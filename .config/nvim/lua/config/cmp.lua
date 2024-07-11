@@ -1,27 +1,28 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
+local types = require("cmp.types")
 
 cmp.setup({
 	mapping = {
-		["<Tab>"] = cmp.mapping(function(fallback)
+		["<Tab>"] = function(fallback)
 			if cmp.visible() then
-				cmp.select_next_item()
+				cmp.select_next_item({ behavior = types.cmp.SelectBehavior.Select })
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
 			else
 				fallback()
 			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
+		end,
+		["<S-Tab>"] = function(fallback)
 			if cmp.visible() then
-				cmp.select_prev_item()
+				cmp.select_prev_item({ behavior = types.cmp.SelectBehavior.Select })
 			elseif luasnip.jumpable(-1) then
 				luasnip.jump(-1)
 			else
 				fallback()
 			end
-		end, { "i", "s" }),
+		end,
 		["<Esc>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	},
