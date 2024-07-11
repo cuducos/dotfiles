@@ -1,5 +1,5 @@
 FROM debian:bullseye-slim AS neovim
-ENV NVIM_VERSION v0.9.2
+ENV NVIM_VERSION v0.10.0
 ENV CMAKE_BUILD_TYPE Release
 ENV BUILD_REQUIREMENTS "cmake curl gettext git ninja-build unzip"
 RUN apt update && \
