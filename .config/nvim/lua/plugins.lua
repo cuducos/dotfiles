@@ -263,14 +263,6 @@ local plugins = {
 			require("config.alpha")
 		end,
 	},
-	{
-		"michaelb/sniprun",
-		build = "bash install.sh",
-		cmd = { "SnipRun", "SnipInfo" },
-		cond = function()
-			return vim.fn.executable("cargo") == 1
-		end,
-	},
 	{ "lewis6991/fileline.nvim" },
 	{
 		"m4xshen/hardtime.nvim",
