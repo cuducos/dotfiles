@@ -27,8 +27,8 @@ end
 
 # brew
 if test -f /opt/homebrew/bin/brew
-  set --export HOMEBREW_NO_AUTO_UPDATE 1
-  eval (/opt/homebrew/bin/brew shellenv)
+    set --export HOMEBREW_NO_AUTO_UPDATE 1
+    eval (/opt/homebrew/bin/brew shellenv)
 end
 
 # locale
@@ -37,18 +37,18 @@ set --export LC_CTYPE en_US.UTF-8
 
 # add C headers
 if type -q xcrun
-  set --export CPATH (xcrun --show-sdk-path)/usr/include
+    set --export CPATH (xcrun --show-sdk-path)/usr/include
 end
 
 # autojump
 if test -f /usr/local/share/autojump/autojump.fish
-  source /usr/local/share/autojump/autojump.fish
+    source /usr/local/share/autojump/autojump.fish
 end
 if test -f /usr/share/autojump/autojump.fish
-  source /usr/share/autojump/autojump.fish
+    source /usr/share/autojump/autojump.fish
 end
 if test -f /opt/homebrew/share/autojump/autojump.fish
-  source /opt/homebrew/share/autojump/autojump.fish
+    source /opt/homebrew/share/autojump/autojump.fish
 end
 
 # getgist
@@ -75,8 +75,8 @@ end
 # nodenv
 set PATH $HOME/.nodenv/bin $PATH
 if type -q nodenv
-  status --is-interactive; and source (nodenv init -|psub)
-  nodenv global 18.20.2
+    status --is-interactive; and source (nodenv init -|psub)
+    nodenv global 18.20.2
 end
 
 # poetry
