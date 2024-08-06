@@ -38,7 +38,7 @@ local mappings = {
 	{ "n", "<Leader>k", builtin.keymaps },
 	{ "n", "<Leader>n", telescope.extensions.notify.notify },
 	{ "n", "<Leader>ts", builtin.treesitter },
-	{ "n", "<Leader>lr", builtin.lsp_references },
+	{ "n", "<Leader>lsp", builtin.lsp_document_symbols },
 	{ "n", "<Leader>/", telescope.extensions.live_grep_args.live_grep_args },
 	{ "v", "<Leader>/", require("telescope-live-grep-args.shortcuts").grep_visual_selection },
 	{
