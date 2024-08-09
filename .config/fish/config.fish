@@ -123,3 +123,16 @@ if type -q wed
         end
     end
 end
+
+# minhareceita.org
+if type -q minha-receita
+    set -l mirror "$HOME/Dropbox/Apps/minha-receita-mirror/data/"
+    set -l most_recent_data (fd -t d '\d{4}-\d{2}-\d{2}' $mirror | tail -n 1)
+    set -l dates (minha-receita has-update -d $most_recent_data)
+    set -l local (echo $dates | grep "Local files" | awk '{print $3}')
+    set -l remote (echo $dates | grep "Remote files" | awk '{print $3}')
+
+    if test $local != $remote
+        echo "Reminder: update minhareceita.org"
+    end
+end
