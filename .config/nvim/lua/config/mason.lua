@@ -63,7 +63,7 @@ local function setup_servers()
 			}
 			lsp_config.gopls.setup(config)
 		end,
-		["tsserver"] = function()
+		["ts_ls"] = function()
 			local config = lsp.make_config()
 			local inlayHints = {
 				includeInlayEnumMemberValueHints = true,
@@ -78,7 +78,7 @@ local function setup_servers()
 				javascript = { inlayHints = inlayHints },
 				typescript = { inlayHints = inlayHints },
 			}
-			lsp_config.tsserver.setup(config)
+			lsp_config.ts_ls.setup(config)
 		end,
 	})
 	vim.diagnostic.config({

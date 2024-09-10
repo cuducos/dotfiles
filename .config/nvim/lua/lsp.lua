@@ -114,7 +114,7 @@ M.to_install = {
 		"ruff_lsp",
 		"rust_analyzer",
 		"sqlls",
-		"tsserver",
+		"ts_ls",
 		"yamlls",
 	},
 	linters = {
