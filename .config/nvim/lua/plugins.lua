@@ -279,6 +279,12 @@ local plugins = {
 	},
 	{ "lewis6991/fileline.nvim" },
 	{
+		"MagicDuck/grug-far.nvim",
+		config = function()
+			require("config.grug_far")
+		end,
+	},
+	{
 		"m4xshen/hardtime.nvim",
 		config = function()
 			require("config.hardtime")
