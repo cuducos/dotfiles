@@ -293,15 +293,23 @@ local plugins = {
 
 	-- ai
 	{
-		"jackMort/ChatGPT.nvim",
-		config = function()
-			require("config.chatgpt")
-		end,
+		"yetone/avante.nvim",
+		version = false,
+		event = "VeryLazy",
+		build = "make BUILD_FROM_SOURCE=true",
+		lazy = false,
+		opts = { provider = "claude" },
 		dependencies = {
-			"MunifTanjim/nui.nvim",
+			"stevearc/dressing.nvim",
 			"nvim-lua/plenary.nvim",
-			"folke/trouble.nvim",
-			"nvim-telescope/telescope.nvim",
+			"MunifTanjim/nui.nvim",
+			{
+				"MeanderingProgrammer/render-markdown.nvim",
+				opts = {
+					file_types = { "markdown", "Avante" },
+				},
+				ft = { "markdown", "Avante" },
+			},
 		},
 	},
 }
