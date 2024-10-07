@@ -37,6 +37,14 @@ local function set_mappings()
 		{ "n", "<Leader>,", "<Cmd>nohl<CR>" },
 		{ "n", "<Leader>#", ":set relativenumber!<CR>" },
 		{ "n", "<Leader>w", ":w<CR>" },
+		{
+			"n",
+			"<Leader>wq",
+			function()
+				vim.cmd("w")
+				vim.cmd("bd")
+			end,
+		},
 		{ "n", "vv", "viw" },
 		{ "n", "<Leader>gh", go_to_github_repo },
 		{ "n", "0", beginning_of_the_line },
