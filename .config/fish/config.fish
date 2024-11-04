@@ -69,7 +69,7 @@ if type -q pyenv
     status is-login; and pyenv init --path | source
     status is-interactive; and pyenv init - | source
     set PATH $HOME/.pyenv/shims $PATH
-    pyenv global 3.12.3
+    pyenv global 3.12.7
 end
 
 # nodenv
