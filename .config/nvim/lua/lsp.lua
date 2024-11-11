@@ -111,7 +111,7 @@ M.to_install = {
 		"jsonls",
 		"lua_ls",
 		"pyright",
-		"ruff_lsp",
+		"ruff",
 		"rust_analyzer",
 		"sqlls",
 		"ts_ls",
@@ -135,7 +135,7 @@ M.make_pyright_config = function()
 	local config = M.make_config()
 	config.settings = {
 		pyright = {
-			disableOrganizeImports = true, -- this is covered by ruff-lsp
+			disableOrganizeImports = true, -- this is covered by ruff
 		},
 		python = {
 			analysis = {
