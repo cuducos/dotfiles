@@ -15,6 +15,7 @@ function go_build_main_archs
                         set -x GOOS $os
                         set -x GOARCH $arch
 
+                        echo "Building for $os/$arch"
                         go build -o $output main.go
 
                         set -x GOOS $GOOS_BKP
