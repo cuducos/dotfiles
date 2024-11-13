@@ -28,10 +28,10 @@ cmp.setup({
 	},
 	sources = {
 		{ name = "codeium" },
-		{ name = "nvim_lsp_document_symbol" },
-		{ name = "nvim_lua" },
 		{ name = "nvim_lsp" },
 		{ name = "treesitter" },
+		{ name = "nvim_lsp_document_symbol" },
+		{ name = "nvim_lua" },
 		{ name = "path" },
 	},
 	formatting = {
