@@ -222,12 +222,11 @@ local plugins = {
 		end,
 	},
 	{
-		"OXY2DEV/markview.nvim",
-		ft = "markdown",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons",
+		"MeanderingProgrammer/render-markdown.nvim",
+		opts = {
+			file_types = { "markdown", "Avante" },
 		},
+		ft = { "markdown", "Avante" },
 	},
 	{
 		"folke/todo-comments.nvim",
@@ -314,13 +313,6 @@ local plugins = {
 			"stevearc/dressing.nvim",
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
-			{
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					file_types = { "markdown", "Avante" },
-				},
-				ft = { "markdown", "Avante" },
-			},
 		},
 	},
 }
