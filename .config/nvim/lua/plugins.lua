@@ -264,14 +264,6 @@ local plugins = {
 			require("config.notify")
 		end,
 	},
-	{
-		"rgroli/other.nvim",
-		cmd = "Other",
-		ft = { "go", "typescriptreact" },
-		config = function()
-			require("config.other")
-		end,
-	},
 	{ "stevearc/dressing.nvim" },
 	{
 		"ellisonleao/carbon-now.nvim",
