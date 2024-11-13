@@ -300,7 +300,7 @@ local plugins = {
 		event = "VeryLazy",
 		build = "make BUILD_FROM_SOURCE=true",
 		lazy = false,
-		opts = { provider = "claude" },
+		opts = { provider = "openai" },
 		dependencies = {
 			"stevearc/dressing.nvim",
 			"nvim-lua/plenary.nvim",
