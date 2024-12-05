@@ -17,6 +17,10 @@ vim.api.nvim_create_autocmd("User", {
 	callback = require("lualine").refresh,
 })
 
+local location_with_total_chars = function()
+	return string.format("%d:%d (%d)", vim.fn.line("."), vim.fn.col("."), vim.fn.wordcount().chars)
+end
+
 local lsp_progress_or_yaml_key_value = function()
 	if vim.bo.filetype == "yaml" then
 		local yaml = require("yaml_nvim")
@@ -62,6 +66,6 @@ require("lualine").setup({
 			"encoding",
 		},
 		lualine_y = { "diff" },
-		lualine_z = { "location", "progress" },
+		lualine_z = { location_with_total_chars, "progress" },
 	},
 })
