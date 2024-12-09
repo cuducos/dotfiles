@@ -223,10 +223,7 @@ local plugins = {
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		opts = {
-			file_types = { "markdown", "Avante" },
-		},
-		ft = { "markdown", "Avante" },
+		ft = { "markdown", "codecompanion" },
 	},
 	{
 		"folke/todo-comments.nvim",
@@ -295,17 +292,14 @@ local plugins = {
 
 	-- ai
 	{
-		"yetone/avante.nvim",
-		version = false,
-		event = "VeryLazy",
-		build = "make BUILD_FROM_SOURCE=true",
-		lazy = false,
-		opts = { provider = "openai" },
+		"olimorris/codecompanion.nvim",
 		dependencies = {
-			"stevearc/dressing.nvim",
 			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
+			"nvim-treesitter/nvim-treesitter",
 		},
+		config = function()
+			require("config.codecompanion")
+		end,
 	},
 }
 
