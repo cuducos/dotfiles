@@ -62,27 +62,41 @@ local plugins = {
 		end,
 	},
 	{
-		"hrsh7th/nvim-cmp",
+		"saghen/blink.cmp",
+		build = "cargo build --release && cargo clean",
 		dependencies = {
+			"rafamadriz/friendly-snippets",
 			{
-				"Exafunction/codeium.nvim",
-				dependencies = {
-					"nvim-lua/plenary.nvim",
-				},
+				"giuxtaposition/blink-cmp-copilot",
+				dependencies = { "zbirenbaum/copilot.lua" },
 				config = function()
-					require("config.codeium")
+					require("config.copilot")
 				end,
 			},
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lsp-document-symbol",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-path",
-			"onsails/lspkind.nvim",
-			"ray-x/cmp-treesitter",
 		},
-		config = function()
-			require("config.cmp")
-		end,
+		opts = {
+			keymap = { preset = "default" },
+			completion = {
+				documentation = { auto_show = true, window = { border = "rounded" } },
+				menu = { border = "rounded" },
+			},
+			appearance = {
+				use_nvim_cmp_as_default = true,
+				nerd_font_variant = "mono",
+			},
+			sources = {
+				providers = {
+					copilot = {
+						name = "copilot",
+						module = "blink-cmp-copilot",
+						score_offset = 100,
+						async = true,
+					},
+				},
+				default = { "copilot", "lsp", "buffer", "path", "snippets" },
+			},
+		},
+		opts_extend = { "sources.default" },
 	},
 	{
 		"nvimtools/none-ls.nvim",

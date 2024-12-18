@@ -1,3 +1,5 @@
+local blink = require("blink.cmp")
+
 M = {}
 
 local has_float = function()
@@ -94,12 +96,11 @@ M.make_config = function()
 		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 	}
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	capabilities.textDocument.completion.completionItem.resolveSupport = {
-		properties = { "documentation", "detail", "additionalTextEdits" },
+	return {
+		handlers = handlers,
+		on_attach = M.on_attach,
+		capabilities = blink.get_lsp_capabilities(capabilities),
 	}
-	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-	return { on_attach = M.on_attach, capabilities = capabilities, handlers = handlers }
 end
 
 M.to_install = {
