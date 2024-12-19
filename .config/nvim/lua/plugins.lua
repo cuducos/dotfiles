@@ -54,11 +54,10 @@ local plugins = {
 		dependencies = {
 			"neovim/nvim-lspconfig",
 			"williamboman/mason-lspconfig.nvim",
-			"simrat39/rust-tools.nvim",
+			"mrcjkb/rustaceanvim",
 		},
 		config = function()
 			require("config.mason")
-			require("config.rust_tools")
 		end,
 	},
 	{
