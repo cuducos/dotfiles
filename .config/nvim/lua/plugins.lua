@@ -33,13 +33,6 @@ local plugins = {
 			require("config.telescope")
 		end,
 	},
-	{
-		"wookayin/wilder.nvim", -- go back to gelguy/wilder.nvim once https://github.com/gelguy/wilder.nvim/issues/187 is fixed
-		dependencies = { "romgrk/fzy-lua-native" },
-		config = function()
-			require("config.wilder")
-		end,
-	},
 
 	-- lsp & treesitter
 	{
