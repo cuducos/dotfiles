@@ -57,7 +57,14 @@ local plugins = {
 		"saghen/blink.cmp",
 		build = "cargo build --release && cargo clean",
 		dependencies = {
-			"rafamadriz/friendly-snippets",
+			{
+				"L3MON4D3/LuaSnip",
+				version = "v2.*",
+				dependencies = { "rafamadriz/friendly-snippets" },
+				config = function()
+					require("config.luasnip")
+				end,
+			},
 			{
 				"giuxtaposition/blink-cmp-copilot",
 				dependencies = { "zbirenbaum/copilot.lua" },
@@ -69,6 +76,7 @@ local plugins = {
 		opts = {
 			keymap = { preset = "default" },
 			completion = {
+				accept = { auto_brackets = { enabled = false } },
 				documentation = { auto_show = true, window = { border = "rounded" } },
 				menu = { border = "rounded" },
 			},
@@ -76,20 +84,7 @@ local plugins = {
 				use_nvim_cmp_as_default = true,
 				nerd_font_variant = "mono",
 			},
-			snippets = {
-				expand = function(snippet)
-					require("luasnip").lsp_expand(snippet)
-				end,
-				active = function(filter)
-					if filter and filter.direction then
-						return require("luasnip").jumpable(filter.direction)
-					end
-					return require("luasnip").in_snippet()
-				end,
-				jump = function(direction)
-					require("luasnip").jump(direction)
-				end,
-			},
+			snippets = { preset = "luasnip" },
 			sources = {
 				providers = {
 					copilot = {
@@ -99,7 +94,7 @@ local plugins = {
 						async = true,
 					},
 				},
-				default = { "copilot", "lsp", "buffer", "path", "luasnip" },
+				default = { "copilot", "lsp", "snippets", "buffer", "path" },
 			},
 		},
 		opts_extend = { "sources.default" },
@@ -234,14 +229,6 @@ local plugins = {
 	},
 	{ "andymass/vim-matchup" },
 	{
-		"L3MON4D3/LuaSnip",
-		version = "v2.*",
-		dependencies = { "rafamadriz/friendly-snippets" },
-		config = function()
-			require("config.luasnip")
-		end,
-	},
-	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown", "codecompanion" },
 	},
@@ -297,12 +284,6 @@ local plugins = {
 		end,
 	},
 	{ "lewis6991/fileline.nvim" },
-	{
-		"MagicDuck/grug-far.nvim",
-		config = function()
-			require("config.grug_far")
-		end,
-	},
 	{
 		"m4xshen/hardtime.nvim",
 		config = function()

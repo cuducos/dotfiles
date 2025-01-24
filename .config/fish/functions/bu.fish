@@ -5,5 +5,6 @@ function bu
     brew upgrade
     printf "\n ==> Cleaning Homebrew cache\n"
     brew cleanup -s
+    du -hd0 (brew --cache)
     rm -rfv (brew --cache)
 end

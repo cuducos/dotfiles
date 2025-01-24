@@ -25,6 +25,7 @@ if test -f $HOME/.env.fish
     source $HOME/.env.fish
 end
 set --export EDITOR (command -v nvim || command -v vim || echo vi)
+set PATH $HOME/.local/bin $PATH
 
 # brew
 if test -f /opt/homebrew/bin/brew
@@ -45,15 +46,6 @@ end
 if test -f /usr/local/share/autojump/autojump.fish
     source /usr/local/share/autojump/autojump.fish
 end
-if test -f /usr/share/autojump/autojump.fish
-    source /usr/share/autojump/autojump.fish
-end
-if test -f /opt/homebrew/share/autojump/autojump.fish
-    source /opt/homebrew/share/autojump/autojump.fish
-end
-
-# getgist
-set --export GETGIST_USER cuducos
 
 # ripgrep
 set --export RIPGREP_CONFIG_PATH $HOME/.ripgreprc
@@ -83,9 +75,6 @@ end
 # poetry
 set PATH $HOME/.poetry/bin $PATH
 
-# pipenv & others
-set PATH $HOME/.local/bin $PATH
-
 # npm
 set PATH $HOME/.npm-global/bin $PATH
 
@@ -98,13 +87,9 @@ alias g git
 set --export BAT_THEME OneHalfLight
 
 # direnv
-
 if type -q direnv
     direnv hook fish | source
 end
-
-# brew's ruby
-set PATH /usr/local/opt/ruby/bin $PATH
 
 # wed
 if type -q wed
