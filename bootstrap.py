@@ -1,19 +1,13 @@
-import os
 import platform
-import venv
 from itertools import chain
+from os import environ, pathsep, system
 from pathlib import Path
 from urllib.request import urlopen
 
 DOTFILES_DIR = Path.cwd()
 DOTFILES_GIT = DOTFILES_DIR / ".git"
 HOME_DIR = Path.home()
-
 CONFIG_FILE_NAMES = (".fdignore", ".gitconfig", ".gitignore_global", ".ripgreprc")
-CONFIG_FILES = (DOTFILES_DIR / f for f in CONFIG_FILE_NAMES)
-
-NEOVIM_VENV = HOME_DIR / ".virtualenvs" / "neovim"
-NEOVIM_PYTHON = NEOVIM_VENV / "bin" / "python"
 
 KITTY_CONF = HOME_DIR / ".config" / "kitty"
 CATPPUCCIN_THEMES = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/"
@@ -36,7 +30,7 @@ FONTS = dict(zip(FONT_KEYS, MAC_FONTS if IS_MAC else LINUX_FONTS))
 
 
 def which(bin):
-    for directory in os.environ["PATH"].split(os.pathsep):
+    for directory in environ["PATH"].split(pathsep):
         path = Path(directory) / bin
         if not path.exists() or not path.is_file():
             continue
@@ -61,7 +55,8 @@ def create_all_dirs():
 
 
 def create_all_symlinks():
-    for path in chain(CONFIG_FILES, (DOTFILES_DIR / ".config").glob("**/*")):
+    config_files = (DOTFILES_DIR / f for f in CONFIG_FILE_NAMES)
+    for path in chain(config_files, (DOTFILES_DIR / ".config").glob("**/*")):
         if not path.is_file():
             continue
 
@@ -91,14 +86,9 @@ def configure_kitty():
 
 
 def configure_nvim():
-    if not NEOVIM_VENV.exists():
-        venv.create(NEOVIM_VENV, with_pip=True)
-
-    os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade pip")
-    os.system(f"{NEOVIM_PYTHON} -m pip install --upgrade ruff ruff-lsp")
-    os.system("nvim --headless '+Lazy! sync' +qa")
-    os.system("nvim --headless -c 'silent UpdateRemotePlugins' -c 'quitall'")
-    os.system(
+    system("nvim --headless '+Lazy! sync' +qa")
+    system("nvim --headless -c 'silent UpdateRemotePlugins' -c 'quitall'")
+    system(
         "nvim --headless -c 'autocmd User MasonUpgradeComplete sleep 100m | qall' -c 'MasonUpgrade'"
     )
 
