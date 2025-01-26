@@ -1,30 +1,35 @@
 FROM debian:bullseye-slim AS neovim
-ENV NVIM_VERSION v0.10.0
-ENV CMAKE_BUILD_TYPE Release
-ENV BUILD_REQUIREMENTS "cmake curl gettext git ninja-build unzip"
-RUN apt update && \
-    apt install -y ${BUILD_REQUIREMENTS} && \
+ENV NVIM_VERSION=v0.10.3
+ENV CMAKE_BUILD_TYPE=Release
+ENV BUILD_REQUIREMENTS="cmake curl gettext git ninja-build unzip"
+RUN apt-get update && \
+    apt-get install -y ${BUILD_REQUIREMENTS} && \
     git clone --branch ${NVIM_VERSION} https://github.com/neovim/neovim && \
     cd neovim && \
     make && \
     make install && \
     rm -rf ../neovim && \
-    apt remove -y ${BUILD_REQUIREMENTS} && \
-    apt autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get remove -y ${BUILD_REQUIREMENTS} && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt-get/lists/*
 
-FROM golang:1.20-bookworm
+FROM golang:1.23-bookworm
 COPY --from=neovim /usr/local/share/nvim /usr/local/share/nvim
 COPY --from=neovim /usr/local/lib/nvim /usr/local/lib/nvim
 COPY --from=neovim /usr/local/bin/nvim /usr/local/bin/nvim
-RUN apt update && \
-    apt install -y curl gcc git nodejs npm python3 python3-venv unzip wget && \
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y curl gcc git nodejs npm python3 python3-venv unzip && \
+    rm -rf /var/lib/apt-get/lists/*
 
 RUN useradd -ms /bin/bash cuducos
 USER cuducos
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y && \
+    echo 'source $HOME/.cargo/env' >> /home/cuducos/.bashrc && \
+    # required by pymple.nvim
+    $HOME/.cargo/bin/cargo install fd-find && \
+    $HOME/.cargo/bin/cargo install grip-grab
 
 WORKDIR /home/cuducos/dotfiles/
 ADD . .
-CMD ./bootstrap.sh
+
+CMD ["python3", "bootstrap.py"]

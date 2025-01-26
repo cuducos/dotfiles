@@ -55,6 +55,7 @@ local plugins = {
 	},
 	{
 		"saghen/blink.cmp",
+		version = "*",
 		build = "cargo build --release && cargo clean",
 		dependencies = {
 			{
