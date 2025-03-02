@@ -59,18 +59,25 @@ local plugins = {
 		build = "cargo build --release && cargo clean",
 		dependencies = {
 			{
+				"olimorris/codecompanion.nvim",
+				dependencies = {
+					"nvim-lua/plenary.nvim",
+					"nvim-treesitter/nvim-treesitter",
+				},
+				config = function()
+					require("config.codecompanion")
+				end,
+			},
+			{
+				"Kaiser-Yang/blink-cmp-git",
+				dependencies = { "nvim-lua/plenary.nvim" },
+			},
+			{
 				"L3MON4D3/LuaSnip",
 				version = "v2.*",
 				dependencies = { "rafamadriz/friendly-snippets" },
 				config = function()
 					require("config.luasnip")
-				end,
-			},
-			{
-				"giuxtaposition/blink-cmp-copilot",
-				dependencies = { "zbirenbaum/copilot.lua" },
-				config = function()
-					require("config.copilot")
 				end,
 			},
 		},
@@ -88,14 +95,9 @@ local plugins = {
 			snippets = { preset = "luasnip" },
 			sources = {
 				providers = {
-					copilot = {
-						name = "copilot",
-						module = "blink-cmp-copilot",
-						score_offset = 100,
-						async = true,
-					},
+					git = { module = "blink-cmp-git", name = "Git" },
 				},
-				default = { "copilot", "lsp", "snippets", "buffer", "path" },
+				default = { "codecompanion", "lsp", "snippets", "buffer", "path", "git" },
 			},
 		},
 		opts_extend = { "sources.default" },
@@ -289,18 +291,6 @@ local plugins = {
 		"m4xshen/hardtime.nvim",
 		config = function()
 			require("config.hardtime")
-		end,
-	},
-
-	-- ai
-	{
-		"olimorris/codecompanion.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		config = function()
-			require("config.codecompanion")
 		end,
 	},
 }
