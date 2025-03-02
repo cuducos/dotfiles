@@ -109,6 +109,7 @@ M.to_install = {
 		"dockerls",
 		"elmls",
 		"gopls",
+		"graphql",
 		"jsonls",
 		"lua_ls",
 		"pyright",
