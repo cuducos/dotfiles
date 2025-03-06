@@ -2,6 +2,7 @@ import platform
 from itertools import chain
 from os import environ, pathsep, system
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 from urllib.request import urlopen
 
 DOTFILES_DIR = Path.cwd()
@@ -27,6 +28,7 @@ LINUX_FONTS = {
     "Fira Code SemiBold Nerd Font Complete Mono",
 }
 FONTS = dict(zip(FONT_KEYS, MAC_FONTS if IS_MAC else LINUX_FONTS))
+DIRVENV_URL = "https://raw.githubusercontent.com/cuducos/dirvenv.fish/refs/heads/main/install.fish"
 
 
 def which(bin):
@@ -85,6 +87,12 @@ def configure_kitty():
         download_as(url, path)
 
 
+def install_dirvenv():
+    with NamedTemporaryFile(suffix=".fish") as tmp:
+        download_as(DIRVENV_URL, Path(tmp.name))
+        system(f"fish {tmp.name}")
+
+
 def configure_nvim():
     system("nvim --headless '+Lazy! sync' +qa")
     system("nvim --headless -c 'silent UpdateRemotePlugins' -c 'quitall'")
@@ -97,4 +105,5 @@ if __name__ == "__main__":
     create_all_dirs()
     create_all_symlinks()
     configure_kitty()
+    install_dirvenv()
     configure_nvim()

@@ -1,10 +1,5 @@
 function fish_prompt
   set -l last_status $status
-
-  if set -q VIRTUAL_ENV
-    echo -n -s (basename $VIRTUAL_ENV) ' '
-  end
-
   set_color -o cyan
   echo -n -s (basename (prompt_pwd)) ' '
   set_color normal
