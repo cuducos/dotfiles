@@ -1,8 +1,8 @@
 require("codecompanion").setup({
 	display = { diff = { enabled = false } },
 	strategies = {
-		chat = { adapter = "openai" },
-		inline = { adapter = "openai" },
+		chat = { adapter = "deepseek" },
+		inline = { adapter = "deepseek" },
 	},
 })
 vim.keymap.set({ "n", "v" }, "<Leader>ci", "<cmd>CodeCompanion<cr>")
