@@ -9,7 +9,13 @@ local mappings = {
 	{ "n", "<Leader>lsp", snacks.picker.lsp_symbols },
 	{ "n", "<Leader>r", snacks.picker.lsp_references },
 	{ "n", "<Leader>/", snacks.picker.grep },
-	{ "n", "<Leader>s", snacks.picker },
+	{
+		"n",
+		"<Leader>s",
+		function()
+			snacks.picker()
+		end,
+	},
 	{
 		"n",
 		"<Leader>f",

@@ -25,9 +25,6 @@ local plugins = {
 	-- fuzzy finder
 	{
 		"folke/snacks.nvim",
-		opts = {
-			layout = "horizontal",
-		},
 		config = function()
 			require("config.snacks")
 		end,
