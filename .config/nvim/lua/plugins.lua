@@ -24,13 +24,12 @@ local plugins = {
 
 	-- fuzzy finder
 	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{ "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" },
+		"folke/snacks.nvim",
+		opts = {
+			layout = "horizontal",
 		},
 		config = function()
-			require("config.telescope")
+			require("config.snacks")
 		end,
 	},
 
@@ -140,10 +139,7 @@ local plugins = {
 	{
 		"cuducos/yaml.nvim",
 		ft = { "yaml" },
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-telescope/telescope.nvim",
-		},
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			require("config.yaml")
 		end,
@@ -166,10 +162,7 @@ local plugins = {
 	{
 		"NeogitOrg/neogit",
 		keys = "<Leader>g",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("config.neogit")
 		end,

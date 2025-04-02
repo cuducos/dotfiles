@@ -12,7 +12,6 @@ require("catppuccin").setup({
 		notify = true,
 		nvimtree = true,
 		pounce = true,
-		telescope = true,
 		treesitter = true,
 		treesitter_context = true,
 		indent_blankline = {
@@ -27,7 +26,6 @@ require("catppuccin").setup({
 
 vim.cmd("colorscheme catppuccin")
 
--- set float window background color to the same as the normal window
 if theme == "frappe" then
 	vim.cmd("highlight NormalFloat guifg=#b9bcee guibg=#303445")
 else

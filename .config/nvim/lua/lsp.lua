@@ -18,9 +18,6 @@ M.on_attach = function(client, _)
 		{ "n", "gd", vim.lsp.buf.definition, opts },
 		{ "n", "gD", vim.lsp.buf.type_definition, opts },
 		{ "n", "gr", vim.lsp.buf.rename, opts },
-		{ "n", "<Leader>s", require("telescope.builtin").lsp_document_symbols, opts },
-		{ "n", "<Leader>S", require("telescope.builtin").lsp_workspace_symbols, opts },
-		{ "n", "<Leader>r", require("telescope.builtin").lsp_references, opts },
 		{
 			"n",
 			"<Leader>a",
