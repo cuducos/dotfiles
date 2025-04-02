@@ -68,10 +68,6 @@ local plugins = {
 				end,
 			},
 			{
-				"Kaiser-Yang/blink-cmp-git",
-				dependencies = { "nvim-lua/plenary.nvim" },
-			},
-			{
 				"L3MON4D3/LuaSnip",
 				version = "v2.*",
 				dependencies = { "rafamadriz/friendly-snippets" },
@@ -93,10 +89,7 @@ local plugins = {
 			},
 			snippets = { preset = "luasnip" },
 			sources = {
-				providers = {
-					git = { module = "blink-cmp-git", name = "Git" },
-				},
-				default = { "codecompanion", "lsp", "snippets", "buffer", "path", "git" },
+				default = { "codecompanion", "lsp", "snippets", "buffer", "path" },
 			},
 		},
 		opts_extend = { "sources.default" },
