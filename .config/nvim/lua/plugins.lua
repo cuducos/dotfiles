@@ -136,6 +136,12 @@ local plugins = {
 		build = "cargo build --release && cargo clean",
 		dependencies = {
 			{
+				"milanglacier/minuet-ai.nvim",
+				config = function()
+					require("config.minuet")
+				end,
+			},
+			{
 				"olimorris/codecompanion.nvim",
 				dependencies = {
 					"nvim-lua/plenary.nvim",
@@ -167,10 +173,18 @@ local plugins = {
 			},
 			snippets = { preset = "luasnip" },
 			sources = {
-				default = { "codecompanion", "lsp", "snippets", "buffer", "path" },
+				default = { "minuet", "codecompanion", "lsp", "snippets", "buffer", "path" },
+				providers = {
+					minuet = {
+						name = "minuet",
+						module = "minuet.blink",
+						async = true,
+						timeout_ms = 3000,
+						score_offset = 50,
+					},
+				},
 			},
 		},
-		opts_extend = { "sources.default" },
 	},
 	{
 		"nvimtools/none-ls.nvim",
