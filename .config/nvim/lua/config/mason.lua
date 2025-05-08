@@ -1,5 +1,4 @@
 local lsp = require("lsp")
-local lsp_config = require("lspconfig")
 
 vim.api.nvim_create_user_command("MasonUpgrade", function()
 	local registry = require("mason-registry")
@@ -16,71 +15,14 @@ end, { force = true })
 
 local function setup_servers()
 	require("mason").setup()
-
 	local mason_lsp_config = require("mason-lspconfig")
-	mason_lsp_config.setup({ ensure_installed = lsp.to_install.servers })
-	mason_lsp_config.setup_handlers({
-		function(server)
-			local config = lsp.make_config()
-			lsp_config[server].setup(config)
-		end,
-		["rust_analyzer"] = function() end, -- done in rustaceanvim
-		["lua_ls"] = function()
-			local config = lsp.make_config()
-			config.settings = {
-				Lua = {
-					runtime = { version = "LuaJIT" },
-					diagnostics = { globals = { "vim" } },
-					completion = { callSnippet = "Replace" },
-					hint = { enable = true },
-				},
-			}
-			lsp_config.lua_ls.setup(config)
-		end,
-		["pyright"] = function()
-			local config = lsp.make_pyright_config()
-			lsp_config.pyright.setup(config)
-		end,
-		["yamlls"] = function()
-			local config = lsp.make_config()
-			config.settings = { yaml = { keyOrdering = false } }
-			lsp_config.yamlls.setup(config)
-		end,
-		["gopls"] = function()
-			local config = lsp.make_config()
-			config.settings = {
-				gopls = {
-					hints = {
-						assignVariableTypes = true,
-						compositeLiteralFields = true,
-						compositeLiteralTypes = true,
-						constantValues = true,
-						functionTypeParameters = true,
-						parameterNames = true,
-						rangeVariableTypes = true,
-					},
-				},
-			}
-			lsp_config.gopls.setup(config)
-		end,
-		["ts_ls"] = function()
-			local config = lsp.make_config()
-			local inlayHints = {
-				includeInlayEnumMemberValueHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayVariableTypeHints = true,
-			}
-			config.settings = {
-				javascript = { inlayHints = inlayHints },
-				typescript = { inlayHints = inlayHints },
-			}
-			lsp_config.ts_ls.setup(config)
-		end,
+	mason_lsp_config.setup({
+		ensure_installed = lsp.to_install.servers,
+		automatic_enable = {
+			exclude = { "rust_analyzer" }, -- done in rustaceanvim
+		},
 	})
+	vim.lsp.config("*", lsp.make_config())
 	vim.diagnostic.config({
 		float = { border = "rounded" },
 		virtual_text = false,
