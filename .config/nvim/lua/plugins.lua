@@ -131,16 +131,16 @@ local plugins = {
 		end,
 	},
 	{
+		"milanglacier/minuet-ai.nvim",
+		config = function()
+			require("config.minuet")
+		end,
+	},
+	{
 		"saghen/blink.cmp",
 		version = "*",
 		build = "cargo build --release && cargo clean",
 		dependencies = {
-			{
-				"milanglacier/minuet-ai.nvim",
-				config = function()
-					require("config.minuet")
-				end,
-			},
 			{
 				"olimorris/codecompanion.nvim",
 				dependencies = {
@@ -173,16 +173,7 @@ local plugins = {
 			},
 			snippets = { preset = "luasnip" },
 			sources = {
-				default = { "minuet", "codecompanion", "lsp", "snippets", "buffer", "path" },
-				providers = {
-					minuet = {
-						name = "minuet",
-						module = "minuet.blink",
-						async = true,
-						timeout_ms = 3000,
-						score_offset = 50,
-					},
-				},
+				default = { "codecompanion", "lsp", "snippets", "buffer", "path" },
 			},
 		},
 	},

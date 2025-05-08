@@ -42,10 +42,9 @@ require("lualine").setup({
 		theme = "catppuccin",
 	},
 	sections = {
-		lualine_a = { "mode" },
-		lualine_b = { "branch" },
+		lualine_a = { require("minuet.lualine"), "mode" },
+		lualine_b = { "branch", "filetype" },
 		lualine_c = {
-			"filetype",
 			{
 				"filename",
 				path = 1,
@@ -62,10 +61,8 @@ require("lualine").setup({
 			{ lsp_progress_or_yaml_key_value, hide = { "copilot", "null_ls" } },
 			search_count,
 			"diagnostics",
-			"fileformat",
-			"encoding",
 		},
-		lualine_y = { "diff" },
+		lualine_y = { "fileformat", "encoding", "diff" },
 		lualine_z = { location_with_total_chars, "progress" },
 	},
 })
