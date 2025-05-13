@@ -165,7 +165,21 @@ local plugins = {
 			completion = {
 				accept = { auto_brackets = { enabled = false } },
 				documentation = { auto_show = true, window = { border = "rounded" } },
-				menu = { border = "rounded" },
+				menu = {
+					border = "rounded",
+					draw = {
+						columns = {
+							{
+								"label",
+								"label_description",
+								"kind",
+								"kind_icon",
+								"source_name",
+								gap = 1,
+							},
+						},
+					},
+				},
 			},
 			appearance = {
 				use_nvim_cmp_as_default = true,
