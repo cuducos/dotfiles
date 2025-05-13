@@ -46,7 +46,7 @@ local function set_mappings()
 			end,
 		},
 		{ "n", "vv", "viw" },
-		{ "n", "<Leader>gh", go_to_github_repo },
+		{ "n", "gh", go_to_github_repo },
 		{ "n", "0", beginning_of_the_line },
 		-- buffer and split management
 		{ "n", "<Leader>qa", "<Cmd>bufdo bw<CR>" },
@@ -212,16 +212,16 @@ vim.keymap.set("n", "<Leader>st", function()
 		return
 	end
 
-	local cmd = "import pytest; pytest.set_trace()"
-	local variants = { "import pytest", "pytest.set_trace()" }
+	local parts = { "import pytest", "pytest.set_trace()" }
+	local cmd = table.concat(parts, "; ")
 
 	local cleaned = vim.api.nvim_get_current_line():match("^%s*(.-)%s*$")
-	if cleaned == variants[1] or cleaned == variants[2] or cleaned == cmd then
+	if cleaned == parts[1] or cleaned == parts[2] or cleaned == cmd then
 		local bufnr = vim.api.nvim_get_current_buf()
 		local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 		for i = #lines, 1, -1 do
 			local line = lines[i]:match("^%s*(.-)%s*$")
-			if line == variants[1] or line == variants[2] or line == cmd then
+			if line == parts[1] or line == parts[2] or line == cmd then
 				vim.api.nvim_buf_set_lines(bufnr, i - 1, i, false, {})
 			end
 		end
