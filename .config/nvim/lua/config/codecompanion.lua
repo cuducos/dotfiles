@@ -11,9 +11,16 @@ local extras = {
 
 require("codecompanion").setup({
 	display = { diff = { enabled = false } },
+	adapters = {
+		["deepseek-chat"] = function()
+			return require("codecompanion.adapters").extend("deepseek", {
+				schema = { model = { default = "deepseek-chat" } },
+			})
+		end,
+	},
 	strategies = {
-		chat = { adapter = "deepseek" },
-		inline = { adapter = "deepseek" },
+		chat = { adapter = "deepseek-chat" },
+		inline = { adapter = "deepseek-chat" },
 	},
 	opts = {
 		system_prompt = function()
