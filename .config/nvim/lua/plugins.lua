@@ -293,6 +293,20 @@ local plugins = {
 		end,
 	},
 
+	-- debug
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"rcarriga/nvim-dap-ui",
+		},
+
+		ft = { "python" },
+		config = function()
+			require("config.dap")
+		end,
+	},
+
 	-- visual hints
 	{ "Bekaboo/deadcolumn.nvim" },
 	{ "markonm/traces.vim" },
