@@ -1,6 +1,6 @@
 local M = {
 	settings = {
-		pyright = {
+		basedpyright = {
 			disableOrganizeImports = true, -- this is covered by ruff
 		},
 		python = {

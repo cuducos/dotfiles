@@ -101,7 +101,7 @@ M.to_install = {
 		"graphql",
 		"jsonls",
 		"lua_ls",
-		"pyright",
+		"basedpyright",
 		"ruff",
 		"rust_analyzer",
 		"sqlls",
