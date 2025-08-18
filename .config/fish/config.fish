@@ -72,12 +72,6 @@ if type -q nodenv
     nodenv global 18.20.2
 end
 
-# poetry
-set PATH $HOME/.poetry/bin $PATH
-
-# npm
-set PATH $HOME/.npm-global/bin $PATH
-
 # aliases
 alias ll "ls -laGh"
 alias tmp "cd (mktemp -d)"
