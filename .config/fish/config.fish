@@ -85,6 +85,11 @@ if type -q direnv
     direnv hook fish | source
 end
 
+# minha receita
+if type -q minha-receita
+    minha-receita completion fish | source
+end
+
 # wed
 if type -q wed
     if [ (uname -o | string lower) = darwin ]
