@@ -84,6 +84,19 @@ local function set_mappings()
 	end
 end
 
+local function disable_folding()
+	local fold_keys = { "zf", "zF", "zd", "zE", "za", "zA", "zo", "zO", "zc", "zC", "zx", "zX", "zm", "zM", "zr", "zR" }
+	for _, key in ipairs(fold_keys) do
+		local existing_map = vim.fn.maparg(key, "n")
+		if existing_map ~= "" then
+			vim.keymap.del("n", key)
+		end
+	end
+	if vim.fn.maparg("zf", "v") ~= "" then
+		vim.keymap.del("v", "zf")
+	end
+end
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -180,6 +193,7 @@ end
 set_globals()
 set_mappings()
 set_options()
+disable_folding()
 
 local colorcolumns_by_filetype = {
 	python = "88",
