@@ -27,6 +27,10 @@ local beginning_of_the_line = function()
 	end
 end
 
+local function toggle_relative_number()
+	vim.o.relativenumber = not vim.o.relativenumber
+end
+
 local function set_globals()
 	vim.g.mapleader = " "
 	vim.g.python3_host_prog = vim.loop.os_homedir() .. "/.virtualenvs/neovim/bin/python"
@@ -35,7 +39,7 @@ end
 local function set_mappings()
 	local mappings = {
 		{ "n", "<Leader>,", "<Cmd>nohl<CR>" },
-		{ "n", "<Leader>#", ":set relativenumber!<CR>" },
+		{ "n", "#", toggle_relative_number },
 		{ "n", "<Leader>w", ":w<CR>" },
 		{
 			"n",
