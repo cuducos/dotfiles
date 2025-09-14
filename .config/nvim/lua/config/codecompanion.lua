@@ -1,4 +1,4 @@
-local default_prompt = require("codecompanion.config").config.opts.system_prompt({})
+local default_prompt = require("codecompanion.config").config.strategies.chat.opts.system_prompt({})
 local extras = {
 	"When replying with code, the code must:",
 	"- Be modern production-ready, clean and expressive code",
@@ -12,11 +12,13 @@ local extras = {
 require("codecompanion").setup({
 	display = { diff = { enabled = false } },
 	adapters = {
-		["deepseek-chat"] = function()
-			return require("codecompanion.adapters").extend("deepseek", {
-				schema = { model = { default = "deepseek-chat" } },
-			})
-		end,
+		http = {
+			["deepseek-chat"] = function()
+				return require("codecompanion.adapters.http").extend("deepseek", {
+					schema = { model = { default = "deepseek-chat" } },
+				})
+			end,
+		},
 	},
 	strategies = {
 		chat = { adapter = "deepseek-chat" },
