@@ -170,12 +170,6 @@ local function set_options()
 		{ group = spell_check, pattern = "COMMIT_EDITMSG", command = "setlocal spell spelllang=en_ca" }
 	)
 
-	vim.filetype.add({
-		extension = {
-			ejson = "json",
-		},
-	})
-
 	-- TODO is there a Lua API for those?
 	vim.cmd([[
     cnoreabbrev W w
