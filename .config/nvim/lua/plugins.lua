@@ -24,91 +24,11 @@ local plugins = {
 
 	-- fuzzy finder
 	{
-		"folke/snacks.nvim",
-		keys = {
-			{
-				"<Leader>F",
-				function()
-					Snacks.picker.smart()
-				end,
-			},
-			{
-				"<Tab><Tab>",
-				function()
-					Snacks.picker.buffers()
-				end,
-			},
-			{
-				"<Leader>o",
-				function()
-					Snacks.picker.recent()
-				end,
-			},
-			{
-				"<Leader>k",
-				function()
-					Snacks.picker.keymaps()
-				end,
-			},
-			{
-				"<Leader>n",
-				function()
-					Snacks.picker.notifications()
-				end,
-			},
-			{
-				"<Leader>ts",
-				function()
-					Snacks.picker.treesitter()
-				end,
-			},
-			{
-				"<Leader>lsp",
-				function()
-					Snacks.picker.lsp_symbols()
-				end,
-			},
-			{
-				"<Leader>r",
-				function()
-					Snacks.picker.lsp_references()
-				end,
-			},
-			{
-				"<Leader>/",
-				function()
-					Snacks.picker.grep()
-				end,
-			},
-			{
-				"<Leader>s",
-				function()
-					Snacks.picker()
-				end,
-			},
-			{
-				"<Leader>f",
-				function()
-					vim.fn.system("git rev-parse --is-inside-work-tree")
-					if vim.v.shell_error == 0 then
-						Snacks.picker.git_files()
-					else
-						Snacks.picker.smart()
-					end
-				end,
-			},
-			{
-				"<Leader>df",
-				function()
-					Snacks.picker.files({
-						dirs = { "~/Dropbox/Projects/dotfiles", "~/.config" },
-						follow = true,
-						hidden = true,
-					})
-				end,
-			},
-		},
-		opts = { picker = { layout = "ivy_split" } },
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("config.fzf")
+		end,
 	},
 
 	-- lsp & treesitter
@@ -231,7 +151,7 @@ local plugins = {
 		ft = { "yaml" },
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
-			"folke/snacks.nvim",
+			"ibhagwan/fzf-lua",
 		},
 		config = function()
 			require("config.yaml")
