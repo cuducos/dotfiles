@@ -154,6 +154,7 @@ local function set_options()
 		updatetime = 500,
 		completeopt = "menu,menuone,preview,noselect",
 		shortmess = vim.opt.shortmess + "c",
+		winborder = "rounded",
 	}
 	for key, val in pairs(options) do
 		vim.opt[key] = val

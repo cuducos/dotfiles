@@ -1,6 +1,7 @@
 local blink = require("blink.cmp")
 
 M = {}
+
 local is_lua = function(path)
 	return string.match(path, ".lua$") == ".lua"
 end
@@ -34,17 +35,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 local mappings = {
-	{ "n", "gd", vim.lsp.buf.definition, opts },
-	{ "n", "gD", vim.lsp.buf.type_definition, opts },
-	{ "n", "gr", vim.lsp.buf.rename, opts },
-	{
-		"n",
-		"K",
-		function()
-			vim.lsp.buf.signature_help({ border = "rounded" })
-		end,
-		opts,
-	},
 	{
 		"n",
 		"<Leader>a",
@@ -55,7 +45,6 @@ local mappings = {
 			vim.lsp.buf.format({ async = true })
 		end,
 	},
-	{ "n", "<Leader><Leader>", vim.lsp.buf.code_action },
 	{
 		"n",
 		"<Leader>ih",
@@ -69,7 +58,6 @@ M.make_config = function()
 	return {
 		capabilities = blink.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities()),
 		on_attach = function(client, _)
-			local opts = { silent = true, noremap = true, buffer = true }
 			for _, mapping in pairs(mappings) do
 				vim.keymap.set(unpack(mapping))
 			end
