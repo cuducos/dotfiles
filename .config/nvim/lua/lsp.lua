@@ -11,16 +11,6 @@ local is_mine = function()
 	return string.find(origin, "cuducos") ~= nil
 end
 
-local has_float = function()
-	local wins = vim.api.nvim_list_wins()
-	for _, win in pairs(wins) do
-		if vim.api.nvim_win_get_config(win).relative ~= "" then
-			return true
-		end
-	end
-	return false
-end
-
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = vim.api.nvim_create_augroup("FormatOnSave", {}),
 	pattern = { "*.elm", "*.fish", "*.go", "*.lua", "*.py", "*.rb", "*.rs", "*.ts", "*.tsx" },
@@ -61,39 +51,10 @@ M.make_config = function()
 			for _, mapping in pairs(mappings) do
 				vim.keymap.set(unpack(mapping))
 			end
-
-			local diagnostic = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
-			vim.api.nvim_create_autocmd("CursorHold", {
-				callback = function()
-					if has_float() then
-						return
-					end
-
-					vim.diagnostic.open_float(nil, { focus = false })
-				end,
-				group = diagnostic,
-			})
-
 			local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 			for type, icon in pairs(signs) do
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-			end
-
-			if client.server_capabilities.document_highlight then
-				vim.api.nvim_create_augroup("LspDocumentHighlight", {})
-				vim.api.nvim_create_autocmd("CursorHold", {
-					pattern = "<buffer>",
-					callback = function()
-						vim.lsp.buf.document_highlight()
-					end,
-				})
-				vim.api.nvim_create_autocmd("CursorMoved", {
-					pattern = "<buffer>",
-					callback = function()
-						vim.lsp.buf.clear_references()
-					end,
-				})
 			end
 			vim.lsp.inlay_hint.enable()
 		end,
