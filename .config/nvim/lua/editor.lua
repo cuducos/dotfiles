@@ -82,6 +82,24 @@ local function set_mappings()
 		{ "n", "J", "mzJ`z" },
 		-- select the end of the line without linebreak
 		{ "v", "$", "$h" },
+		{
+			"n",
+			"<cr>",
+			function()
+				local path = vim.fn.expand("<cfile>")
+				local buf = vim.api.nvim_get_current_buf()
+				local cwd = vim.api.nvim_buf_get_name(buf):match("(.*/)")
+
+				local handler = io.open(cwd .. path)
+				if handler == nil then
+					return "<cr>"
+				end
+
+				handler:close()
+				return "gF"
+			end,
+			{},
+		},
 	}
 	for _, val in pairs(mappings) do
 		vim.keymap.set(unpack(val))
@@ -204,43 +222,3 @@ for ft, len in pairs(colorcolumns_by_filetype) do
 		command = "setlocal colorcolumn=" .. len,
 	})
 end
-
-vim.keymap.set("n", "<cr>", function()
-	local path = vim.fn.expand("<cfile>")
-	local buf = vim.api.nvim_get_current_buf()
-	local cwd = vim.api.nvim_buf_get_name(buf):match("(.*/)")
-
-	local handler = io.open(cwd .. path)
-	if handler == nil then
-		return "<cr>"
-	end
-
-	handler:close()
-	return "gF"
-end, {})
-
-vim.keymap.set("n", "<Leader>st", function()
-	if vim.bo.filetype ~= "python" then
-		return
-	end
-
-	local parts = { "import pytest", "pytest.set_trace()" }
-	local cmd = table.concat(parts, "; ")
-
-	local cleaned = vim.api.nvim_get_current_line():match("^%s*(.-)%s*$")
-	if cleaned == parts[1] or cleaned == parts[2] or cleaned == cmd then
-		local bufnr = vim.api.nvim_get_current_buf()
-		local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-		for i = #lines, 1, -1 do
-			local line = lines[i]:match("^%s*(.-)%s*$")
-			if line == parts[1] or line == parts[2] or line == cmd then
-				vim.api.nvim_buf_set_lines(bufnr, i - 1, i, false, {})
-			end
-		end
-	else
-		local _, col = unpack(vim.api.nvim_win_get_cursor(0))
-		local current_line = vim.api.nvim_get_current_line()
-		local new_line = current_line:sub(1, col) .. " " .. cmd .. current_line:sub(col + 1)
-		vim.api.nvim_set_current_line(new_line)
-	end
-end)
