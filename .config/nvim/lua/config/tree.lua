@@ -11,13 +11,13 @@ require("nvim-tree").setup({
 	},
 	filters = {
 		custom = {
-			[[\.pyc$]],
-			"__pycache__",
-			".git",
 			".DS_Store",
-			".ropeproject",
 			".coverage",
+			".git/",
+			".ropeproject",
+			"__pycache__",
 			"cover/",
+			[[\.pyc$]],
 		},
 	},
 })

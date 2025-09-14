@@ -51,6 +51,23 @@ local plugins = {
 		end,
 	},
 	{
+		"haringsrob/nvim_context_vt",
+		config = function()
+			require("config.nvim_context_vt")
+		end,
+		cond = function()
+			local skip = { "python", "yaml" }
+			for _, ft in pairs(skip) do
+				if ft == vim.bo.filetype then
+					return false
+				end
+			end
+			return true
+		end,
+	},
+
+	-- completion
+	{
 		"milanglacier/minuet-ai.nvim",
 		config = function()
 			require("config.minuet")
@@ -69,14 +86,6 @@ local plugins = {
 				},
 				config = function()
 					require("config.codecompanion")
-				end,
-			},
-			{
-				"L3MON4D3/LuaSnip",
-				version = "v2.*",
-				dependencies = { "rafamadriz/friendly-snippets" },
-				config = function()
-					require("config.luasnip")
 				end,
 			},
 		},
@@ -105,44 +114,10 @@ local plugins = {
 				use_nvim_cmp_as_default = true,
 				nerd_font_variant = "mono",
 			},
-			snippets = { preset = "luasnip" },
 			sources = {
-				default = { "codecompanion", "lsp", "snippets", "buffer", "path" },
+				default = { "codecompanion", "lsp", "buffer", "path" },
 			},
 		},
-	},
-	{
-		"nvimtools/none-ls.nvim",
-		config = function()
-			require("config.none_ls")
-		end,
-	},
-	{
-		"folke/trouble.nvim",
-		keys = "<Leader>t",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("config.trouble")
-		end,
-	},
-	{
-		"haringsrob/nvim_context_vt",
-		config = function()
-			require("config.nvim_context_vt")
-		end,
-		cond = function()
-			local skip = { "python", "yaml" }
-			for _, ft in pairs(skip) do
-				if ft == vim.bo.filetype then
-					return false
-				end
-			end
-			return true
-		end,
-	},
-	{
-		"ckolkey/ts-node-action",
-		dependencies = { "nvim-treesitter" },
 	},
 
 	-- language specific
@@ -213,20 +188,6 @@ local plugins = {
 		end,
 	},
 
-	-- debug
-	{
-		"mfussenegger/nvim-dap",
-		dependencies = {
-			"nvim-neotest/nvim-nio",
-			"rcarriga/nvim-dap-ui",
-		},
-
-		ft = { "python" },
-		config = function()
-			require("config.dap")
-		end,
-	},
-
 	-- visual hints
 	{ "Bekaboo/deadcolumn.nvim" },
 	{ "markonm/traces.vim" },
@@ -262,26 +223,6 @@ local plugins = {
 		end,
 	},
 
-	-- navigation & selection
-	{
-		"folke/flash.nvim",
-		keys = {
-			{
-				"<Tab>",
-				mode = { "n", "x", "o" },
-				function()
-					require("flash").jump()
-				end,
-			},
-		},
-	},
-	{
-		"drybalka/tree-climber.nvim",
-		config = function()
-			require("config.climber")
-		end,
-	},
-
 	-- general tools
 	{ "tpope/vim-abolish" },
 	{ "sQVe/sort.nvim", cmd = "Sort" },
@@ -291,7 +232,6 @@ local plugins = {
 			require("config.notify")
 		end,
 	},
-	{ "stevearc/dressing.nvim" },
 	{
 		"ellisonleao/carbon-now.nvim",
 		cmd = "CarbonNow",
@@ -299,14 +239,6 @@ local plugins = {
 			require("config.carbon")
 		end,
 	},
-	{
-		"goolord/alpha-nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require("config.alpha")
-		end,
-	},
-	{ "lewis6991/fileline.nvim" },
 	{
 		"m4xshen/hardtime.nvim",
 		config = function()

@@ -1,6 +1,14 @@
 local blink = require("blink.cmp")
 
 M = {}
+local is_lua = function(path)
+	return string.match(path, ".lua$") == ".lua"
+end
+
+local is_mine = function()
+	local origin = vim.fn.system("git remote show origin -n")
+	return string.find(origin, "cuducos") ~= nil
+end
 
 local has_float = function()
 	local wins = vim.api.nvim_list_wins()
@@ -12,8 +20,20 @@ local has_float = function()
 	return false
 end
 
-local mappings = {
+vim.api.nvim_create_autocmd("BufWritePost", {
+	group = vim.api.nvim_create_augroup("FormatOnSave", {}),
+	pattern = { "*.elm", "*.fish", "*.go", "*.lua", "*.py", "*.rb", "*.rs", "*.ts", "*.tsx" },
+	callback = function()
+		local path = vim.api.nvim_buf_get_name(0)
+		if is_lua(path) and not is_mine() then
+			return
+		end
 
+		vim.lsp.buf.format({ async = false })
+	end,
+})
+
+local mappings = {
 	{ "n", "gd", vim.lsp.buf.definition, opts },
 	{ "n", "gD", vim.lsp.buf.type_definition, opts },
 	{ "n", "gr", vim.lsp.buf.rename, opts },
@@ -94,14 +114,13 @@ end
 
 M.to_install = {
 	servers = {
-		"cssls",
 		"dockerls",
 		"elmls",
 		"gopls",
 		"graphql",
 		"jsonls",
 		"lua_ls",
-		"basedpyright",
+		"pyright",
 		"ruff",
 		"rust_analyzer",
 		"sqlls",
