@@ -61,21 +61,6 @@ vim.keymap.set("n", "gh", function()
 	vim.fn.jobstart({ cmd, url }, { detach = true })
 end)
 
--- beginning of the line
-vim.keymap.set("n", "0", function()
-	local cursor = vim.api.nvim_win_get_cursor(0)
-	local line = cursor[1]
-	local column = cursor[2]
-	local contents = vim.api.nvim_buf_get_lines(0, line - 1, line, false)[1]
-	local text = string.sub(contents, 1, column - 1)
-
-	if string.match(text, "^[%s\t]*$") ~= nil then
-		vim.api.nvim_win_set_cursor(0, { line, 0 })
-	else
-		vim.api.nvim_feedkeys("^", "n", false)
-	end
-end)
-
 -- select the end of the line without linebreak
 vim.keymap.set("v", "$", "$h")
 vim.keymap.set("n", "<cr>", function()
