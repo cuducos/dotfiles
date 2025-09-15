@@ -8,15 +8,6 @@ for _, value in pairs(set_non_relative) do
 	vim.api.nvim_create_autocmd(value, { group = line_numbers, pattern = "*", command = "set norelativenumber" })
 end
 
-local markdown_filetypes = vim.api.nvim_create_augroup("MarkdownExtensions", {})
-local markdown_extensions = { "md", "adoc" }
-for _, ext in pairs(markdown_extensions) do
-	vim.api.nvim_create_autocmd(
-		{ "BufNewFile", "BufRead" },
-		{ group = markdown_filetypes, pattern = "*." .. ext, command = "setlocal ft=markdown" }
-	)
-end
-
 local spell_check = vim.api.nvim_create_augroup("SpellCheck", {})
 vim.api.nvim_create_autocmd(
 	"FileType",

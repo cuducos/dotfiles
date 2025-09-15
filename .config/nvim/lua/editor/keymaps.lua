@@ -59,8 +59,7 @@ vim.keymap.set("n", "gh", function()
 	end
 
 	vim.fn.jobstart({ cmd, url }, { detach = true })
-end
-)
+end)
 
 -- beginning of the line
 vim.keymap.set("n", "0", function()
