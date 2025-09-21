@@ -88,3 +88,6 @@ end
 if vim.fn.maparg("zf", "v") ~= "" then
 	vim.keymap.del("v", "zf")
 end
+
+-- lsp
+vim.keymap.set("n", "grd", vim.lsp.buf.definition)
