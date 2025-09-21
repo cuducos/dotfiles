@@ -9,7 +9,7 @@ local keymaps = {
 	{ "<Leader>k", fzf.keymaps },
 	{ "<Leader>lsp", fzf.lsp_live_workspace_symbols },
 	{ "<Leader>r", fzf.lsp_references },
-	{ "<Leader>/", fzf.grep },
+	{ "<Leader>/", fzf.live_grep },
 	{ "<Leader>s", fzf.builtin },
 	{ "<Leader>r", fzf.resume },
 	{
