@@ -65,6 +65,7 @@ M.to_install = {
 	servers = {
 		"dockerls",
 		"elmls",
+		"golangci_lint_ls",
 		"gopls",
 		"graphql",
 		"jsonls",
