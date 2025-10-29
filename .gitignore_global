@@ -2,3 +2,5 @@
 .ropeproject/
 .python-version
 tags
+crush.json
+CRUSH.md
