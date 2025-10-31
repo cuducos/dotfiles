@@ -57,14 +57,6 @@ set PATH $HOME/go/bin $PATH
 # rust
 set PATH $HOME/.cargo/bin $PATH
 
-# pyenv
-if type -q pyenv
-    status is-login; and pyenv init --path | source
-    status is-interactive; and pyenv init - | source
-    set PATH $HOME/.pyenv/shims $PATH
-    pyenv global 3.12.7
-end
-
 # nodenv
 set PATH $HOME/.nodenv/bin $PATH
 if type -q nodenv
