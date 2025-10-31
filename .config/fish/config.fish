@@ -42,9 +42,9 @@ if type -q xcrun
     set --export CPATH (xcrun --show-sdk-path)/usr/include
 end
 
-# autojump
-if test -f /usr/local/share/autojump/autojump.fish
-    source /usr/local/share/autojump/autojump.fish
+# zoxide
+if type -q zoxide
+    zoxide init fish | source
 end
 
 # ripgrep
