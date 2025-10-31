@@ -132,17 +132,6 @@ local plugins = {
 			require("config.yaml")
 		end,
 	},
-	{
-		"alexpasmantier/pymple.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-		},
-		build = ":PympleBuild",
-		config = function()
-			require("config.pymple")
-		end,
-	},
 	{ "fladson/vim-kitty", ft = { "kitty" } },
 	{ "RRethy/nvim-treesitter-endwise", ft = { "lua" } },
 
