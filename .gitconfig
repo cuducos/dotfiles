@@ -16,11 +16,6 @@
     filemode = false
     excludesfile = ~/.gitignore_global
 
-[merge]
-    tool = vimdiff
-
-[cola]
-    spellcheck = true
 [pull]
     rebase = false
 
@@ -42,9 +37,6 @@
     commit-decoration-style = bold yellow box ul
     file-style = bold yellow ul
     file-decoration-style = none
-
-[include]
-    path = /Users/cuducos/.config/dev/gitconfig
 
 [help]
     autocorrect = 42

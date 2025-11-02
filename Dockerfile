@@ -19,16 +19,10 @@ COPY --from=neovim /usr/local/lib/nvim /usr/local/lib/nvim
 COPY --from=neovim /usr/local/bin/nvim /usr/local/bin/nvim
 RUN apt-get update && \
     apt-get install -y curl gcc git nodejs npm python3 python3-venv unzip && \
-    rm -rf /var/lib/apt-get/lists/*
+    rm -rf /var/lib/apt-get/lists/* && \
+    useradd -ms /bin/bash cuducos
 
-RUN useradd -ms /bin/bash cuducos
 USER cuducos
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y && \
-    echo 'source $HOME/.cargo/env' >> /home/cuducos/.bashrc && \
-    # required by pymple.nvim
-    $HOME/.cargo/bin/cargo install fd-find && \
-    $HOME/.cargo/bin/cargo install grip-grab
-
 WORKDIR /home/cuducos/dotfiles/
 ADD . .
 

@@ -1,6 +1,6 @@
 .DS_Store
-.ropeproject/
 .python-version
-tags
+.ropeproject/
 crush.json
 CRUSH.md
+tags
