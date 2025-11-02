@@ -1,5 +1,5 @@
-FROM debian:bullseye-slim AS neovim
-ENV NVIM_VERSION=v0.10.3
+FROM debian:trixie-slim AS neovim
+ENV NVIM_VERSION=v0.11.4
 ENV CMAKE_BUILD_TYPE=Release
 ENV BUILD_REQUIREMENTS="cmake curl gettext git ninja-build unzip"
 RUN apt-get update && \
@@ -13,7 +13,7 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt-get/lists/*
 
-FROM golang:1.23-bookworm
+FROM golang:1.25-trixie
 COPY --from=neovim /usr/local/share/nvim /usr/local/share/nvim
 COPY --from=neovim /usr/local/lib/nvim /usr/local/lib/nvim
 COPY --from=neovim /usr/local/bin/nvim /usr/local/bin/nvim
