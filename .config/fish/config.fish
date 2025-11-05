@@ -2,6 +2,7 @@
 fish_vi_key_bindings
 
 set fish_greeting
+set fish_color_command blue
 
 set --export __fish_git_prompt_color_branch cyan
 set --export __fish_git_prompt_color_branch_detached red
